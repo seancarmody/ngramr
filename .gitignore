@@ -3,3 +3,8 @@
 
 # Example code in package build process
 *-Ex.R
+.Rproj.user
+.RData
+.Rbuildignore
+.Rprofile
+*.Rproj
