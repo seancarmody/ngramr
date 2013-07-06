@@ -12,7 +12,8 @@ Imports:
     httr,
     RCurl,
     plyr,
-    rjson
+    rjson,
+    stringr
 License: GPL (>=2)
 Collate:
     'ngram.R'
