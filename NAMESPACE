@@ -1,3 +1,4 @@
 export(ngram)
 import(RCurl)
 import(httr)
+import(rjson)
