@@ -26,3 +26,7 @@ Here is an example of how it is used.
 
     freq <- ngram(c("hacker", "programmer"), year_start=1950)
     ggplot(freq, aes(x=Year, y=Frequency, colour=Phrase)) + geom_line()
+
+The result is a chart like this:
+
+![Ngram Chart](https://www.dropbox.com/s/qvomkpwj3jkin4d/hacker.png)
