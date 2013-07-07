@@ -32,7 +32,8 @@
   downloaded}.
 }
 \references{
-  Based on the \code{getNgrams.py} script available on
+  Based on the \code{getNgrams.py} Python script available
+  on
   \href{http://www.culturomics.org/Resources/get-ngrams}{Culturomics}
   written by Jean-Baptiste Michel.
 }

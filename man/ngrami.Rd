@@ -2,7 +2,7 @@
 \alias{ngrami}
 \title{Get n-gram frequencies (case insensitive version)}
 \usage{
-  ngrami(phrases, aggregate = TRUE, ...)
+  ngrami(phrases, aggregate = TRUE, wide = FALSE, ...)
 }
 \arguments{
   \item{phrases}{vector of phrases}
