@@ -29,4 +29,4 @@ Here is an example of how it is used.
 
 The result is a chart like this:
 
-![Ngram Chart](https://www.dropbox.com/s/qvomkpwj3jkin4d/hacker.png)
+![Ngram Chart](http://farm8.staticflickr.com/7320/9230489654_1a510bd9b0_z.jpg)
