@@ -19,6 +19,11 @@
   collection of phrases, returns a dataframe containing the
   frequencies by year.
 
+  The code is based on the \code{getNgrams.py} Python
+  script available on
+  \href{http://www.culturomics.org/Resources/get-ngrams}{Culturomics}
+  written by Jean-Baptiste Michel.
+
   Like the Google Ngram Viewer website itself, this package
   is aimed at for quick inquiries into the usage of small
   sets of phrases.
@@ -32,9 +37,12 @@
   downloaded}.
 }
 \references{
-  Based on the \code{getNgrams.py} Python script available
-  on
-  \href{http://www.culturomics.org/Resources/get-ngrams}{Culturomics}
-  written by Jean-Baptiste Michel.
+  Jean-Baptiste Michel, Yuan Kui Shen, Aviva Presser Aiden,
+  Adrian Veres, Matthew K. Gray, William Brockman, The
+  Google Books Team, Joseph P. Pickett, Dale Hoiberg, Dan
+  Clancy, Peter Norvig, Jon Orwant, Steven Pinker, Martin
+  A. Nowak, and Erez Lieberman Aiden. Quantitative Analysis
+  of Culture Using Millions of Digitized Books. Science
+  (Published online ahead of print: 12/16/2010)
 }
 
