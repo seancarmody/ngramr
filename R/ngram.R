@@ -35,7 +35,7 @@ ngram <- function(phrases, corpus='eng_2012', year_start=1500,
                                                     smoothing=smoothing))
   result <- do.call("rbind", dfs)
   result$Corpus <- as.factor(result$Corpus)
-  if (wide) result <- dcast(results, Year + Corpus ~ Phrase, value.var="Frequency")
+  if (wide) result <- dcast(result, Year + Corpus ~ Phrase, value.var="Frequency")
   return(result)
 }
 
