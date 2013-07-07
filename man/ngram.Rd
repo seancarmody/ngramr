@@ -2,17 +2,17 @@
 \alias{ngram}
 \title{Get n-gram frequencies}
 \usage{
-  ngram(phrases, corpus = "eng_2012", start_year = 1500,
-    end_year = 2008, smoothing = 3)
+  ngram(phrases, corpus = "eng_2012", year_start = 1500,
+    year_end = 2008, smoothing = 3)
 }
 \arguments{
   \item{phrases}{vector of phrases}
 
   \item{corpus}{Google corpus to search}
 
-  \item{start_year}{start year, default is 1500}
+  \item{year_start}{start year, default is 1500}
 
-  \item{end_year}{end year, default is 2008}
+  \item{year_end}{end year, default is 2008}
 
   \item{smoothing}{smoothing paramater, default is 3}
 }

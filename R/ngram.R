@@ -2,26 +2,32 @@
 #'
 #' @param phrases vector of phrases
 #' @param corpus Google corpus to search
-#' @param start_year start year, default is 1500
-#' @param end_year end year, default is 2008
+#' @param year_start start year, default is 1500
+#' @param year_end end year, default is 2008
 #' @param smoothing smoothing paramater, default is 3
 #' @details Possible corpora: 
 #'   eng_2012, eng_2009, eng_us_2012, eng_us_2009, eng_gb_2012, eng_gb_2009,  
 #'   chi_sim_2012, chi_sim_2009, fre_2012, fre_2009, ger_2012, ger_2009, 
 #'   spa_2012, spa_2009, rus_2012, rus_2009, heb_2012, heb_2009, ita_2012,  
 #'   eng_fiction_2012, eng_fiction_2009, eng_1m_2009 
-#' @import RCurl httr rjson stringr
 #' @export
 
-ngram <- function(phrases, corpus='eng_2012', start_year=1500,
-                  end_year=2008, smoothing=3) {
+ngram <- function(phrases, corpus='eng_2012', year_start=1500,
+                  year_end=2008, smoothing=3) {
+  corpus <- get_corpus(corpus)
+  ngram_fetch(phrases, corpus, year_start, year_end, smoothing)
+}
+
+ngram_fetch <- function(phrases, corpus, year_start,  year_end, smoothing) {
   query <- as.list(environment())
   query$phrases <- NULL
   ng_url <- ngram_url(phrases, query)
   conn <- url(ng_url)
   html <- readLines(conn)
   close(conn)
-  ngram_parse(html)
+  result <- ngram_parse(html)
+  result <- melt(result, id.vars="Year", variable.name="Term", value.name="Frequency")
+  return(result)
 }
 
 ngram_url <- function(phrases, query=character()){
@@ -50,5 +56,5 @@ get_corpus <- function(corpus){
            'eng_fiction_2012'=16, 'eng_fiction_2009'=4, 'eng_1m_2009'=1, 'fre_2012'=19, 'fre_2009'=7, 
            'ger_2012'=20, 'ger_2009'=8, 'heb_2012'=24, 'heb_2009'=9, 
            'spa_2012'=21, 'spa_2009'=10, 'rus_2012'=25, 'rus_2009'=12, 'ita_2012'=22)
-  return(unlist(corporate[corpus]))
+  return(unname(corpora[corpus]))
 }

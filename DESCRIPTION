@@ -13,7 +13,11 @@ Imports:
     RCurl,
     plyr,
     rjson,
-    stringr
+    stringr,
+    reshape2
 License: GPL (>=2)
 Collate:
     'ngram.R'
+    'ngrami.R'
+    'ngramw.R'
+    'help.R'
