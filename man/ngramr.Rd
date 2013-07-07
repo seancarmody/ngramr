@@ -37,12 +37,8 @@
   downloaded}.
 }
 \references{
-  Jean-Baptiste Michel, Yuan Kui Shen, Aviva Presser Aiden,
-  Adrian Veres, Matthew K. Gray, William Brockman, The
-  Google Books Team, Joseph P. Pickett, Dale Hoiberg, Dan
-  Clancy, Peter Norvig, Jon Orwant, Steven Pinker, Martin
-  A. Nowak, and Erez Lieberman Aiden. Quantitative Analysis
-  of Culture Using Millions of Digitized Books. Science
-  (Published online ahead of print: 12/16/2010)
+  Michel, Jean-Baptiste, et al. "Quantitative analysis of
+  culture using millions of digitized books."
+  \emph{Science} 331, No. 6014 (2011): 176--182.
 }
 
