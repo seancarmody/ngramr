@@ -20,11 +20,15 @@
   Get n-gram frequencies
 }
 \details{
-  Possible corpora: eng_2012, eng_2009, eng_us_2012,
-  eng_us_2009, eng_gb_2012, eng_gb_2009, chi_sim_2012,
-  chi_sim_2009, fre_2012, fre_2009, ger_2012, ger_2009,
-  spa_2012, spa_2009, rus_2012, rus_2009, heb_2012,
-  heb_2009, ita_2012, eng_fiction_2012, eng_fiction_2009,
-  eng_1m_2009
+  Possible corpora: \code{eng_2012}, \code{eng_2009},
+  \code{eng_us_2012}, \code{eng_us_2009},
+  \code{eng_gb_2012}, \code{eng_gb_2009},
+  \code{chi_sim_2012}, \code{chi_sim_2009},
+  \code{fre_2012}, \code{fre_2009}, \code{ger_2012},
+  \code{ger_2009}, \code{spa_2012}, \code{spa_2009},
+  \code{rus_2012}, \code{rus_2009}, \code{heb_2012},
+  \code{heb_2009}, \code{ita_2012},
+  \code{eng_fiction_2012}, \code{eng_fiction_2009},
+  \code{eng_1m_2009}
 }
 
