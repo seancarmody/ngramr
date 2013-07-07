@@ -2,6 +2,8 @@
 #'
 #' @param phrases vector of phrases
 #' @param aggregate sum up each of the terms
+#' @param wide a logical value indicating whether results should be returned 
+#'   in a "wide" format (phrases are column names) or not. The default is \code{FALSE}.
 #' @param ... remaining parameters passed to ngram
 #' @details Possible corpora: 
 #'   eng_2012, eng_2009, eng_us_2012, eng_us_2009, eng_gb_2012, eng_gb_2009,  
