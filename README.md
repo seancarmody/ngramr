@@ -13,6 +13,8 @@ The code was adapted from a Python script available from
 [Culturomics](http://www.culturomics.org/Resources/get-ngrams).
 I believe it was written by [Jean-Baptiste Michel](https://twitter.com/jb_michel).
 
-If you have `devtools` installed and loaded, you can install this package using the command
+If you have [`devtools`](http://cran.r-project.org/web/packages/devtools/index.html)
+installed and loaded, you can install this package
+using the command
     
     install_github("ngramr", "seancarmody")
