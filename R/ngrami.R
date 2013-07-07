@@ -13,7 +13,7 @@
      
 ngrami <- function(phrases, aggregate=TRUE, ...){
   phrases <- sapply(phrases, function(x) paste0(toupper(substr(x, 1, 1)),
-                                                tolower(substring(x, 2)))) 
+                                                tolower(ssubstring(x, 2)))) 
   phrases <- c(phrases, tolower(phrases), toupper(phrases))
   results <- ngram(phrases, ...)
   if (aggregate){

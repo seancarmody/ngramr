@@ -1,6 +1,5 @@
 export(ngram)
 export(ngrami)
-export(ngramw)
 import(RCurl)
 import(httr)
 import(plyr)
