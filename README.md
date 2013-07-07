@@ -18,3 +18,11 @@ installed and loaded, you can install this package
 using the command
     
     install_github("ngramr", "seancarmody")
+
+Here is an example of how it is used.
+
+    library(ngramr)
+    library(ggplot2)
+
+    freq <- ngram(c("hacker", "programmer"), year_start=1950)
+    ggplot(freq, aes(x=Year, y=Frequency, colour=Phrase)) + geom_line()
