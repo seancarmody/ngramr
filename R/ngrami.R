@@ -8,18 +8,18 @@
 #'   chi_sim_2012, chi_sim_2009, fre_2012, fre_2009, ger_2012, ger_2009, 
 #'   spa_2012, spa_2009, rus_2012, rus_2009, heb_2012, heb_2009, ita_2012,  
 #'   eng_fiction_2012, eng_fiction_2009, eng_1m_2009 
-#' @import plyr
 #' @export
      
-ngrami <- function(phrases, aggregate=TRUE, ...){
+ngrami <- function(phrases, aggregate=TRUE, wide=FALSE, ...){
   phrases <- sapply(phrases, function(x) paste0(toupper(substr(x, 1, 1)),
                                                 tolower(substring(x, 2)))) 
   phrases <- c(phrases, tolower(phrases), toupper(phrases))
-  results <- ngram(phrases, ...)
+  result <- ngram(phrases, wide=FALSE, ...)
   if (aggregate){
-    results$Term <- tolower(results$Term)
-    results <- ddply(results, .(Year, Term), summarise, Frequency = sum(Frequency))
-    results$Term <- factor(results$Term)
+    result$Phrase <- tolower(result$Phrase)
+    result <- ddply(result, .(Year, Corpus, Phrase), summarise, Frequency = sum(Frequency))
+    result$Phrase <- factor(result$Phrase)
   }
-  return(results)
+  if (wide) result <- dcast(result, Year + Corpus ~ Phrase, value.var="Frequency")
+  return(result)
 }

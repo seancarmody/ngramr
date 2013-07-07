@@ -23,7 +23,7 @@
 #' \href{http://www.culturomics.org/Resources/get-ngrams}{Culturomics}
 #' written by Jean-Baptiste Michel.
 #' 
-#' @import RCurl httr rjson stringr reshape2
+#' @import RCurl httr rjson stringr reshape2 plyr
 #' @docType package
 #' @name ngramr
 #' @aliases ngramr ngramr-package
