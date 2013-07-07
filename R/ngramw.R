@@ -13,5 +13,5 @@
 
 ngramw <- function(phrases, case_sensitive=TRUE, ...){
   results <- if (case_sensitive) ngram(phrases, ...) else ngrami(phrases, ...)
-  return(dcast(results, Year ~ Term))
+  return(dcast(results, Year + Corpus ~ Term, value.var="Frequency"))
 }
