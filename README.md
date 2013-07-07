@@ -11,7 +11,7 @@ This package extracts the data an provides it in the form of an R dataframe.
 
 The code was adapted from a handy Python script available from 
 [Culturomics](http://www.culturomics.org/Resources/get-ngrams).
-I believe it was written by [Jean-Baptiste Michel](https://twitter.com/jb_michel).
+It was written by [Jean-Baptiste Michel](https://twitter.com/jb_michel).
 
 If you have [`devtools`](http://cran.r-project.org/web/packages/devtools/index.html)
 installed and loaded, you can install this package
