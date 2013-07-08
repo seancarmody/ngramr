@@ -49,6 +49,8 @@ ngram_single <- function(phrases, corpus,...){
 ngram_fetch <- function(phrases, corpus, year_start,  year_end, smoothing) {
   query <- as.list(environment())
   query$phrases <- NULL
+  phrases <- phrases[phrases != ""]
+  if (length(phrases)==0) stop("No valid phrases provided.")
   ng_url <- ngram_url(phrases, query)
   conn <- url(ng_url)
   html <- readLines(conn)
@@ -61,13 +63,17 @@ ngram_fetch <- function(phrases, corpus, year_start,  year_end, smoothing) {
 ngram_url <- function(phrases, query=character()){
   url <- 'http://books.google.com/ngrams/graph'
   phrases <- paste(curlEscape(str_trim(phrases)), collapse='%2C')
+  if (phrases=="") stop("No valid phrases provided.")
   url <- paste0(url, "?content=", phrases) 
   if (length(query) > 0) url <- modify_url(url, query=query)
   return(url)
 }
 
 ngram_parse <- function(html){
+  if (any(grepl("No valid ngrams to plot!<br>", html))) stop("No valid ngrams.") 
+    
   cols <- lapply(strsplit(grep("addColumn", html, value=TRUE), ","), getElement, 2)
+  
   cols <- gsub(".*'(.*)'.*", "\\1", cols)
 
   html <- paste(html[-(1:grep("data.addRows\\(", html))], collapse='')

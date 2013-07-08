@@ -19,8 +19,6 @@ using the command
     
     install_github("ngramr", "seancarmody")
 
-If you are behind a proxy, `install_github` may not work for you. Instead of fiddling around with the `RCurl` proxy settings, you can download the [zip archive](https://github.com/seancarmody/ngramr/archive/master.zip) and use `install_local` instead.
-
 Here is an example of how it is used.
 
     library(ngramr)

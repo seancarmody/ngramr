@@ -16,6 +16,7 @@ ngrami <- function(phrases, aggregate=TRUE, wide=FALSE, ...){
   phrases <- sapply(phrases, function(x) paste0(toupper(substr(x, 1, 1)),
                                                 tolower(substring(x, 2)))) 
   phrases <- c(phrases, tolower(phrases), toupper(phrases))
+  phrases <- unique(phrases)
   result <- ngram(phrases, wide=FALSE, ...)
   if (aggregate){
     result$Phrase <- tolower(result$Phrase)
