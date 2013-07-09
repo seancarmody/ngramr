@@ -26,8 +26,8 @@ Here is an example of how it is used.
     library(ngramr)
     library(ggplot2)
 
-    freq <- ngram(c("hacker", "programmer"), year_start=1950)
-    ggplot(freq, aes(x=Year, y=Frequency, colour=Phrase)) + geom_line()
+    ng  <- ngram(c("hacker", "programmer"), year_start=1950)
+    ggplot(ng, aes(x=Year, y=Frequency, colour=Phrase)) + geom_line()
 
 The result is a chart like this:
 
