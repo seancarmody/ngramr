@@ -1,7 +1,7 @@
 Package: ngramr
 Type: Package
 Title: Get Google n-grams
-Version: 1.0
+Version: 1.1
 Date: 2013-07-06
 Author: Sean Carmody
 Maintainer: Sean Carmody <seancarmody@gmail.com>
@@ -14,9 +14,11 @@ Imports:
     plyr,
     rjson,
     stringr,
-    reshape2
+    reshape2,
+    ggplot2
 License: GPL (>=2)
 Collate:
     'ngram.R'
     'ngrami.R'
     'help.R'
+    'ggram.R'

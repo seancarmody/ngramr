@@ -1,6 +1,8 @@
+export(ggram)
 export(ngram)
 export(ngrami)
 import(RCurl)
+import(ggplot2)
 import(httr)
 import(plyr)
 import(reshape2)
