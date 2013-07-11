@@ -43,7 +43,6 @@
   \code{eng_1m_2009}
 }
 \examples{
-freq <- ngram(c("mouse", "rat"), year_start=1950)
-head(freq)
+ggram(c("hacker", "programmer"), year_start=1950)
 }
 

@@ -23,8 +23,7 @@
 #'   \code{rus_2009}, \code{heb_2012}, \code{heb_2009}, \code{ita_2012},  
 #'   \code{eng_fiction_2012}, \code{eng_fiction_2009}, \code{eng_1m_2009} 
 #' @examples 
-#' freq <- ngram(c("mouse", "rat"), year_start=1950)
-#' head(freq)
+#' ggram(c("hacker", "programmer"), year_start=1950)
 #' @export
 
 ggram <- function(phrases, corpus='eng_2012', year_start=1500,
