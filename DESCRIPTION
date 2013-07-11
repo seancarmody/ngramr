@@ -15,7 +15,8 @@ Imports:
     rjson,
     stringr,
     reshape2,
-    ggplot2
+    ggplot2,
+    scales
 License: GPL (>=2)
 Collate:
     'ngram.R'
