@@ -32,3 +32,8 @@ Here is an example of how it is used.
 The result is a chart like this:
 
 ![Ngram Chart](http://farm8.staticflickr.com/7320/9230489654_1a510bd9b0_z.jpg)
+
+The same result can be achieved even more simply with a plotting wrapper like this:
+
+    library(ngramr)
+    ggram(c("hacker", "programmer"), year_start=1950)

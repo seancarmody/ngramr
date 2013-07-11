@@ -29,7 +29,7 @@
 
 ggram <- function(phrases, corpus='eng_2012', year_start=1500,
                    year_end=2008, smoothing=3, wide=FALSE) {
-  ng  <- ngram(c("hacker", "programmer"), year_start=1950)
+  ng  <- ngram(phrases, corpus, year_start=year_start, year_end, smoothing, wide)
   ggplot(ng, aes_string(x="Year", y="Frequency", colour="Phrase")) + geom_line()  
 }
   
