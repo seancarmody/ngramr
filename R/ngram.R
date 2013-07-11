@@ -41,6 +41,10 @@ ngram <- function(phrases, corpus='eng_2012', year_start=1500,
 
 ngram_single <- function(phrases, corpus,...){
   corpus_n <- get_corpus(corpus)
+  if (is.na(corpus_n)) {
+    warning("Invalid corpus name. Defaulting to 'eng_2012'", call.=FALSE)
+    corpus <- "eng_2012"
+  }
   df <- ngram_fetch(phrases, corpus_n, ...)
   df$Corpus <- corpus
   return(df)
