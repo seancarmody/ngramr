@@ -2,6 +2,7 @@ ngramr 1.1
 ----------
 
 * Added plot wrapper ggram
+* Detect invalid corpus names
 
 ngramr 1.0
 ----------
