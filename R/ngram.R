@@ -60,7 +60,7 @@ ngram_fetch <- function(phrases, corpus, year_start,  year_end, smoothing) {
   html <- readLines(conn)
   close(conn)
   result <- ngram_parse(html)
-  result <- melt(result, id.vars="Year", variable.name="Phrase", value.name="Frequency")
+  result <- reshape2::melt(result, id.vars="Year", variable.name="Phrase", value.name="Frequency")
   return(result)
 }
 
