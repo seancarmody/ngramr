@@ -10,6 +10,8 @@
 #' @param smoothing smoothing paramater, default is 3
 #' @param wide a logical value indicating whether results should be returned 
 #'   in a "wide" format (phrases are column names) or not. The default is \code{FALSE}.
+#' @param geom the ggplot2 geom used to plot the data; defaults to "line"
+#' @param ... any other argument passed to the ggplot2 geom
 #' @details 
 #'  Google generated two datasets drawn from digitised books in the Google
 #'  books collection. One was generated in July 2009, the second in July 2012.
