@@ -10,6 +10,8 @@
 #' @param smoothing smoothing paramater, default is 3
 #' @param wide a logical value indicating whether results should be returned 
 #'   in a "wide" format (phrases are column names) or not. The default is \code{FALSE}.
+#' @param geom the ggplot2 geom used to plot the data; defaults to "line"
+#' @param ... any other argument passed to the ggplot2 geom
 #' @details 
 #'  Google generated two datasets drawn from digitised books in the Google
 #'  books collection. One was generated in July 2009, the second in July 2012.
@@ -23,13 +25,33 @@
 #'   \code{rus_2009}, \code{heb_2012}, \code{heb_2009}, \code{ita_2012},  
 #'   \code{eng_fiction_2012}, \code{eng_fiction_2009}, \code{eng_1m_2009} 
 #' @examples 
-#' ggram(c("hacker", "programmer"), year_start=1950)
+#' ggram(c("hacker", "programmer"), year_start = 1950)
+#' # Changing the geom.
+#' ggram(c("cancer", "fumer", "cigarette"),
+#'      year_start = 1900,
+#'      corpus = "fre_2012", 
+#'      geom = "step")
+#' # Passing more options.
+#' ggram(c("cancer", "smoking", "tobacco"),
+#'       year_start = 1900, 
+#'       corpus = "eng_fiction_2012", 
+#'       geom = "point", 
+#'       alpha = .5) + 
+#'  stat_smooth(se = FALSE)
 #' @export
 
 ggram <- function(phrases, corpus='eng_2012', year_start=1500,
-                   year_end=2008, smoothing=3, wide=FALSE) {
-  ng  <- ngram(phrases, corpus, year_start=year_start, year_end, smoothing, wide)
-  ggplot(ng, aes_string(x="Year", y="Frequency", colour="Phrase")) + geom_line() +
-    labs(x="") + scale_y_continuous(labels=percent) + scale_colour_discrete(name="")
+                  year_end=2008, smoothing=3, wide=FALSE, geom = "line", ...) {
+  require(scales)
+  ng  <- ngram(phrases, corpus, year_start=year_start, year_end, smoothing)
+  p = ggplot(data = ng, 
+             aes_string(x = "Year", y = "Frequency", colour = "Phrase")) +
+    stat_identity(geom = geom, ...)
+  p = p + 
+    labs(x = NULL) + 
+    scale_y_continuous(labels = percent) + 
+    scale_colour_discrete("")
+  return(p)
 }
+
   
