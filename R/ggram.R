@@ -8,6 +8,7 @@
 #'   Default is \code{FALSE}.
 #' @param ignore.case alternative syntax for \code{ignore_case}. Only used if
 #'   \code{ignore_case} is not specified.
+#' @param google.theme use a Google Ngram-style plot theme.
 #' @param geom the ggplot2 geom used to plot the data; defaults to "line"
 #' @param geom_options list of additional parameters passed to the ggplot2 geom.
 #' @param ... additional parameters passed to \code{ngram}
@@ -51,12 +52,12 @@
 #' @export
 
 ggram <- function(phrases, ignore_case=FALSE, geom="line", ignore.case=ignore_case,
-                  geom_options=list(), ...) {
+                  geom_options=list(), google.theme = FALSE, ...) {
   # The require below was suggested briatte but it results in a WARNING
   # when running package checks. Is it really necessary?
   #require(scales, quietly=TRUE)
   if (missing(ignore_case)) ignore_case <- ignore.case
-  ng  <- if(ignore_case) ngrami(phrases, ...) else ngram(phrases, ...)
+  ng <- if(ignore_case) ngrami(phrases, ...) else ngram(phrases, ...)
   p <- ggplot(data = ng, 
              aes_string(x = "Year", y = "Frequency", colour = "Phrase", fill="Phrase"))
   if (!(class(geom) == "character")) geom <- NULL
@@ -64,13 +65,28 @@ ggram <- function(phrases, ignore_case=FALSE, geom="line", ignore.case=ignore_ca
   p <-  p + labs(x = NULL) + 
     scale_y_continuous(labels = percent)
   dots <- list(...)
-  if (!("aggregate" %in% names(dots)) || dots["aggregate"]==TRUE) {
-    p <- p +  scale_colour_discrete("", labels = phrases) + 
-      scale_fill_discrete("", labels = phrases)  
+  labs <- (!("aggregate" %in% names(dots)) || dots["aggregate"]==TRUE)
+  if (labs & !google.theme) {
+    p <- p +
+      scale_colour_discrete("", labels = phrases) + 
+      scale_fill_discrete("", labels = phrases)
+  }
+  else if (labs & google.theme) {
+    # Google Ngram palette.
+    palette = c("#264EC0", "#D22310", "#FC8608", "#168713", "#850086", "#1086B9", "#D22B63", "#559D05", "#A71B23", "#21436F", "#852D86", "#219B86")
+    p = p +
+      scale_colour_manual("", values = palette, labels = phrases) +
+      scale_fill_manual("", values = palette, labels = phrases) +
+      theme(panel.background = element_rect(fill = NA),
+            axis.line = element_line(),
+            axis.text = element_text(color = "black"),
+            axis.ticks = element_blank()) +
+      labs(y = NULL)
   } else {
-    p <- p +  scale_colour_discrete("") + scale_fill_discrete("")  
+    p <- p +
+      scale_colour_discrete("") +
+      scale_fill_discrete("")  
   }
   return(p)
 }
 
-  
