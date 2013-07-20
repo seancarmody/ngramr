@@ -76,7 +76,7 @@ ngram <- function(phrases, corpus='eng_2012', year_start = 1500,
   return(result)
 }
 
-ngram_single <- function(phrases, corpus,...){
+ngram_single <- function(phrases, corpus, tag, ...){
   if (!is.null(tag)) {
     if (grepl("NOUN|VERB|ADJ|ADV|PRON|DET|ADP|NUM|CONJ|PRT", tag))
       phrases = paste0(phrases, "_", gsub("_", "", tag))      
