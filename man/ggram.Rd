@@ -3,13 +3,17 @@
 \title{Plot n-gram frequencies}
 \usage{
   ggram(phrases, ignore_case = FALSE, geom = "line",
-    geom_options = list(), ...)
+    ignore.case = ignore_case, geom_options = list(), ...)
 }
 \arguments{
   \item{phrases}{vector of phrases}
 
   \item{ignore_case}{if \code{TRUE} then the frequencies
   are case insensitive.  Default is \code{FALSE}.}
+
+  \item{ignore.case}{alternative syntax for
+  \code{ignore_case}. Only used if \code{ignore_case} is
+  not specified.}
 
   \item{geom}{the ggplot2 geom used to plot the data;
   defaults to "line"}

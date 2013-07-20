@@ -6,6 +6,8 @@
 #' @param phrases vector of phrases
 #' @param ignore_case if \code{TRUE} then the frequencies are case insensitive.
 #'   Default is \code{FALSE}.
+#' @param ignore.case alternative syntax for \code{ignore_case}. Only used if
+#'   \code{ignore_case} is not specified.
 #' @param geom the ggplot2 geom used to plot the data; defaults to "line"
 #' @param geom_options list of additional parameters passed to the ggplot2 geom.
 #' @param ... additional parameters passed to \code{ngram}
