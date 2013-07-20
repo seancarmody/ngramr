@@ -40,10 +40,12 @@
 #'  stat_smooth(method="loess", se=FALSE, span = 0.3)
 #' @export
 
-ggram <- function(phrases, ignore_case=FALSE, geom="line", geom_options=list(),  ...) {
+ggram <- function(phrases, ignore_case=FALSE, geom="line", ignore.case=ignore_case,
+                  geom_options=list(),  ...) {
   # The require below was suggested briatte but it results in a WARNING
   # when running package checks. Is it really necessary?
   #require(scales, quietly=TRUE)
+  if (missing(ignore_case)) ignore_case <- ignore.case
   ng  <- if(ignore_case) ngrami(phrases, ...) else ngram(phrases, ...)
   p <- ggplot(data = ng, 
              aes_string(x = "Year", y = "Frequency", colour = "Phrase", fill="Phrase")) 
@@ -56,8 +58,7 @@ ggram <- function(phrases, ignore_case=FALSE, geom="line", geom_options=list(), 
     p <- p +  scale_colour_discrete("", labels=phrases) + 
       scale_fill_discrete("", labels=phrases)  
   } else {
-    p <- p +  scale_colour_discrete("") + 
-      scale_fill_discrete("")  
+    p <- p +  scale_colour_discrete("") +  scale_fill_discrete("")  
   }
   return(p)
 }
