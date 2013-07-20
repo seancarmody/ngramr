@@ -4,7 +4,7 @@
 #' plots it in \code{ggplot2} style.
 #'
 #' @param phrases vector of phrases
-#' @param ignore.case if \code{TRUE} then the frequencies are case insensitive.
+#' @param ignore_case if \code{TRUE} then the frequencies are case insensitive.
 #'   Default is \code{FALSE}.
 #' @param geom the ggplot2 geom used to plot the data; defaults to "line"
 #' @param geom_options list of additional parameters passed to the ggplot2 geom.
@@ -40,19 +40,25 @@
 #'  stat_smooth(method="loess", se=FALSE, span = 0.3)
 #' @export
 
-ggram <- function(phrases, ignore.case=FALSE, geom="line", geom_options=list(),  ...) {
+ggram <- function(phrases, ignore_case=FALSE, geom="line", geom_options=list(),  ...) {
   # The require below was suggested briatte but it results in a WARNING
   # when running package checks. Is it really necessary?
   #require(scales, quietly=TRUE)
-  ng  <- if(ignore.case) ngrami(phrases, ...) else ngram(phrases, ...)
+  ng  <- if(ignore_case) ngrami(phrases, ...) else ngram(phrases, ...)
   p <- ggplot(data = ng, 
              aes_string(x = "Year", y = "Frequency", colour = "Phrase", fill="Phrase")) 
   if (!(class(geom) == "character")) geom <- NULL
   if (!is.null(geom)) p <- p + do.call(stat_identity, c(geom = geom, geom_options))
   p <-  p + labs(x = NULL) + 
-    scale_y_continuous(labels = percent) + 
-    scale_colour_discrete("") + 
-    scale_fill_discrete("")  
+    scale_y_continuous(labels = percent) 
+  dots <- list(...)
+  if (!("aggregate" %in% names(dots)) || dots["aggregate"]==TRUE) {
+    p <- p +  scale_colour_discrete("", labels=phrases) + 
+      scale_fill_discrete("", labels=phrases)  
+  } else {
+    p <- p +  scale_colour_discrete("") + 
+      scale_fill_discrete("")  
+  }
   return(p)
 }
 
