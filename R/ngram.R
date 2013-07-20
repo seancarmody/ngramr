@@ -65,6 +65,7 @@
 
 ngram <- function(phrases, corpus='eng_2012', year_start = 1500,
                   year_end = 2008, smoothing = 3, tag = NULL) {
+  stopifnot(is.character(phrases))
   if (!is.null(tag)) {
     if (grepl("NOUN|VERB|ADJ|ADV|PRON|DET|ADP|NUM|CONJ|PRT", tag))
       phrases = paste0(phrases, "_", gsub("_", "", tag))      
