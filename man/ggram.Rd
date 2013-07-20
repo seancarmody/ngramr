@@ -38,9 +38,9 @@ ggram(c("hacker", "programmer"), year_start = 1950)
 
 # Changing the geom.
 ggram(c("cancer", "fumer", "cigarette"),
-     year_start = 1900,
-     corpus = "fre_2012",
-     geom = "step")
+      year_start = 1900,
+      corpus = "fre_2012",
+      geom = "step")
 
 # Passing more options.
 require(ggplot2)
@@ -49,13 +49,20 @@ ggram(c("cancer", "smoking", "tobacco"),
       corpus = "eng_fiction_2012",
       geom = "point",
       geom_options = list(alpha = .5)) +
- stat_smooth(method="loess", se = FALSE)
+  stat_smooth(method="loess", se = FALSE)
 
- # Setting the layers manually.
+# Setting the layers manually.
 ggram(c("cancer", "smoking", "tobacco"),
       year_start = 1900,
       corpus = "eng_fiction_2012",
       geom = NULL) +
- stat_smooth(method="loess", se=FALSE, span = 0.3)
+  stat_smooth(method="loess", se=FALSE, span = 0.3)
+
+# Setting the legend placement on a long query.
+# Example posted by Ben Zimmer at Language Log.
+x = c("(The United States is + The United States has) / The United States",
+      "(The United States are + The United States have) / The United States")
+ggram(x, year_start = 1800) +
+  theme(legend.direction = "vertical", legend.position = "bottom")
 }
 

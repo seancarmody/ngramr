@@ -66,22 +66,23 @@
 ngram <- function(phrases, corpus='eng_2012', year_start = 1500,
                   year_end = 2008, smoothing = 3, tag = NULL) {
   stopifnot(is.character(phrases))
-  if (!is.null(tag)) {
-    if (grepl("NOUN|VERB|ADJ|ADV|PRON|DET|ADP|NUM|CONJ|PRT", tag))
-      phrases = paste0(phrases, "_", gsub("_", "", tag))      
-    else if (grepl("ROOT|START|END", tag))
-      phrases = paste(paste0("_", tag, "_"), phrases)      
-  }
   dfs <- lapply(corpus, function(corp) ngram_single(phrases, corpus=corp,
                                                     year_start=year_start,
                                                     year_end=year_end,
-                                                    smoothing=smoothing))
+                                                    smoothing=smoothing,
+                                                    tag=tag))
   result <- do.call("rbind", dfs)
   result$Corpus <- as.factor(result$Corpus)
   return(result)
 }
 
 ngram_single <- function(phrases, corpus,...){
+  if (!is.null(tag)) {
+    if (grepl("NOUN|VERB|ADJ|ADV|PRON|DET|ADP|NUM|CONJ|PRT", tag))
+      phrases = paste0(phrases, "_", gsub("_", "", tag))      
+    else if (grepl("ROOT|START|END", tag))
+      phrases = paste(paste0("_", tag, "_"), phrases)      
+  }
   corpus_n <- get_corpus(corpus)
   if (is.na(corpus_n)) {
     warning("Invalid corpus name. Defaulting to 'eng_2012'", call.=FALSE)
