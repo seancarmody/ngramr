@@ -21,9 +21,9 @@
 #' 
 #' # Changing the geom.
 #' ggram(c("cancer", "fumer", "cigarette"),
-#'      year_start = 1900,
-#'      corpus = "fre_2012", 
-#'      geom = "step")
+#'       year_start = 1900,
+#'       corpus = "fre_2012", 
+#'       geom = "step")
 #'      
 #' # Passing more options.
 #' require(ggplot2)
@@ -32,35 +32,43 @@
 #'       corpus = "eng_fiction_2012", 
 #'       geom = "point", 
 #'       geom_options = list(alpha = .5)) + 
-#'  stat_smooth(method="loess", se = FALSE)
+#'   stat_smooth(method="loess", se = FALSE)
 #'  
-#'  # Setting the layers manually.
+#' # Setting the layers manually.
 #' ggram(c("cancer", "smoking", "tobacco"),
 #'       year_start = 1900, 
 #'       corpus = "eng_fiction_2012", 
 #'       geom = NULL) +
-#'  stat_smooth(method="loess", se=FALSE, span = 0.3)
+#'   stat_smooth(method="loess", se=FALSE, span = 0.3)
+#'  
+#' # Setting the legend placement on a long query.
+#' # Example posted by Ben Zimmer at Language Log.
+#' x = c("(The United States is + The United States has) / The United States",
+#'       "(The United States are + The United States have) / The United States")
+#' ggram(x, year_start = 1800) +
+#'   theme(legend.direction = "vertical", legend.position = "bottom")
+
 #' @export
 
 ggram <- function(phrases, ignore_case=FALSE, geom="line", ignore.case=ignore_case,
-                  geom_options=list(),  ...) {
+                  geom_options=list(), ...) {
   # The require below was suggested briatte but it results in a WARNING
   # when running package checks. Is it really necessary?
   #require(scales, quietly=TRUE)
   if (missing(ignore_case)) ignore_case <- ignore.case
   ng  <- if(ignore_case) ngrami(phrases, ...) else ngram(phrases, ...)
   p <- ggplot(data = ng, 
-             aes_string(x = "Year", y = "Frequency", colour = "Phrase", fill="Phrase")) 
+             aes_string(x = "Year", y = "Frequency", colour = "Phrase", fill="Phrase"))
   if (!(class(geom) == "character")) geom <- NULL
   if (!is.null(geom)) p <- p + do.call(stat_identity, c(geom = geom, geom_options))
   p <-  p + labs(x = NULL) + 
-    scale_y_continuous(labels = percent) 
+    scale_y_continuous(labels = percent)
   dots <- list(...)
   if (!("aggregate" %in% names(dots)) || dots["aggregate"]==TRUE) {
-    p <- p +  scale_colour_discrete("", labels=phrases) + 
-      scale_fill_discrete("", labels=phrases)  
+    p <- p +  scale_colour_discrete("", labels = phrases) + 
+      scale_fill_discrete("", labels = phrases)  
   } else {
-    p <- p +  scale_colour_discrete("") +  scale_fill_discrete("")  
+    p <- p +  scale_colour_discrete("") + scale_fill_discrete("")  
   }
   return(p)
 }
