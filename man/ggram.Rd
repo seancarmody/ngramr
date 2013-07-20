@@ -44,7 +44,7 @@ ggram(c("cancer", "smoking", "tobacco"),
       corpus = "eng_fiction_2012",
       geom = "point",
       geom_options = list(alpha = .5)) +
- stat_smooth(se = FALSE)
+ stat_smooth(method="loess", se = FALSE)
 
  # Setting the layers manually.
 ggram(c("cancer", "smoking", "tobacco"),

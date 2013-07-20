@@ -1,0 +1,19 @@
+\name{ngramw}
+\alias{ngramw}
+\title{Get n-gram frequencies ("wide" format)}
+\usage{
+  ngramw(phrases, ignore_case = FALSE, ...)
+}
+\arguments{
+  \item{phrases}{vector of phrases}
+
+  \item{ignore_case}{ignore case of phrases (i.e. call
+  \code{ngrami} rather than \code{ngram}). Default value is
+  \code{FALSE}.}
+
+  \item{...}{remaining parameters passed to \code{ngram}}
+}
+\description{
+  Get n-gram frequencies ("wide" format)
+}
+

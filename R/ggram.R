@@ -29,7 +29,7 @@
 #'       corpus = "eng_fiction_2012", 
 #'       geom = "point", 
 #'       geom_options = list(alpha = .5)) + 
-#'  stat_smooth(se = FALSE)
+#'  stat_smooth(method="loess", se = FALSE)
 #'  
 #'  # Setting the layers manually.
 #' ggram(c("cancer", "smoking", "tobacco"),
@@ -41,7 +41,7 @@
 
 ggram <- function(phrases, ignore.case=FALSE, geom="line", geom_options=list(),  ...) {
   require(scales, quietly=TRUE)
-  ng  <- if(ignore.case) ngrami(phrases, wide=FALSE, ...) else ngram(phrases, wide=FALSE, ...)
+  ng  <- if(ignore.case) ngrami(phrases, ...) else ngram(phrases, ...)
   p <- ggplot(data = ng, 
              aes_string(x = "Year", y = "Frequency", colour = "Phrase")) 
   if (!(class(geom) == "character")) geom <- NULL

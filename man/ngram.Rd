@@ -3,7 +3,7 @@
 \title{Get n-gram frequencies}
 \usage{
   ngram(phrases, corpus = "eng_2012", year_start = 1500,
-    year_end = 2008, smoothing = 3, wide = FALSE)
+    year_end = 2008, smoothing = 3)
 }
 \arguments{
   \item{phrases}{vector of phrases}
@@ -16,10 +16,6 @@
   \item{year_end}{end year, default is 2008}
 
   \item{smoothing}{smoothing paramater, default is 3}
-
-  \item{wide}{a logical value indicating whether results
-  should be returned in a "wide" format (phrases are column
-  names) or not. The default is \code{FALSE}.}
 }
 \description{
   \code{ngram} downloads data from the Google Ngram Viewer
@@ -43,7 +39,7 @@
   \code{eng_1m_2009}
 }
 \examples{
-freq <- ngram(c("mouse", "rat"), year_start=1950)
+freq <- ngram(c("mouse", "rat"), year_start = 1950)
 head(freq)
 }
 

@@ -3,7 +3,9 @@ ngramr 1.2
 
 * Allow case insensitive plotting with ggram
 * Avoid reshape/reshape2 conflicts (thanks to Francois Briatte)
-* Pass arbitrary geoms to ggram
+* Pass arbitrary geoms to `ggram`
+* New function `ngramw` to return results in "wide" format
+* Removed `wide` option from `ggram` and `ggrami`
 
 ngramr 1.1
 ----------
