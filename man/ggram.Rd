@@ -3,7 +3,8 @@
 \title{Plot n-gram frequencies}
 \usage{
   ggram(phrases, ignore_case = FALSE, geom = "line",
-    ignore.case = ignore_case, geom_options = list(), ...)
+    ignore.case = ignore_case, geom_options = list(),
+    google.theme = FALSE, ...)
 }
 \arguments{
   \item{phrases}{vector of phrases}
@@ -14,6 +15,8 @@
   \item{ignore.case}{alternative syntax for
   \code{ignore_case}. Only used if \code{ignore_case} is
   not specified.}
+
+  \item{google.theme}{use a Google Ngram-style plot theme.}
 
   \item{geom}{the ggplot2 geom used to plot the data;
   defaults to "line"}

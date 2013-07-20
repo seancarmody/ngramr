@@ -3,7 +3,7 @@
 #' \code{ngram} downloads data from the Google Ngram Viewer website and
 #' returns it in a dataframe.
 #'
-#' @param phrases vector of phrases
+#' @param phrases vector of phrases, with a maximum of 12 items
 #' @param corpus Google corpus to search (see Details for possible values)
 #' @param year_start start year, default is 1500
 #' @param year_end end year, default is 2008
@@ -66,6 +66,10 @@
 ngram <- function(phrases, corpus='eng_2012', year_start = 1500,
                   year_end = 2008, smoothing = 3, tag = NULL) {
   stopifnot(is.character(phrases))
+  if (length(phrases) > 12){
+    phrases <- phrases[1:12]
+    warning("Maximum number of phrases exceeded: only using first 12.")
+  }
   dfs <- lapply(corpus, function(corp) ngram_single(phrases, corpus=corp,
                                                     year_start=year_start,
                                                     year_end=year_end,
@@ -77,6 +81,7 @@ ngram <- function(phrases, corpus='eng_2012', year_start = 1500,
 }
 
 ngram_single <- function(phrases, corpus, tag, ...){
+  phrases <- phrases[1:ifelse(length(phrases) < 13, length(phrases), 12)]
   if (!is.null(tag)) {
     if (grepl("NOUN|VERB|ADJ|ADV|PRON|DET|ADP|NUM|CONJ|PRT", tag))
       phrases = paste0(phrases, "_", gsub("_", "", tag))      

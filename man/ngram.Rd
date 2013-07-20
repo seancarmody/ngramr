@@ -6,7 +6,8 @@
     year_end = 2008, smoothing = 3, tag = NULL)
 }
 \arguments{
-  \item{phrases}{vector of phrases}
+  \item{phrases}{vector of phrases, with a maximum of 12
+  items}
 
   \item{corpus}{Google corpus to search (see Details for
   possible values)}
