@@ -26,7 +26,7 @@ Here is an example of how it is used.
     library(ngramr)
     library(ggplot2)
 
-    ng  <- ngram(c("hacker", "programmer"), year_start=1950)
+    ng  <- ngram(c("hacker", "programmer"), year_start = 1950)
     ggplot(ng, aes(x=Year, y=Frequency, colour=Phrase)) + geom_line()
 
 The result is a chart like this:
@@ -36,4 +36,4 @@ The result is a chart like this:
 The same result can be achieved even more simply with a plotting wrapper like this:
 
     library(ngramr)
-    ggram(c("hacker", "programmer"), year_start=1950)
+    ggram(c("hacker", "programmer"), year_start = 1950)
