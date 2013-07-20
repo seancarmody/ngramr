@@ -37,3 +37,5 @@ The same result can be achieved even more simply with a plotting wrapper like th
 
     library(ngramr)
     ggram(c("hacker", "programmer"), year_start = 1950)
+
+For more information, read [this Stubborn Mule post](http://www.stubbornmule.net/2013/07/ngramr/).
