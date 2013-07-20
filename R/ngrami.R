@@ -2,12 +2,10 @@
 #'
 #' @param phrases vector of phrases
 #' @param aggregate sum up each of the terms
-#' @param wide a logical value indicating whether results should be returned 
-#'   in a "wide" format (phrases are column names) or not. The default is \code{FALSE}.
 #' @param ... remaining parameters passed to ngram
 #' @export
      
-ngrami <- function(phrases, aggregate=TRUE, wide=FALSE, ...){
+ngrami <- function(phrases, aggregate=TRUE, ...){
   phrases <- sapply(phrases, function(x) paste0(toupper(substr(x, 1, 1)),
                                                 tolower(substring(x, 2)))) 
   phrases <- c(phrases, tolower(phrases), toupper(phrases))

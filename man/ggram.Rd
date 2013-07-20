@@ -39,6 +39,7 @@ ggram(c("cancer", "fumer", "cigarette"),
      geom = "step")
 
 # Passing more options.
+require(ggplot2)
 ggram(c("cancer", "smoking", "tobacco"),
       year_start = 1900,
       corpus = "eng_fiction_2012",
@@ -51,6 +52,6 @@ ggram(c("cancer", "smoking", "tobacco"),
       year_start = 1900,
       corpus = "eng_fiction_2012",
       geom = NULL) +
- geom_smooth(method="loess", se=FALSE, span = 0.3)
+ stat_smooth(method="loess", se=FALSE, span = 0.3)
 }
 

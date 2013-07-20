@@ -11,8 +11,9 @@
 #' phrases, returns a dataframe containing the frequencies by year.
 #' 
 #' The code is based on the \code{getNgrams.py} Python script available on 
-#' \href{http://www.culturomics.org/Resources/get-ngrams}{Culturomics}
-#' written by Jean-Baptiste Michel.
+#' \href{http://www.culturomics.org/Resources/get-ngrams}{Culturomics Code}
+#' written by Jean-Baptiste Michel. The \href{http://www.culturomics.org/home}{Culturomics}
+#' website itself is worth exploring.
 #' 
 #' Note that compared to the 2009 versions, the 2012 versions have larger numbers
 #' of books, improved OCR, improved library and publisher metadata. The 2012 versions

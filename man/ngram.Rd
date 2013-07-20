@@ -23,20 +23,41 @@
 }
 \details{
   Google generated two datasets drawn from digitised books
-  in the Google books collection. One was generated in July
+  in the Google Books collection. One was generated in July
   2009, the second in July 2012.  Google will update these
   datasets as book scanning continues.
 
-  Possible corpora: \code{eng_2012}, \code{eng_2009},
-  \code{eng_us_2012}, \code{eng_us_2009},
-  \code{eng_gb_2012}, \code{eng_gb_2009},
-  \code{chi_sim_2012}, \code{chi_sim_2009},
-  \code{fre_2012}, \code{fre_2009}, \code{ger_2012},
-  \code{ger_2009}, \code{spa_2012}, \code{spa_2009},
-  \code{rus_2012}, \code{rus_2009}, \code{heb_2012},
-  \code{heb_2009}, \code{ita_2012},
-  \code{eng_fiction_2012}, \code{eng_fiction_2009},
-  \code{eng_1m_2009}
+  This function provides the annual frequency of words or
+  phrases, known as n-grams, in a sub-collection or
+  "corpus" taken from the Google Books collection.  The
+  search across the corpus is case-sensitive. For a
+  case-insensitive search use \code{\link{ngrami}}.
+
+  Below is a list of available corpora. \tabular{ll}{
+  \bold{Corpus} \tab \bold{Corpus Name}\cr eng_us_2012\tab
+  American English 2012\cr eng_us_2009\tab American English
+  2009\cr eng_gb_2012\tab British English 2012\cr
+  eng_gb_2009\tab British English 2009\cr chi_sim_2012\tab
+  Chinese 2012\cr chi_sim_2009\tab Chinese 2009\cr
+  eng_2012\tab English 2012\cr eng_2009\tab English 2009\cr
+  eng_fiction_2012\tab English Fiction 2012\cr
+  eng_fiction_2009\tab English Fiction 2009\cr
+  eng_1m_2009\tab Google One Million\cr fre_2012\tab French
+  2012\cr fre_2009\tab French 2009\cr ger_2012\tab German
+  2012\cr ger_2009\tab German 2009\cr heb_2012\tab Hebrew
+  2012\cr heb_2009\tab Hebrew 2009\cr spa_2012\tab Spanish
+  2012\cr spa_2009\tab Spanish 2009\cr rus_2012\tab Russian
+  2012\cr rus_2009\tab Russian 2009\cr ita_2012\tab Italian
+  2012\cr }
+
+  The Google Million is a sub-collection of Google Books.
+  All are in English with dates ranging from 1500 to 2008.
+  No more than about 6000 books were chosen from any one
+  year, which means that all of the scanned books from
+  early years are present, and books from later years are
+  randomly sampled. The random samplings reflect the
+  subject distributions for the year (so there are more
+  computer books in 2000 than 1980).
 }
 \examples{
 freq <- ngram(c("mouse", "rat"), year_start = 1950)

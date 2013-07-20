@@ -24,6 +24,7 @@
 #'      geom = "step")
 #'      
 #' # Passing more options.
+#' require(ggplot2)
 #' ggram(c("cancer", "smoking", "tobacco"),
 #'       year_start = 1900, 
 #'       corpus = "eng_fiction_2012", 
@@ -36,11 +37,13 @@
 #'       year_start = 1900, 
 #'       corpus = "eng_fiction_2012", 
 #'       geom = NULL) +
-#'  geom_smooth(method="loess", se=FALSE, span = 0.3)
+#'  stat_smooth(method="loess", se=FALSE, span = 0.3)
 #' @export
 
 ggram <- function(phrases, ignore.case=FALSE, geom="line", geom_options=list(),  ...) {
-  require(scales, quietly=TRUE)
+  # The require below was suggested briatte but it results in a WARNING
+  # when running package checks. Is it really necessary?
+  #require(scales, quietly=TRUE)
   ng  <- if(ignore.case) ngrami(phrases, ...) else ngram(phrases, ...)
   p <- ggplot(data = ng, 
              aes_string(x = "Year", y = "Frequency", colour = "Phrase")) 
