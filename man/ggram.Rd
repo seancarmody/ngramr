@@ -2,24 +2,15 @@
 \alias{ggram}
 \title{Plot n-gram frequencies}
 \usage{
-  ggram(phrases, corpus = "eng_2012", year_start = 1500,
-    year_end = 2008, smoothing = 3, wide = FALSE)
+  ggram(phrases, ignore.case = FALSE, ...)
 }
 \arguments{
   \item{phrases}{vector of phrases}
 
-  \item{corpus}{Google corpus to search (see Details for
-  possible values)}
+  \item{ignore.case}{if \code{TRUE} then the frequencies
+  are case insensitive.  Default is \code{FALSE}.}
 
-  \item{year_start}{start year, default is 1500}
-
-  \item{year_end}{end year, default is 2008}
-
-  \item{smoothing}{smoothing paramater, default is 3}
-
-  \item{wide}{a logical value indicating whether results
-  should be returned in a "wide" format (phrases are column
-  names) or not. The default is \code{FALSE}.}
+  \item{...}{additional parameters passed to \code{ngram}}
 }
 \description{
   \code{ggram} downloads data from the Google Ngram Viewer

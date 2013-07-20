@@ -24,6 +24,13 @@
   \href{http://www.culturomics.org/Resources/get-ngrams}{Culturomics}
   written by Jean-Baptiste Michel.
 
+  Note that compared to the 2009 versions, the 2012
+  versions have larger numbers of books, improved OCR,
+  improved library and publisher metadata. The 2012
+  versions also don't form ngrams that cross sentence
+  boundaries, and do form ngrams across page boundaries,
+  unlike the 2009 versions.
+
   Like the Google Ngram Viewer website itself, this package
   is aimed at for quick inquiries into the usage of small
   sets of phrases.

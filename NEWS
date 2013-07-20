@@ -1,3 +1,9 @@
+ngramr 1.2
+----------
+
+* Allow case insensitive plotting with ggram
+* Avoid reshape/reshape2 conflicts (thanks to Francois Briatte)
+
 ngramr 1.1
 ----------
 
