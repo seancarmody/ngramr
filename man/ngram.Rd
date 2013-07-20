@@ -63,7 +63,7 @@
   subject distributions for the year (so there are more
   computer books in 2000 than 1980).
 
-  See \link{http://books.google.com/ngrams/info} for the
+  See \url{http://books.google.com/ngrams/info} for the
   full Ngram syntax.
 }
 \examples{

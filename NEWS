@@ -7,6 +7,8 @@ ngramr 1.2
 * New function `ngramw` to return results in "wide" format
 * Removed `wide` option from `ggram` and `ggrami`
 * Better handling of legends when `ignore_case = TRUE`
+* Error trapping long phrase lists
+* Google theme option
 
 ngramr 1.1
 ----------

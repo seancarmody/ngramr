@@ -53,7 +53,7 @@
 #' years are randomly sampled. The random samplings reflect the subject distributions
 #' for the year (so there are more computer books in 2000 than 1980).
 #' 
-#' See \link{http://books.google.com/ngrams/info} for the full Ngram syntax.
+#' See \url{http://books.google.com/ngrams/info} for the full Ngram syntax.
 #' @examples 
 #' freq <- ngram(c("mouse", "rat"), year_start = 1950)
 #' head(freq)
@@ -127,6 +127,9 @@ ngram_parse <- function(html){
   cols <- lapply(strsplit(grep("addColumn", html, value=TRUE), ","), getElement, 2)
   
   cols <- gsub(".*'(.*)'.*", "\\1", cols)
+  # Clean up Unicode encoding. See discussion here:
+  # http://stackoverflow.com/questions/17761858/converting-a-u-escaped-unicode-string-to-ascii
+  cols <- sapply(cols, function(x) eval(parse(text=paste0("'", x, "'"))))
 
   html <- paste(html[-(1:grep("data.addRows\\(", html))], collapse='')
   html <- gsub("\\).*", "", html)
