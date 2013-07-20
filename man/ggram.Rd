@@ -2,13 +2,20 @@
 \alias{ggram}
 \title{Plot n-gram frequencies}
 \usage{
-  ggram(phrases, ignore.case = FALSE, ...)
+  ggram(phrases, ignore.case = FALSE, geom = "line",
+    geom_options = list(), ...)
 }
 \arguments{
   \item{phrases}{vector of phrases}
 
   \item{ignore.case}{if \code{TRUE} then the frequencies
   are case insensitive.  Default is \code{FALSE}.}
+
+  \item{geom}{the ggplot2 geom used to plot the data;
+  defaults to "line"}
+
+  \item{geom_options}{list of additional parameters passed
+  to the ggplot2 geom.}
 
   \item{...}{additional parameters passed to \code{ngram}}
 }
@@ -21,19 +28,29 @@
   in the Google books collection. One was generated in July
   2009, the second in July 2012.  Google will update these
   datasets as book scanning continues.
-
-  Possible corpora: \code{eng_2012}, \code{eng_2009},
-  \code{eng_us_2012}, \code{eng_us_2009},
-  \code{eng_gb_2012}, \code{eng_gb_2009},
-  \code{chi_sim_2012}, \code{chi_sim_2009},
-  \code{fre_2012}, \code{fre_2009}, \code{ger_2012},
-  \code{ger_2009}, \code{spa_2012}, \code{spa_2009},
-  \code{rus_2012}, \code{rus_2009}, \code{heb_2012},
-  \code{heb_2009}, \code{ita_2012},
-  \code{eng_fiction_2012}, \code{eng_fiction_2009},
-  \code{eng_1m_2009}
 }
 \examples{
-ggram(c("hacker", "programmer"), year_start=1950)
+ggram(c("hacker", "programmer"), year_start = 1950)
+
+# Changing the geom.
+ggram(c("cancer", "fumer", "cigarette"),
+     year_start = 1900,
+     corpus = "fre_2012",
+     geom = "step")
+
+# Passing more options.
+ggram(c("cancer", "smoking", "tobacco"),
+      year_start = 1900,
+      corpus = "eng_fiction_2012",
+      geom = "point",
+      geom_options = list(alpha = .5)) +
+ stat_smooth(se = FALSE)
+
+ # Setting the layers manually.
+ggram(c("cancer", "smoking", "tobacco"),
+      year_start = 1900,
+      corpus = "eng_fiction_2012",
+      geom = NULL) +
+ geom_smooth(method="loess", se=FALSE, span = 0.3)
 }
 
