@@ -57,6 +57,10 @@
 #' @examples 
 #' freq <- ngram(c("mouse", "rat"), year_start = 1950)
 #' head(freq)
+#' freq <- ngram(c("blue", "red"), tag = "ADJ")
+#' head(freq)
+#' freq <- ngram(c("President Roosevelt", "President Truman"), tag = "START")
+#' head(freq)
 #' @export
 
 ngram <- function(phrases, corpus='eng_2012', year_start = 1500,
