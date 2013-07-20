@@ -59,7 +59,7 @@
 #' head(freq)
 #' freq <- ngram(c("blue", "red"), tag = "ADJ")
 #' head(freq)
-#' freq <- ngram(c("President Roosevelt", "President Truman"), tag = "START")
+#' freq <- ngram(c("President Roosevelt", "President Truman"), tag = "START", year_start = 1920)
 #' head(freq)
 #' @export
 
