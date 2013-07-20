@@ -51,7 +51,7 @@ ggram <- function(phrases, ignore.case=FALSE, geom="line", geom_options=list(), 
   if (!is.null(geom)) p <- p + do.call(stat_identity, c(geom = geom, geom_options))
   p <-  p + labs(x = NULL) + 
     scale_y_continuous(labels = percent) + 
-    scale_colour_discrete("")
+    scale_colour_discrete("", labels = phrases)
   return(p)
 }
 
