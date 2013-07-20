@@ -38,7 +38,7 @@ The same result can be achieved even more simply by using the `ggram` plotting w
           geom = "area", geom_options = list(position = "stack")) + 
           labs(y = NULL)
 
-The colors used by Google Ngram are available through the `google.theme` option, as in this example posted by Ben Zimmer [at Language Log](http://languagelog.ldc.upenn.edu/nll/?p=4979):
+The colors used by Google Ngram are available through the `google_theme` option, as in this example posted by Ben Zimmer [at Language Log](http://languagelog.ldc.upenn.edu/nll/?p=4979):
 
 ![Ngram chart, with Google theme](http://i.imgur.com/VEuTGza.png)
 
