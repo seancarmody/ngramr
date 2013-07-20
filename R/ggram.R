@@ -46,12 +46,13 @@ ggram <- function(phrases, ignore.case=FALSE, geom="line", geom_options=list(), 
   #require(scales, quietly=TRUE)
   ng  <- if(ignore.case) ngrami(phrases, ...) else ngram(phrases, ...)
   p <- ggplot(data = ng, 
-             aes_string(x = "Year", y = "Frequency", colour = "Phrase")) 
+             aes_string(x = "Year", y = "Frequency", colour = "Phrase", fill="Phrase")) 
   if (!(class(geom) == "character")) geom <- NULL
   if (!is.null(geom)) p <- p + do.call(stat_identity, c(geom = geom, geom_options))
   p <-  p + labs(x = NULL) + 
     scale_y_continuous(labels = percent) + 
-    scale_colour_discrete("", labels = phrases)
+    scale_colour_discrete("") + 
+    scale_fill_discrete("")  
   return(p)
 }
 
