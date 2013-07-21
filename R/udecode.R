@@ -5,7 +5,7 @@ udecode <- function(string){
   ufilter <- function(string) {
     if (substr(string, 1, 1)=="|") uconv(substr(string, 2, 5)) else string
   }
-  string <- gsub("\\\\u(....)", ",|\\1,", string, perl=TRUE)
+  string <- gsub("\\\\u([[:xdigit:]]{4})", ",|\\1,", string, perl=TRUE)
   strings <- unlist(strsplit(string, ","))
   string <- paste(sapply(strings, ufilter), collapse='')
   return(string)
