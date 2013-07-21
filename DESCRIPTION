@@ -25,3 +25,5 @@ Collate:
     'help.R'
     'ggram.R'
     'ngramw.R'
+    'themes.R'
+    'udecode.R'
