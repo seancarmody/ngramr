@@ -32,7 +32,7 @@ The same result can be achieved even more simply by using the `ggram` plotting w
 
 ![Ngram chart, with options](http://i.imgur.com/niAZGvj.png)
 
-    require(ngramr)
+    require(ggplot2)
     ggram(c("monarchy", "democracy"), year_start = 1500, year_end = 2000, 
           corpus = "eng_gb_2012", ignore_case = TRUE, 
           geom = "area", geom_options = list(position = "stack")) + 
@@ -42,7 +42,6 @@ The colors used by Google Ngram are available through the `google_theme` option,
 
 ![Ngram chart, with Google theme](http://i.imgur.com/VEuTGza.png)
 
-    require(ngramr)
     require(ggplot2)
     ng <- c("(The United States is + The United States has) / The United States",
           "(The United States are + The United States have) / The United States")
