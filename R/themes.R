@@ -10,7 +10,7 @@
 theme_google <- function(...) {
   theme(panel.border = element_rect(colour="grey", size=0.2, fill=NA),
         panel.background = element_rect(fill = NA), 
-        axis.line = element_line(colour="black", size=0.2),
+        axis.line = element_line(colour="black", size=0.3),
         panel.grid.major=element_line(colour="grey", size=0.2),
         panel.grid.minor=element_blank(),
         legend.position = "top",

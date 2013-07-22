@@ -63,24 +63,20 @@ ggram <- function(phrases, ignore_case=FALSE, geom="line", ignore.case=ignore_ca
              aes_string(x = "Year", y = "Frequency", colour = "Phrase", fill="Phrase"))
   if (!(class(geom) == "character")) geom <- NULL
   if (!is.null(geom)) p <- p + do.call(stat_identity, c(geom = geom, geom_options))
-  p <-  p + labs(x = NULL) + 
-    scale_y_continuous(labels = percent)
+  p <-  p + labs(x = NULL)
   if (google_theme) {
     # Google Ngram palette.
-    palette = c("#264EC0", "#D22310", "#FC8608", "#168713", "#850086", "#1086B9", 
-                "#D22B63", "#559D05", "#A71B23", "#21436F", "#852D86", "#219B86")
     p <- p +
-      scale_colour_manual("", values = palette)
-      scale_fill_manual("", values = palette)
-      theme(panel.background = element_rect(fill = NA),
-            axis.line = element_line(),
-            axis.text = element_text(color = "black"),
-            axis.ticks = element_blank()) +
-      labs(y = NULL)
+      scale_colour_google() +
+      scale_fill_google() +
+      theme_google() + labs(y = NULL) +
+      scale_x_continuous(expand=c(0,0)) +
+      scale_y_continuous(expand=c(0,0), labels = percent)
   } else {
     p <- p +
       scale_colour_discrete("") +
-      scale_fill_discrete("")  
+      scale_fill_discrete("") +
+      scale_y_continuous(labels = percent)
   }
   return(p)
 }
