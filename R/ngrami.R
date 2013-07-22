@@ -6,15 +6,16 @@
 #' @export
      
 ngrami <- function(phrases, aggregate=TRUE, ...){
-  phrases <- sapply(phrases, function(x) paste0(toupper(substr(x, 1, 1)),
+  phrases_all <- sapply(phrases, function(x) paste0(toupper(substr(x, 1, 1)),
                                                 tolower(substring(x, 2)))) 
-  phrases <- c(phrases, tolower(phrases), toupper(phrases))
-  phrases <- unique(phrases)
-  result <- ngram(phrases, ...)
+  phrases_all <- c(phrases, phrases_all, tolower(phrases), toupper(phrases))
+  phrases_all <- unique(phrases_all)
+  result <- ngram(phrases_all, ...)
   if (aggregate){
-    result$Phrase <- tolower(result$Phrase)
+    phrases <- sort(phrases)
+    result$Phrase <- factor(tolower(result$Phrase))
+    if (identical(levels(result$Phrase), tolower(phrases))) levels(result$Phrase) <- phrases 
     result <- ddply(result, .(Year, Corpus, Phrase), summarise, Frequency = sum(Frequency))
-    result$Phrase <- factor(result$Phrase)
   }
   return(result)
 }

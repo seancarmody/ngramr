@@ -4,7 +4,13 @@
 \usage{
   theme_google(...)
 }
+\arguments{
+  \item{...}{additional parameters to pass to \code{theme}}
+}
 \description{
   Google Ngram theme for ggplot2
+}
+\details{
+  Use a Google Ngram-style plot theme.
 }
 

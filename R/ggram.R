@@ -65,20 +65,13 @@ ggram <- function(phrases, ignore_case=FALSE, geom="line", ignore.case=ignore_ca
   if (!is.null(geom)) p <- p + do.call(stat_identity, c(geom = geom, geom_options))
   p <-  p + labs(x = NULL) + 
     scale_y_continuous(labels = percent)
-  dots <- list(...)
-  labs <- (!("aggregate" %in% names(dots)) || dots["aggregate"]==TRUE)
-  if (labs & !google_theme) {
-    p <- p +
-      scale_colour_discrete("", labels = phrases) + 
-      scale_fill_discrete("", labels = phrases)
-  }
-  else if (labs & google_theme) {
+  if (google_theme) {
     # Google Ngram palette.
     palette = c("#264EC0", "#D22310", "#FC8608", "#168713", "#850086", "#1086B9", 
                 "#D22B63", "#559D05", "#A71B23", "#21436F", "#852D86", "#219B86")
     p <- p +
-      scale_colour_manual("", values = palette, labels = phrases) +
-      scale_fill_manual("", values = palette, labels = phrases) +
+      scale_colour_manual("", values = palette)
+      scale_fill_manual("", values = palette)
       theme(panel.background = element_rect(fill = NA),
             axis.line = element_line(),
             axis.text = element_text(color = "black"),
