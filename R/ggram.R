@@ -76,7 +76,7 @@ ggram <- function(phrases, ignore_case=FALSE, geom="line", ignore.case=ignore_ca
     # Google Ngram palette.
     palette = c("#264EC0", "#D22310", "#FC8608", "#168713", "#850086", "#1086B9", 
                 "#D22B63", "#559D05", "#A71B23", "#21436F", "#852D86", "#219B86")
-    p = p +
+    p <- p +
       scale_colour_manual("", values = palette, labels = phrases) +
       scale_fill_manual("", values = palette, labels = phrases) +
       theme(panel.background = element_rect(fill = NA),

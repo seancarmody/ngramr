@@ -1,4 +1,6 @@
 #' Decode strings containing escape-encoding Unicode 
+#' 
+#' @param string a character string which may include escaped Unicode characters
 
 udecode <- function(string){
   uconv <- function(chars) intToUtf8(strtoi(chars, 16L))
