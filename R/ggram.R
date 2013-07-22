@@ -48,7 +48,7 @@
 #' p <- c("(The United States is + The United States has) / The United States",
 #'       "(The United States are + The United States have) / The United States")
 #' ggram(p, year_start = 1800, google_theme = TRUE) +
-#'   theme(legend.direction = "vertical", legend.position = "bottom")
+#'       theme(legend.direction="vertical")
 
 #' @export
 

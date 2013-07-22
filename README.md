@@ -32,11 +32,11 @@ Here is an example of how to use the `ngram` function:
 
 The result is a ggplot2 line graph of the following form:
 
-![Ngram Chart](http://i.imgur.com/2VgG9Lj.png)
+![Ngram Chart](http://i.imgur.com/EhSE9eK.png)
 
 The same result can be achieved even more simply by using the `ggram` plotting wrapper that supports many options, as in this example:
 
-![Ngram chart, with options](http://i.imgur.com/niAZGvj.png)
+![Ngram chart, with options](http://i.imgur.com/p5Q3pgM.png)
 
     require(ggplot2)
     ggram(c("monarchy", "democracy"), year_start = 1500, year_end = 2000, 
@@ -46,12 +46,12 @@ The same result can be achieved even more simply by using the `ggram` plotting w
 
 The colors used by Google Ngram are available through the `google_theme` option, as in this example posted by Ben Zimmer [at Language Log](http://languagelog.ldc.upenn.edu/nll/?p=4979):
 
-![Ngram chart, with Google theme](http://i.imgur.com/VEuTGza.png)
+![Ngram chart, with Google theme](http://i.imgur.com/qKHvQA4.png)
 
     require(ggplot2)
     ng <- c("(The United States is + The United States has) / The United States",
           "(The United States are + The United States have) / The United States")
     ggram(ng, year_start = 1800, google_theme = TRUE) +
-      theme(legend.direction = "vertical", legend.position = "bottom")
+      theme(legend.direction = "vertical")
 
 For more information, read [this Stubborn Mule post](http://www.stubbornmule.net/2013/07/ngramr/) and the [Google Ngram syntax](http://books.google.com/ngrams/info) documentation. If you would rather work with R and SQL on the raw Google Ngram datasets, [see this post](http://rpsychologist.com/how-to-work-with-google-ngram-data-sets-in-r-using-mysql/).

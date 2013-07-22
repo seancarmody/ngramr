@@ -1,5 +1,12 @@
-ngramr 1.2
-----------
+ngramr 1.2.1
+------------
+
+* Tidy Google theme
+
+ngramr 1.2.0
+------------
+
+First semi-offical release. All future development moved to the 'develop' branch.
 
 * Allow case insensitive plotting with ggram
 * Avoid reshape/reshape2 conflicts (thanks to Francois Briatte)
