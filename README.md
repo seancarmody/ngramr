@@ -13,6 +13,7 @@ It was written by [Jean-Baptiste Michel](https://twitter.com/jb_michel).
 If you have [`devtools`](http://cran.r-project.org/web/packages/devtools/index.html)
 installed and loaded, install this package directly from GitHub:
 
+    require(devtools)
     install_github("ngramr", "seancarmody")
     require(ngramr)
    
