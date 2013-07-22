@@ -10,8 +10,10 @@ This package extracts the data and provides it in the form of an R dataframe. Th
 [Culturomics](http://www.culturomics.org/Resources/get-ngrams).
 It was written by [Jean-Baptiste Michel](https://twitter.com/jb_michel).
 
+#### Installing
+
 If you have [`devtools`](http://cran.r-project.org/web/packages/devtools/index.html)
-installed and loaded, install this package directly from GitHub:
+installed, install this package directly from GitHub:
 
     require(devtools)
     install_github("ngramr", "seancarmody")
@@ -24,6 +26,8 @@ and if you are feeling a little more adventurous, you can install the developmen
 although it may not always work.
 
 If you are behind a proxy, `install_github` may not work for you. Instead of fiddling around with the `RCurl` proxy settings, you can download the [ZIP archive](https://github.com/seancarmody/ngramr/archive/master.zip) and use `install_local` instead.
+
+#### Examples
 
 Here is an example of how to use the `ngram` function:
 
@@ -54,5 +58,7 @@ The colors used by Google Ngram are available through the `google_theme` option,
           "(The United States are + The United States have) / The United States")
     ggram(ng, year_start = 1800, google_theme = TRUE) +
       theme(legend.direction = "vertical")
+
+#### Further Reading
 
 For more information, read [this Stubborn Mule post](http://www.stubbornmule.net/2013/07/ngramr/) and the [Google Ngram syntax](http://books.google.com/ngrams/info) documentation. If you would rather work with R and SQL on the raw Google Ngram datasets, [see this post](http://rpsychologist.com/how-to-work-with-google-ngram-data-sets-in-r-using-mysql/).
