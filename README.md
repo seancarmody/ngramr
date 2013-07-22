@@ -15,6 +15,12 @@ installed and loaded, install this package directly from GitHub:
 
     install_github("ngramr", "seancarmody")
     require(ngramr)
+   
+and if you are feeling a little more adventurous, you can install the development version:
+
+    install_github("ngramr", "seancarmody", "develop")
+
+although it may not always work.
 
 If you are behind a proxy, `install_github` may not work for you. Instead of fiddling around with the `RCurl` proxy settings, you can download the [ZIP archive](https://github.com/seancarmody/ngramr/archive/master.zip) and use `install_local` instead.
 
