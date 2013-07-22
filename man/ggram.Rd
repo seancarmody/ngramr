@@ -3,18 +3,13 @@
 \title{Plot n-gram frequencies}
 \usage{
   ggram(phrases, ignore_case = FALSE, geom = "line",
-    ignore.case = ignore_case, geom_options = list(),
-    google_theme = FALSE, ...)
+    geom_options = list(), google_theme = FALSE, ...)
 }
 \arguments{
   \item{phrases}{vector of phrases}
 
   \item{ignore_case}{if \code{TRUE} then the frequencies
   are case insensitive.  Default is \code{FALSE}.}
-
-  \item{ignore.case}{alternative syntax for
-  \code{ignore_case}. Only used if \code{ignore_case} is
-  not specified.}
 
   \item{google_theme}{use a Google Ngram-style plot theme.}
 
@@ -67,6 +62,6 @@ require(ggplot2)
 p <- c("(The United States is + The United States has) / The United States",
       "(The United States are + The United States have) / The United States")
 ggram(p, year_start = 1800, google_theme = TRUE) +
-  theme(legend.direction = "vertical", legend.position = "bottom")
+      theme(legend.direction="vertical")
 }
 

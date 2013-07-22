@@ -6,8 +6,6 @@
 #' @param phrases vector of phrases
 #' @param ignore_case if \code{TRUE} then the frequencies are case insensitive.
 #'   Default is \code{FALSE}.
-#' @param ignore.case alternative syntax for \code{ignore_case}. Only used if
-#'   \code{ignore_case} is not specified.
 #' @param google_theme use a Google Ngram-style plot theme.
 #' @param geom the ggplot2 geom used to plot the data; defaults to "line"
 #' @param geom_options list of additional parameters passed to the ggplot2 geom.
@@ -52,12 +50,11 @@
 
 #' @export
 
-ggram <- function(phrases, ignore_case=FALSE, geom="line", ignore.case=ignore_case,
+ggram <- function(phrases, ignore_case=FALSE, geom="line", 
                   geom_options=list(), google_theme = FALSE, ...) {
   # The require below was suggested briatte but it results in a WARNING
   # when running package checks. Is it really necessary?
   #require(scales, quietly=TRUE)
-  if (missing(ignore_case)) ignore_case <- ignore.case
   ng <- if(ignore_case) ngrami(phrases, ...) else ngram(phrases, ...)
   p <- ggplot(data = ng, 
              aes_string(x = "Year", y = "Frequency", colour = "Phrase", fill="Phrase"))
