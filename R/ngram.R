@@ -123,6 +123,12 @@ ngram_url <- function(phrases, query=character()){
 
 ngram_parse <- function(html){
   if (any(grepl("No valid ngrams to plot!<br>", html))) stop("No valid ngrams.") 
+  
+  # Warn about character substitution
+  lapply(grep("^Google has substituted ",
+              gsub("<.?b.?>","", sub("Replaced (.*) to match how we processed the books",
+                                              "Google has substituted \\1", html)),
+              value=TRUE), warning, call. = FALSE)
     
   cols <- lapply(strsplit(grep("addColumn", html, value=TRUE), ","), getElement, 2)
   
