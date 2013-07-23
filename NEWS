@@ -1,3 +1,10 @@
+ngramr 1.2.2
+------------
+
+* CRAN release version
+* More efficient handling of escaped Unicode (thanks Hadley http://stackoverflow.com/a/17787736/1543437)
+* Fix package checking problems associated with plyr
+
 ngramr 1.2.1
 ------------
 

@@ -15,7 +15,9 @@ ngrami <- function(phrases, aggregate=TRUE, ...){
     phrases <- sort(phrases)
     result$Phrase <- factor(tolower(result$Phrase))
     if (identical(levels(result$Phrase), tolower(phrases))) levels(result$Phrase) <- phrases 
-    result <- ddply(result, .(Year, Corpus, Phrase), summarise, Frequency = sum(Frequency))
+    result <- ddply(result, c("Year", "Corpus", "Phrase"), summarise, Frequency = sum(Frequency))
   }
   return(result)
 }
+
+if(getRversion() >= "2.15.1") utils::globalVariables(c("Frequency"))
