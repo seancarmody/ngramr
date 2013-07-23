@@ -12,6 +12,10 @@ It was written by [Jean-Baptiste Michel](https://twitter.com/jb_michel).
 
 #### Installing
 
+This package required R version 2.15 or higher. If you are using an older version of R
+you will be prompted to upgrade when you try to install the package, so you may as well
+upgrade now!
+
 If you have [`devtools`](http://cran.r-project.org/web/packages/devtools/index.html)
 installed, install this package directly from GitHub:
 
