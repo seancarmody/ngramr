@@ -31,6 +31,7 @@ If you are behind a proxy, `install_github` may not work for you. Instead of fid
 
 Here is an example of how to use the `ngram` function:
 
+    require(ggplot2)
     ng  <- ngram(c("hacker", "programmer"), year_start = 1950)
     ggplot(ng, aes(x=Year, y=Frequency, colour=Phrase)) +
       geom_line()
