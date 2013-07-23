@@ -127,7 +127,7 @@ ngram_parse <- function(html){
   cols <- lapply(strsplit(grep("addColumn", html, value=TRUE), ","), getElement, 2)
   
   cols <- gsub(".*'(.*)'.*", "\\1", cols)
-  cols <- sapply(cols, udecode)
+  cols <- as.character(parse(text=paste0("'", cols, "'")))
 
   html <- paste(html[-(1:grep("data.addRows\\(", html))], collapse='')
   html <- gsub("\\).*", "", html)
