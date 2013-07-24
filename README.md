@@ -16,7 +16,17 @@ This package required R version 2.15 or higher. If you are using an older versio
 you will be prompted to upgrade when you try to install the package, so you may as well
 upgrade now!
 
-The official release of ngramr is available on [CRAN](http://cran.r-project.org/web/packages/ngramr/index.html). At the time of writing, the binaries had not propagated to all of the mirrors, so if you have trouble installing ngramr in the usual way, you can try installing from here on GitHub, as described below. If you are using OSX, you should be able to install from source:
+The official release of ngramr is available on [CRAN](http://cran.r-project.org/web/packages/ngramr/index.html). To istall from CRAN, use the following command:
+
+    install.packages('ngramr')
+
+At the time of writing, the binaries had not propagated to all of the mirrors. If your mirror does not have the package, try a different mirror. For example:
+
+    install.packages('ngramr, repos="http://http://cran.csiro.au/"')
+
+For some reason, the OSX binary was built on R 3.0.0 and may
+give a warning if you install on 3.0.1. This shouldn't matter but
+can be avoided by installing from source:
 
     install.packages("ngramr", type="source")
 
