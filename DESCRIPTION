@@ -1,7 +1,6 @@
 Package: ngramr
 Type: Package
 Title: Retrieve and plot Google n-gram data
-Version: 1.2.2
 Version: 1.2.3
 Date: 2013-07-06
 Author: Sean Carmody
