@@ -16,8 +16,10 @@ This package required R version 2.15 or higher. If you are using an older versio
 you will be prompted to upgrade when you try to install the package, so you may as well
 upgrade now!
 
+The official release of ngramr is available on [CRAN](http://cran.r-project.org/web/packages/ngramr/index.html). At the time of writing, the binaries had not propagated to all of the mirrors, so if you have trouble installing ngramr in the usual way, you can try installing from here on GitHub, as described below.
+
 If you have [`devtools`](http://cran.r-project.org/web/packages/devtools/index.html)
-installed, install this package directly from GitHub:
+installed, install the latest stable version this package directly from GitHub:
 
     require(devtools)
     install_github("ngramr", "seancarmody")
