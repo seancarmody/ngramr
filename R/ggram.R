@@ -52,9 +52,6 @@
 
 ggram <- function(phrases, ignore_case=FALSE, geom="line", 
                   geom_options=list(), google_theme = FALSE, ...) {
-  # The require below was suggested briatte but it results in a WARNING
-  # when running package checks. Is it really necessary?
-  #require(scales, quietly=TRUE)
   ng <- if(ignore_case) ngrami(phrases, ...) else ngram(phrases, ...)
   p <- ggplot(data = ng, 
              aes_string(x = "Year", y = "Frequency", colour = "Phrase", fill="Phrase"))
