@@ -9,6 +9,7 @@
 #' @param google_theme use a Google Ngram-style plot theme.
 #' @param geom the ggplot2 geom used to plot the data; defaults to "line"
 #' @param geom_options list of additional parameters passed to the ggplot2 geom.
+#' @param lab y-axis label. Defaults to "Frequency".
 #' @param ... additional parameters passed to \code{ngram}
 #' @details 
 #'  Google generated two datasets drawn from digitised books in the Google
@@ -51,7 +52,8 @@
 #' @export
 
 ggram <- function(phrases, ignore_case=FALSE, geom="line", 
-                  geom_options=list(), google_theme = FALSE, ...) {
+                  geom_options=list(), lab=NA,
+                  google_theme=FALSE, ...) {
   ng <- if(ignore_case) ngrami(phrases, ...) else ngram(phrases, ...)
   p <- ggplot(data = ng, 
              aes_string(x = "Year", y = "Frequency", colour = "Phrase", fill="Phrase"))
@@ -72,6 +74,7 @@ ggram <- function(phrases, ignore_case=FALSE, geom="line",
       scale_fill_discrete("") +
       scale_y_continuous(labels = percent)
   }
+  if (!is.na(lab)) p <- p + labs(y=lab)
   return(p)
 }
 

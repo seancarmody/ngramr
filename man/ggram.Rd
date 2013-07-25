@@ -3,7 +3,8 @@
 \title{Plot n-gram frequencies}
 \usage{
   ggram(phrases, ignore_case = FALSE, geom = "line",
-    geom_options = list(), google_theme = FALSE, ...)
+    geom_options = list(), lab = NA, google_theme = FALSE,
+    ...)
 }
 \arguments{
   \item{phrases}{vector of phrases}
@@ -18,6 +19,8 @@
 
   \item{geom_options}{list of additional parameters passed
   to the ggplot2 geom.}
+
+  \item{lab}{y-axis label. Defaults to "Frequency".}
 
   \item{...}{additional parameters passed to \code{ngram}}
 }

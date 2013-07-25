@@ -1,11 +1,12 @@
 Package: ngramr
 Type: Package
 Title: Retrieve and plot Google n-gram data
-Version: 1.2.3
+Version: 1.2.4
 Date: 2013-07-06
 Author: Sean Carmody
 Maintainer: Sean Carmody <seancarmody@gmail.com>
-Description: Retrieve and plot word frequencies through time from the Google Ngram Viewer
+Description: Retrieve and plot word frequencies through time from the Google
+    Ngram Viewer
 Depends:
     R (>= 2.15)
 Imports:
