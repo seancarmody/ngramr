@@ -64,7 +64,8 @@
 #' @export
 
 ngram <- function(phrases, corpus='eng_2012', year_start = 1500,
-                  year_end = 2008, smoothing = 3, tag = NULL) {
+                  year_end = 2008, smoothing = 3, count=FALSE,
+                  tag = NULL) {
   stopifnot(is.character(phrases))
   if (length(phrases) > 12){
     phrases <- phrases[1:12]
@@ -77,6 +78,7 @@ ngram <- function(phrases, corpus='eng_2012', year_start = 1500,
                                                     tag=tag))
   result <- do.call("rbind", dfs)
   result$Corpus <- as.factor(result$Corpus)
+  if (count) result <- add_count(result)
   return(result)
 }
 

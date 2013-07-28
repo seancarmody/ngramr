@@ -27,3 +27,4 @@ Collate:
     'ggram.R'
     'ngramw.R'
     'themes.R'
+    'add_count.R'
