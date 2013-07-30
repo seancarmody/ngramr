@@ -3,7 +3,8 @@
 \title{Get n-gram frequencies}
 \usage{
   ngram(phrases, corpus = "eng_2012", year_start = 1500,
-    year_end = 2008, smoothing = 3, tag = NULL)
+    year_end = 2008, smoothing = 3, count = FALSE,
+    tag = NULL)
 }
 \arguments{
   \item{phrases}{vector of phrases, with a maximum of 12
