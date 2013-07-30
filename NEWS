@@ -2,6 +2,8 @@ ngramr 1.2.4
 ------------
 
 * Add option to relabel y-axis
+* Add word counts option to ngram
+* Change ggplot2 and scales from Requires to Suggests
 
 ngramr 1.2.3
 ------------
