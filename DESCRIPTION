@@ -16,6 +16,7 @@ Imports:
     rjson,
     stringr,
     reshape2,
+Suggests:
     ggplot2,
     scales
 License: GPL (>=2)
@@ -28,3 +29,4 @@ Collate:
     'ngramw.R'
     'themes.R'
     'add_count.R'
+    'utilities.R'

@@ -54,6 +54,7 @@
 ggram <- function(phrases, ignore_case=FALSE, geom="line", 
                   geom_options=list(), lab=NA,
                   google_theme=FALSE, ...) {
+  try_require(c("ggplot2", "scales"))
   ng <- if(ignore_case) ngrami(phrases, ...) else ngram(phrases, ...)
   p <- ggplot(data = ng, 
              aes_string(x = "Year", y = "Frequency", colour = "Phrase", fill="Phrase"))
