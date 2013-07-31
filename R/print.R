@@ -17,7 +17,9 @@ print.ngram <- function(ngram, rows = 6) {
   df <- as.data.frame(ngram)
   ng.cat <- capture.output(print(df, right=FALSE))
   ng.len <- length(ng.cat)
-  ng.cat <- c(ng.cat[1:(rows + 1)], c("---"), ng.cat[(ng.len - rows + 1):ng.len])
+  if (ng.len > 2 * rows) ng.cat <- c(ng.cat[1:(rows + 1)], 
+                                      c("---"), 
+                                      ng.cat[(ng.len - rows + 1):ng.len])
   cat(paste(ng.cat, collapse="\n"))
   invisible(ngram)
 }
