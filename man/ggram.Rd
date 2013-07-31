@@ -7,7 +7,9 @@
     ...)
 }
 \arguments{
-  \item{phrases}{vector of phrases}
+  \item{phrases}{vector of phrases. Alternatively, phrases
+  can be an ngram object returned by \code{\link{ngram}} or
+  \code{\link{ngrami}}.}
 
   \item{ignore_case}{if \code{TRUE} then the frequencies
   are case insensitive.  Default is \code{FALSE}.}

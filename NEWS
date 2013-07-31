@@ -1,3 +1,10 @@
+ngramr 1.3.0
+------------
+
+* ngram and ngrami return S3 class "ngram"
+* Format print for ngram objects
+* ggram can take either a list of phrases or an ngram object
+
 ngramr 1.2.4
 ------------
 
