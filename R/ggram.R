@@ -64,6 +64,7 @@ ggram <- function(phrases, ignore_case=FALSE, geom="line",
   if ((geom != "line") && attr(ng, "smoothing") > 0) {
     warning("ngram data is smoothed. Consider setting smoothing = 0.")
   }
+  ng <- within(ng, Year <- as.Date(paste(Year, 1, 1, sep="-")))
   p <- ggplot(data = ng, 
              aes_string(x = "Year", y = "Frequency", colour = "Phrase", fill="Phrase"))
   if (!(class(geom) == "character")) geom <- NULL
