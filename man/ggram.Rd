@@ -2,19 +2,22 @@
 \alias{ggram}
 \title{Plot n-gram frequencies}
 \usage{
-  ggram(phrases, ignore_case = FALSE, geom = "line",
-    geom_options = list(), lab = NA, google_theme = FALSE,
-    ...)
+  ggram(phrases, ignore_case = FALSE, corpus_code = FALSE,
+    geom = "line", geom_options = list(), lab = NA,
+    google_theme = FALSE, ...)
 }
 \arguments{
   \item{phrases}{vector of phrases. Alternatively, phrases
   can be an ngram object returned by \code{\link{ngram}} or
   \code{\link{ngrami}}.}
 
-  \item{ignore_case}{if \code{TRUE} then the frequencies
-  are case insensitive.  Default is \code{FALSE}.}
+  \item{ignore_case}{logical, indicating whether the
+  frequencies are case insensitive.  Default is
+  \code{FALSE}.}
 
-  \item{google_theme}{use a Google Ngram-style plot theme.}
+  \item{corpus_code}{logical, indicating whether to use
+  abbreviated corpus codes or longer form descriptions.
+  Default is \code{FALSE}.}
 
   \item{geom}{the ggplot2 geom used to plot the data;
   defaults to "line"}
@@ -23,6 +26,8 @@
   to the ggplot2 geom.}
 
   \item{lab}{y-axis label. Defaults to "Frequency".}
+
+  \item{google_theme}{use a Google Ngram-style plot theme.}
 
   \item{...}{additional parameters passed to \code{ngram}}
 }
@@ -68,5 +73,10 @@ p <- c("(The United States is + The United States has) / The United States",
       "(The United States are + The United States have) / The United States")
 ggram(p, year_start = 1800, google_theme = TRUE) +
       theme(legend.direction="vertical")
+
+# Pass ngram data rather than phrases
+require(ggplot2)
+ngram_sample
+ggram(ngram_sample) + facet_wrap(~ Corpus)
 }
 

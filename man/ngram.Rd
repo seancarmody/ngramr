@@ -17,10 +17,14 @@
 
   \item{year_end}{end year, default is 2008}
 
+  \item{smoothing}{smoothing paramater, default is 3}
+
+  \item{count}{logical, denoting whether phrase counts
+  should be returned as well as frequencies. Default is
+  \code{FALSE}.}
+
   \item{tag}{apply a part-of-speech tag to the whole vector
   of phrases}
-
-  \item{smoothing}{smoothing paramater, default is 3}
 }
 \description{
   \code{ngram} downloads data from the Google Ngram Viewer

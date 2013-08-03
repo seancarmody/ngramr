@@ -1,8 +1,5 @@
-#' Try loading required packages and, if unsuccessful, exit gracefully
-#' 
-#' Thanks to Hadley for this: https://github.com/seancarmody/ggplot2
-
 try_require <- function(package) {
+# Thanks to Hadley for this: https://github.com/seancarmody/ggplot2
   available <- suppressMessages(suppressWarnings(sapply(package, require, quietly = TRUE, character.only = TRUE, warn.conflicts=FALSE)))
   missing <- package[!available]
   

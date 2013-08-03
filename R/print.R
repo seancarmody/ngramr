@@ -1,14 +1,16 @@
 #' Print n-gram contents
 #' 
-#' @param ngram ngram object as returned by \code{link{ngram}}
+#' @param x ngram object as returned by \code{link{ngram}}
 #' @param rows number of rows to print from top and bottom of ngram data set. Default is 6.
+#' @param ... additional parameters passed to default print method.
 #' @export
+#' @method print ngram
 #' @examples
 #' x <- ngram(c("hacker", "programmer"), year_start = 1950)
 #' x
 #' print(x, rows = 3)
 
-print.ngram <- function(ngram, rows = 6) {
+print.ngram <- function(x, rows = 6, ...) {
   cat(paste("Phrases:", paste(levels(ngram$Phrase), collapse=", "), "\n"))
   cat(paste("Corpuses:", paste(levels(ngram$Corpus), collapse=", "), "\n"))
   cat(paste("Smoothing:", attributes(ngram)$smoothing), "\n")

@@ -16,7 +16,6 @@ Imports:
     rjson,
     stringr,
     reshape2,
-Suggests:
     ggplot2,
     scales
 License: GPL (>=2)

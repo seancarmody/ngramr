@@ -7,8 +7,10 @@
 #' @param corpus Google corpus to search (see Details for possible values)
 #' @param year_start start year, default is 1500
 #' @param year_end end year, default is 2008
-#' @param tag apply a part-of-speech tag to the whole vector of phrases
 #' @param smoothing smoothing paramater, default is 3
+#' @param count logical, denoting whether phrase counts should be returned as
+#'   well as frequencies. Default is \code{FALSE}.
+#' @param tag apply a part-of-speech tag to the whole vector of phrases
 #' @details 
 #'  Google generated two datasets drawn from digitised books in the Google
 #'  Books collection. One was generated in July 2009, the second in July 2012.

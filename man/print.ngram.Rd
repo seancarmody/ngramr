@@ -2,14 +2,16 @@
 \alias{print.ngram}
 \title{Print n-gram contents}
 \usage{
-  print.ngram(ngram, rows = 6)
+  \method{print}{ngram} (x, rows = 6, ...)
 }
 \arguments{
-  \item{ngram}{ngram object as returned by
-  \code{link{ngram}}}
+  \item{x}{ngram object as returned by \code{link{ngram}}}
 
   \item{rows}{number of rows to print from top and bottom
   of ngram data set. Default is 6.}
+
+  \item{...}{additional parameters passed to default print
+  method.}
 }
 \description{
   Print n-gram contents

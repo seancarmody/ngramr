@@ -5,12 +5,14 @@
 #'
 #' @param phrases vector of phrases. Alternatively, phrases can be an ngram
 #'   object returned by \code{\link{ngram}} or \code{\link{ngrami}}.
-#' @param ignore_case if \code{TRUE} then the frequencies are case insensitive.
+#' @param ignore_case logical, indicating whether the frequencies are case insensitive.
 #'   Default is \code{FALSE}.
-#' @param google_theme use a Google Ngram-style plot theme.
+#' @param corpus_code logical, indicating whether to use abbreviated corpus codes
+#'   or longer form descriptions. Default is \code{FALSE}.
 #' @param geom the ggplot2 geom used to plot the data; defaults to "line"
 #' @param geom_options list of additional parameters passed to the ggplot2 geom.
 #' @param lab y-axis label. Defaults to "Frequency".
+#' @param google_theme use a Google Ngram-style plot theme.
 #' @param ... additional parameters passed to \code{ngram}
 #' @details 
 #'  Google generated two datasets drawn from digitised books in the Google
@@ -49,12 +51,16 @@
 #'       "(The United States are + The United States have) / The United States")
 #' ggram(p, year_start = 1800, google_theme = TRUE) +
 #'       theme(legend.direction="vertical")
+#'       
+#' # Pass ngram data rather than phrases
+#' require(ggplot2)
+#' ngram_sample
+#' ggram(ngram_sample) + facet_wrap(~ Corpus)
 
 #' @export
 
-ggram <- function(phrases, ignore_case=FALSE, geom="line", 
-                  geom_options=list(), lab=NA,
-                  google_theme=FALSE, ...) {
+ggram <- function(phrases, ignore_case = FALSE, corpus_code = FALSE, geom = "line",
+                  geom_options = list(), lab = NA, google_theme = FALSE, ...) {
   try_require(c("ggplot2", "scales"))
   if ("ngram" %in% class(phrases)) {
     ng <- phrases
@@ -65,6 +71,8 @@ ggram <- function(phrases, ignore_case=FALSE, geom="line",
     warning("ngram data is smoothed. Consider setting smoothing = 0.")
   }
   ng <- within(ng, Year <- as.Date(paste(Year, 1, 1, sep="-")))
+  if (!corpus_code) ng <- within(ng,
+                                 levels(Corpus) <- ngramr:::corpuses[levels(Corpus), 1])
   p <- ggplot(data = ng, 
              aes_string(x = "Year", y = "Frequency", colour = "Phrase", fill="Phrase"))
   if (!(class(geom) == "character")) geom <- NULL
