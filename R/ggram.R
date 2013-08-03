@@ -61,6 +61,9 @@ ggram <- function(phrases, ignore_case=FALSE, geom="line",
   } else {
     ng <- if(ignore_case) ngrami(phrases, ...) else ngram(phrases, ...)
   }
+  if ((geom != "line") && attr(ng, "smoothing") > 0) {
+    warning("ngram data is smoothed. Consider setting smoothing = 0.")
+  }
   p <- ggplot(data = ng, 
              aes_string(x = "Year", y = "Frequency", colour = "Phrase", fill="Phrase"))
   if (!(class(geom) == "character")) geom <- NULL

@@ -80,7 +80,7 @@ ngram <- function(phrases, corpus='eng_2012', year_start = 1500,
   result$Corpus <- as.factor(result$Corpus)
   if (count) result <- add_count(result)
   class(result) <- c("ngram", class(result))
-  attributes(result)$smoothing <- smoothing
+  attr(result, "smoothing") <- smoothing
   return(result)
 }
 
