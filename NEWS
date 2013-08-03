@@ -1,13 +1,9 @@
-ngramr 1.3.1
+ngramr 1.3.0
 ------------
 
 * Add option to display long-form corpus name
 * Warn about smoothing >0 for geoms other than "line"
 * Tidy documentation for print.ngram
-
-ngramr 1.3.0
-------------
-
 * ngram and ngrami return S3 class "ngram"
 * Format print for ngram objects
 * ggram can take either a list of phrases or an ngram object
