@@ -7,7 +7,7 @@
 #'   object returned by \code{\link{ngram}} or \code{\link{ngrami}}.
 #' @param ignore_case logical, indicating whether the frequencies are case insensitive.
 #'   Default is \code{FALSE}.
-#' @param corpus_code logical, indicating whether to use abbreviated corpus codes
+#' @param codeo_corpus logical, indicating whether to use abbreviated corpus codes
 #'   or longer form descriptions. Default is \code{FALSE}.
 #' @param geom the ggplot2 geom used to plot the data; defaults to "line"
 #' @param geom_options list of additional parameters passed to the ggplot2 geom.
@@ -59,7 +59,7 @@
 
 #' @export
 
-ggram <- function(phrases, ignore_case = FALSE, corpus_code = FALSE, geom = "line",
+ggram <- function(phrases, ignore_case = FALSE, code_corpus = FALSE, geom = "line",
                   geom_options = list(), lab = NA, google_theme = FALSE, ...) {
   try_require(c("ggplot2", "scales"))
   if ("ngram" %in% class(phrases)) {
@@ -71,7 +71,7 @@ ggram <- function(phrases, ignore_case = FALSE, corpus_code = FALSE, geom = "lin
     warning("ngram data is smoothed. Consider setting smoothing = 0.")
   }
   ng <- within(ng, Year <- as.Date(paste(Year, 1, 1, sep="-")))
-  if (!corpus_code) ng <- within(ng,
+  if (!code_corpus) ng <- within(ng,
                                  levels(Corpus) <- ngramr:::corpuses[levels(Corpus), 1])
   p <- ggplot(data = ng, 
              aes_string(x = "Year", y = "Frequency", colour = "Phrase", fill="Phrase"))

@@ -2,7 +2,7 @@
 \alias{ggram}
 \title{Plot n-gram frequencies}
 \usage{
-  ggram(phrases, ignore_case = FALSE, corpus_code = FALSE,
+  ggram(phrases, ignore_case = FALSE, code_corpus = FALSE,
     geom = "line", geom_options = list(), lab = NA,
     google_theme = FALSE, ...)
 }
