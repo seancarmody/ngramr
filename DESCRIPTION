@@ -30,3 +30,4 @@ Collate:
     'add_count.R'
     'utilities.R'
     'print.R'
+    'data.R'

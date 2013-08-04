@@ -53,9 +53,8 @@
 #'       theme(legend.direction="vertical")
 #'       
 #' # Pass ngram data rather than phrases
-#' require(ggplot2)
-#' ngram_sample
-#' ggram(ngram_sample) + facet_wrap(~ Corpus)
+#' hacker
+#' ggram(hacker) + facet_wrap(~ Corpus)
 
 #' @export
 

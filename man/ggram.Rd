@@ -15,7 +15,7 @@
   frequencies are case insensitive.  Default is
   \code{FALSE}.}
 
-  \item{corpus_code}{logical, indicating whether to use
+  \item{code_corpus}{logical, indicating whether to use
   abbreviated corpus codes or longer form descriptions.
   Default is \code{FALSE}.}
 
@@ -75,8 +75,7 @@ ggram(p, year_start = 1800, google_theme = TRUE) +
       theme(legend.direction="vertical")
 
 # Pass ngram data rather than phrases
-require(ggplot2)
-ngram_sample
-ggram(ngram_sample) + facet_wrap(~ Corpus)
+hacker
+ggram(hacker) + facet_wrap(~ Corpus)
 }
 
