@@ -20,13 +20,8 @@ The official release of ngramr is available on [CRAN](http://cran.r-project.org/
 
     install.packages('ngramr')
 
-At the time of writing, the binaries had not propagated to all of the mirrors. If your mirror does not have the package, try a different mirror. For example:
-
-    install.packages('ngramr, repos="http://http://cran.csiro.au/"')
-
-For some reason, the OSX binary was built on R 3.0.0 and may
-give a warning if you install on 3.0.1. This shouldn't matter but
-can be avoided by installing from source:
+If you have any problems installing the package on OSX, try installing from
+source:
 
     install.packages("ngramr", type="source")
 
