@@ -1,4 +1,6 @@
+S3method(print,ngram)
 export(ggram)
+export(hacker)
 export(ngram)
 export(ngrami)
 export(ngramw)

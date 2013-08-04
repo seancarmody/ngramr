@@ -8,6 +8,7 @@
 
 ngramw <- function(phrases, ignore_case=FALSE, ...) {
   ng <- if (ignore_case) ngrami(phrases, ...) else ngram(phrases, ...) 
+  class(ng) <- "data.frame"
   ng <- dcast(ng, Year + Corpus ~ Phrase, value.var="Frequency")
   return(ng)
 }

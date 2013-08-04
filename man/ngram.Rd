@@ -3,7 +3,8 @@
 \title{Get n-gram frequencies}
 \usage{
   ngram(phrases, corpus = "eng_2012", year_start = 1500,
-    year_end = 2008, smoothing = 3, tag = NULL)
+    year_end = 2008, smoothing = 3, count = FALSE,
+    tag = NULL)
 }
 \arguments{
   \item{phrases}{vector of phrases, with a maximum of 12
@@ -16,10 +17,14 @@
 
   \item{year_end}{end year, default is 2008}
 
+  \item{smoothing}{smoothing paramater, default is 3}
+
+  \item{count}{logical, denoting whether phrase counts
+  should be returned as well as frequencies. Default is
+  \code{FALSE}.}
+
   \item{tag}{apply a part-of-speech tag to the whole vector
   of phrases}
-
-  \item{smoothing}{smoothing paramater, default is 3}
 }
 \description{
   \code{ngram} downloads data from the Google Ngram Viewer
