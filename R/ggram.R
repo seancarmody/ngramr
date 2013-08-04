@@ -7,7 +7,7 @@
 #'   object returned by \code{\link{ngram}} or \code{\link{ngrami}}.
 #' @param ignore_case logical, indicating whether the frequencies are case insensitive.
 #'   Default is \code{FALSE}.
-#' @param codeo_corpus logical, indicating whether to use abbreviated corpus codes
+#' @param code_corpus logical, indicating whether to use abbreviated corpus codes
 #'   or longer form descriptions. Default is \code{FALSE}.
 #' @param geom the ggplot2 geom used to plot the data; defaults to "line"
 #' @param geom_options list of additional parameters passed to the ggplot2 geom.
@@ -67,7 +67,7 @@ ggram <- function(phrases, ignore_case = FALSE, code_corpus = FALSE, geom = "lin
   } else {
     ng <- if(ignore_case) ngrami(phrases, ...) else ngram(phrases, ...)
   }
-  if ((geom != "line") && attr(ng, "smoothing") > 0) {
+  if (is.character(geom) && (geom != "line") && attr(ng, "smoothing") > 0) {
     warning("ngram data is smoothed. Consider setting smoothing = 0.")
   }
   ng <- within(ng, Year <- as.Date(paste(Year, 1, 1, sep="-")))
@@ -84,7 +84,7 @@ ggram <- function(phrases, ignore_case = FALSE, code_corpus = FALSE, geom = "lin
       scale_colour_google() +
       scale_fill_google() +
       theme_google() + labs(y = NULL) +
-      scale_x_continuous(expand=c(0,0)) +
+      scale_x_date(expand=c(0,0)) +
       scale_y_continuous(expand=c(0,0), labels = percent)
   } else {
     p <- p +
