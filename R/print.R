@@ -13,6 +13,7 @@
 print.ngram <- function(x, rows = 6, ...) {
   cat(paste("Phrases:", paste(levels(x$Phrase), collapse=", "), "\n"))
   cat(paste("Corpuses:", paste(levels(x$Corpus), collapse=", "), "\n"))
+  cat(paste("Case-sentitive:", attributes(x)$case_sensitive), "\n")
   cat(paste("Smoothing:", attributes(x)$smoothing), "\n")
   cat("\n")
   

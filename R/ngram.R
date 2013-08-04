@@ -83,6 +83,7 @@ ngram <- function(phrases, corpus='eng_2012', year_start = 1500,
   if (count) result <- add_count(result)
   class(result) <- c("ngram", class(result))
   attr(result, "smoothing") <- smoothing
+  attr(result, "case_sensitive") <- TRUE
   return(result)
 }
 

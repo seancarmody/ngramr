@@ -66,7 +66,7 @@ ggram <- function(phrases, ignore_case = FALSE, code_corpus = FALSE, geom = "lin
   } else {
     ng <- if(ignore_case) ngrami(phrases, ...) else ngram(phrases, ...)
   }
-  if (is.character(geom) && (geom != "line") && attr(ng, "smoothing") > 0) {
+  if (is.character(geom) && !(geom %in% c("area", "line")) && attr(ng, "smoothing") > 0) {
     warning("ngram data is smoothed. Consider setting smoothing = 0.")
   }
   ng <- within(ng, Year <- as.Date(paste(Year, 1, 1, sep="-")))
