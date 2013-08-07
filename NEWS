@@ -1,3 +1,8 @@
+ngramr 1.3.1
+------------
+
+* Fix count for n-grams with n>1
+
 ngramr 1.3.0
 ------------
 
