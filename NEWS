@@ -1,7 +1,7 @@
 ngramr 1.3.1
 ------------
 
-* Fix count for n-grams with n>1
+* Fix count for n-grams with n>1, including a "fudge" for 2012 corpuses
 
 ngramr 1.3.0
 ------------
