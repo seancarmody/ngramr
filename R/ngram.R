@@ -80,10 +80,10 @@ ngram <- function(phrases, corpus='eng_2012', year_start = 1500,
                                                     tag=tag))
   result <- do.call("rbind", dfs)
   result$Corpus <- as.factor(result$Corpus)
-  if (count) result <- add_count(result)
   class(result) <- c("ngram", class(result))
   attr(result, "smoothing") <- smoothing
   attr(result, "case_sensitive") <- TRUE
+  if (count) result <- add_count(result)
   return(result)
 }
 
