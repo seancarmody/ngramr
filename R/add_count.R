@@ -1,4 +1,6 @@
 add_count <- function(ng) {
+  if (attr(ng, "smoothing") > 0) warning("Counts are only hypothetical when data is smoothed.",
+                                         call. = FALSE)
   ng_attrib <- attributes(ng)[c("case_sensitive", "smoothing")]
   ng$Phrase.n <- unlist(lapply(str_split(as.character(ng$Phrase), " "), length))
   ng <- merge(ng, corpus_totals[,1:4])
