@@ -6,7 +6,7 @@ add_count <- function(ng) {
   ng <- merge(ng, corpus_totals[,1:4])
   ng$Count <- ng$Frequency * (ng$N.1grams - ng$Pages * (ng$Phrase.n - 1))
   # Counts for 2012 corpuses appear overstated by 10%
-  find_2012 <- substr(y, nchar(as.character(ng$Corpus)) - 3, 1000000L) == "2012"
+  find_2012 <- substr(ng$Corpus, nchar(as.character(ng$Corpus)) - 3, 1000000L) == "2012"
   ng$Count[find_2012] <- ng$Count[find_2012]/1.1
   ng$Count <- round(ng$Count, 0)
   ng$N.1grams <- NULL
