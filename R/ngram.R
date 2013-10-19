@@ -111,20 +111,26 @@ ngram_fetch <- function(phrases, corpus, year_start,  year_end, smoothing) {
   phrases <- phrases[phrases != ""]
   if (length(phrases)==0) stop("No valid phrases provided.")
   ng_url <- ngram_url(phrases, query)
-  conn <- url(ng_url)
-  html <- readLines(conn)
-  close(conn)
+#   conn <- url(ng_url)
+#   html <- readLines(conn)
+  html <- getURL(ng_url)
+  return(html)
+#   close(conn)
   result <- ngram_parse(html)
   result <- reshape2::melt(result, id.vars="Year", variable.name="Phrase", value.name="Frequency")
   return(result)
 }
 
 ngram_url <- function(phrases, query=character()){
-  url <- 'http://books.google.com/ngrams/graph'
-  phrases <- paste(curlEscape(str_trim(phrases)), collapse='%2C')
+  url <- 'https://books.google.com/ngrams/interactive_chart'
+  n <- length(phrases)
+  direct_url <- paste(rep("t1", n), phrases, rep("c0", n), sep=";,", collapse=";.")
+  direct_url <- gsub(",", "%2c", URLencode(direct_url, reserved=TRUE), fixed=TRUE)
+  phrases <- paste(curlEscape(str_trim(phrases)), collapse='%2c')
   if (phrases=="") stop("No valid phrases provided.")
   url <- paste0(url, "?content=", phrases) 
   if (length(query) > 0) url <- modify_url(url, query=query)
+  url <- paste0(url, "&direct_url=", direct_url) 
   return(url)
 }
 

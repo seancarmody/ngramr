@@ -71,7 +71,7 @@ ggram <- function(phrases, ignore_case = FALSE, code_corpus = FALSE, geom = "lin
   }
   ng <- within(ng, Year <- as.Date(paste(Year, 1, 1, sep="-")))
   if (!code_corpus) ng <- within(ng,
-                                 levels(Corpus) <- ngramr:::corpuses[levels(Corpus), 1])
+                                 levels(Corpus) <- ngramr::corpuses[levels(Corpus), 1])
   p <- ggplot(data = ng, 
              aes_string(x = "Year", y = "Frequency", colour = "Phrase", fill="Phrase"))
   if (!(class(geom) == "character")) geom <- NULL
