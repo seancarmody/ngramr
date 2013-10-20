@@ -1,3 +1,8 @@
+ngramr 1.4.1
+------------
+
+* Improve ssl handling (refer Hadley's comment here: http://www.statsravingmad.com/blog/statistics/a-tiny-rcurl-headache/)
+
 ngramr 1.4.0
 ------------
 

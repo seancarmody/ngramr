@@ -111,7 +111,8 @@ ngram_fetch <- function(phrases, corpus, year_start,  year_end, smoothing) {
   phrases <- phrases[phrases != ""]
   if (length(phrases)==0) stop("No valid phrases provided.")
   ng_url <- ngram_url(phrases, query)
-  html <- strsplit(getURL(ng_url), "\n", perl=TRUE)[[1]]
+  cert <- system.file("CurlSSL/cacert.pem", package = "RCurl")
+  html <- strsplit(getURL(ng_url, cainfo = cert), "\n", perl=TRUE)[[1]]
   result <- ngram_parse(html)
   result <- reshape2::melt(result, id.vars="Year", variable.name="Phrase", value.name="Frequency")
   return(result)
