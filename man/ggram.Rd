@@ -69,8 +69,8 @@ ggram(c("cancer", "smoking", "tobacco"),
 # Setting the legend placement on a long query and using the Google theme.
 # Example taken from a post by Ben Zimmer at Language Log.
 require(ggplot2)
-p <- c("(The United States is + The United States has) / The United States",
-      "(The United States are + The United States have) / The United States")
+p <- c("((The United States is + The United States has) / The United States)",
+      "((The United States are + The United States have) / The United States)")
 ggram(p, year_start = 1800, google_theme = TRUE) +
       theme(legend.direction="vertical")
 

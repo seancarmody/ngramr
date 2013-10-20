@@ -1,0 +1,11 @@
+\docType{data}
+\name{corpuses}
+\alias{corpuses}
+\title{Google n-gram corpus information}
+\format{a 22 x 4 ngram data frame}
+\description{
+  Details of the various corpuses available through the
+  Google n-gram took
+}
+\keyword{datasets}
+

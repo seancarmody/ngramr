@@ -1,4 +1,5 @@
 S3method(print,ngram)
+export(corpuses)
 export(ggram)
 export(hacker)
 export(ngram)

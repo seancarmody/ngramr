@@ -47,8 +47,8 @@
 #' # Setting the legend placement on a long query and using the Google theme.
 #' # Example taken from a post by Ben Zimmer at Language Log.
 #' require(ggplot2)
-#' p <- c("(The United States is + The United States has) / The United States",
-#'       "(The United States are + The United States have) / The United States")
+#' p <- c("((The United States is + The United States has) / The United States)",
+#'       "((The United States are + The United States have) / The United States)")
 #' ggram(p, year_start = 1800, google_theme = TRUE) +
 #'       theme(legend.direction="vertical")
 #'       
@@ -71,7 +71,7 @@ ggram <- function(phrases, ignore_case = FALSE, code_corpus = FALSE, geom = "lin
   }
   ng <- within(ng, Year <- as.Date(paste(Year, 1, 1, sep="-")))
   if (!code_corpus) ng <- within(ng,
-                                 levels(Corpus) <- ngramr::corpuses[levels(Corpus), 1])
+                                 levels(Corpus) <- corpuses[levels(Corpus), 1])
   p <- ggplot(data = ng, 
              aes_string(x = "Year", y = "Frequency", colour = "Phrase", fill="Phrase"))
   if (!(class(geom) == "character")) geom <- NULL
