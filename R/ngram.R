@@ -111,11 +111,7 @@ ngram_fetch <- function(phrases, corpus, year_start,  year_end, smoothing) {
   phrases <- phrases[phrases != ""]
   if (length(phrases)==0) stop("No valid phrases provided.")
   ng_url <- ngram_url(phrases, query)
-#   conn <- url(ng_url)
-#   html <- readLines(conn)
-  html <- getURL(ng_url)
-  return(html)
-#   close(conn)
+  html <- strsplit(getURL(ng_url), "\n", perl=TRUE)[[1]]
   result <- ngram_parse(html)
   result <- reshape2::melt(result, id.vars="Year", variable.name="Phrase", value.name="Frequency")
   return(result)
@@ -141,18 +137,14 @@ ngram_parse <- function(html){
   lapply(grep("^Google has substituted ",
               gsub("<.?b.?>","", sub("Replaced (.*) to match how we processed the books",
                                               "Google has substituted \\1", html)),
-              value=TRUE), warning, call. = FALSE)
-    
-  cols <- lapply(strsplit(grep("addColumn", html, value=TRUE), ","), getElement, 2)
-  
-  cols <- gsub(".*'(.*)'.*", "\\1", cols)
-  cols <- as.character(parse(text=paste0("'", cols, "'")))
-
-  html <- paste(html[-(1:grep("data.addRows\\(", html))], collapse='')
-  html <- gsub("\\).*", "", html)
-  
-  data <- as.data.frame(t(sapply(fromJSON(html), unlist)))
-  colnames(data) <- cols
+              value=TRUE), warning, call. = FALSE)  
+  data_line <- grep("var data", html)
+  ngram_data <- fromJSON(sub(".*=", "", html[data_line]))
+  years <- as.integer(strsplit(html[data_line + 1], ",")[[1]][2:3])
+  cols <- unlist(lapply(ngram_data, function(x) x$ngram))
+  data <- as.data.frame(lapply(ngram_data, function(x) x$timeseries))
+  data <- cbind(seq.int(years[1], years[2]), data)
+  colnames(data) <- c("Year", cols)
   return(data)
 }
 
