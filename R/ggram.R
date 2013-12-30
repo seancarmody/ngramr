@@ -40,7 +40,7 @@
 #'  
 #' # Setting the layers manually.
 #' ggram(c("cancer", "smoking", "tobacco"),
-#'       year_start = 1900, 
+#'       year_start = 1900, smoothing = 0,
 #'       corpus = "eng_fiction_2012", 
 #'       geom = NULL) +
 #'   stat_smooth(method="loess", se=FALSE, span = 0.3)
