@@ -41,6 +41,7 @@ the Google books collection. One was generated in July
 datasets as book scanning continues.
 }
 \examples{
+\dontrun{
 ggram(c("hacker", "programmer"), year_start = 1950)
 
 # Changing the geom.
@@ -76,5 +77,6 @@ ggram(p, year_start = 1800, google_theme = TRUE) +
 # Pass ngram data rather than phrases
 hacker
 ggram(hacker) + facet_wrap(~ Corpus)
+}
 }
 

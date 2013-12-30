@@ -20,6 +20,7 @@
 #'  Google will update these datasets as book scanning continues.
 #'  
 #' @examples 
+#' \dontrun{
 #' ggram(c("hacker", "programmer"), year_start = 1950)
 #' 
 #' # Changing the geom.
@@ -55,7 +56,7 @@
 #' # Pass ngram data rather than phrases
 #' hacker
 #' ggram(hacker) + facet_wrap(~ Corpus)
-
+#' }
 #' @export
 
 ggram <- function(phrases, ignore_case = FALSE, code_corpus = FALSE, geom = "line",
