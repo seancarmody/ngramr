@@ -43,6 +43,7 @@ datasets as book scanning continues.
 \examples{
 ggram(c("hacker", "programmer"), year_start = 1950)
 
+\dontrun{
 # Changing the geom.
 ggram(c("cancer", "fumer", "cigarette"),
       year_start = 1900,
@@ -76,5 +77,6 @@ ggram(p, year_start = 1800, google_theme = TRUE) +
 # Pass ngram data rather than phrases
 hacker
 ggram(hacker) + facet_wrap(~ Corpus)
+}
 }
 

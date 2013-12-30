@@ -22,6 +22,7 @@
 #' @examples 
 #' ggram(c("hacker", "programmer"), year_start = 1950)
 #' 
+#' \dontrun{
 #' # Changing the geom.
 #' ggram(c("cancer", "fumer", "cigarette"),
 #'       year_start = 1900,
@@ -55,6 +56,7 @@
 #' # Pass ngram data rather than phrases
 #' hacker
 #' ggram(hacker) + facet_wrap(~ Corpus)
+#' }
 #' @export
 
 ggram <- function(phrases, ignore_case = FALSE, code_corpus = FALSE, geom = "line",
