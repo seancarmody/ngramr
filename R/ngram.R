@@ -121,6 +121,12 @@ ngram_fetch <- function(phrases, corpus, year_start,  year_end, smoothing) {
 ngram_url <- function(phrases, query=character()){
   url <- 'https://books.google.com/ngrams/interactive_chart'
   n <- length(phrases)
+  for (i in 1:n){
+    p <- phrases[i]
+    if (!(Encoding(p) %in% c("unknown", "UTF-8"))){
+      phrases[i] <- iconv(p, Encoding(p), "UTF-8")
+    }   
+  }
   direct_url <- paste(rep("t1", n), phrases, rep("c0", n), sep=";,", collapse=";.")
   direct_url <- gsub(",", "%2c", URLencode(direct_url, reserved=TRUE), fixed=TRUE)
   direct_url <- gsub("%28", "(", direct_url)
@@ -150,6 +156,7 @@ ngram_parse <- function(html){
   years <- as.integer(strsplit(html[data_line + 1], ",")[[1]][2:3])
   cols <- unlist(lapply(ngram_data, function(x) x$ngram))
   data <- as.data.frame(lapply(ngram_data, function(x) x$timeseries))
+  browser()
   data <- cbind(seq.int(years[1], years[2]), data)
   colnames(data) <- c("Year", cols)
   return(data)
