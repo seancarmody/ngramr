@@ -3,9 +3,12 @@
 \alias{corpuses}
 \title{Google n-gram corpus information}
 \format{a 22 x 4 ngram data frame}
+\usage{
+corpuses
+}
 \description{
-  Details of the various corpuses available through the
-  Google n-gram took
+Details of the various corpuses available through the
+Google n-gram took
 }
 \keyword{datasets}
 

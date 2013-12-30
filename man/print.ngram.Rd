@@ -2,7 +2,7 @@
 \alias{print.ngram}
 \title{Print n-gram contents}
 \usage{
-  \method{print}{ngram} (x, rows = 6, ...)
+\method{print}{ngram}(x, rows = 6, ...)
 }
 \arguments{
   \item{x}{ngram object as returned by \code{link{ngram}}}
@@ -14,7 +14,7 @@
   method.}
 }
 \description{
-  Print n-gram contents
+Print n-gram contents
 }
 \examples{
 x <- ngram(c("hacker", "programmer"), year_start = 1950)

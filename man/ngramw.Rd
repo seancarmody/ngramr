@@ -2,7 +2,7 @@
 \alias{ngramw}
 \title{Get n-gram frequencies ("wide" format)}
 \usage{
-  ngramw(phrases, ignore_case = FALSE, ...)
+ngramw(phrases, ignore_case = FALSE, ...)
 }
 \arguments{
   \item{phrases}{vector of phrases}
@@ -14,6 +14,6 @@
   \item{...}{remaining parameters passed to \code{ngram}}
 }
 \description{
-  Get n-gram frequencies ("wide" format)
+Get n-gram frequencies ("wide" format)
 }
 
