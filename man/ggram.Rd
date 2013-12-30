@@ -55,7 +55,7 @@ require(ggplot2)
 ggram(c("cancer", "smoking", "tobacco"),
       year_start = 1900,
       corpus = "eng_fiction_2012",
-      geom = "point",
+      geom = "point", smoothing = 0,
       geom_options = list(alpha = .5)) +
   stat_smooth(method="loess", se = FALSE)
 
