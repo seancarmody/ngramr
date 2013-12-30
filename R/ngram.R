@@ -156,7 +156,6 @@ ngram_parse <- function(html){
   years <- as.integer(strsplit(html[data_line + 1], ",")[[1]][2:3])
   cols <- unlist(lapply(ngram_data, function(x) x$ngram))
   data <- as.data.frame(lapply(ngram_data, function(x) x$timeseries))
-  browser()
   data <- cbind(seq.int(years[1], years[2]), data)
   colnames(data) <- c("Year", cols)
   return(data)
