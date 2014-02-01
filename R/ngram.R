@@ -11,6 +11,8 @@
 #' @param count logical, denoting whether phrase counts should be returned as
 #'   well as frequencies. Default is \code{FALSE}.
 #' @param tag apply a part-of-speech tag to the whole vector of phrases
+#' @param case_ins Logical indicating whether to force a case insenstive search. 
+#'   Default is \code{FALSE}.
 #' @details 
 #'  Google generated two datasets drawn from digitised books in the Google
 #'  Books collection. One was generated in July 2009, the second in July 2012.
@@ -100,32 +102,39 @@ ngram_single <- function(phrases, corpus, tag, case_ins, ...){
     warning("Invalid corpus name. Defaulting to 'eng_2012'", call.=FALSE)
     corpus <- "eng_2012"
   }
-  df <- ngram_fetch(phrases, corpus_n, case_ins,...)
-  df$Corpus <- corpus
-  return(df)
+  result <- data.frame()
+  for (phrase in phrases) {
+    df <- ngram_fetch(phrase, corpus_n, case_ins,...)
+    if (NROW(df) > 0) {
+      df$Corpus <- corpus
+      result <- rbind(result, df)
+    }
+  }
+  return(result)
 }
 
-ngram_fetch <- function(phrases, corpus, case_ins, year_start,  year_end, smoothing) {
+ngram_fetch <- function(phrases, corpus, year_start,  year_end, smoothing, case_ins=FALSE) {
   query <- as.list(environment())
-  if(case_ins) query["case_insensitive"] <- "on"
+  if (case_ins) query["case_insensitive"] <- "on"
   query$phrases <- NULL
+  query$case_ins <- NULL
   phrases <- phrases[phrases != ""]
   if (length(phrases)==0) stop("No valid phrases provided.")
   ng_url <- ngram_url(phrases, query)
-  print(ng_url)
+#   print(ng_url)
   cert <- system.file("CurlSSL/cacert.pem", package = "RCurl")
   html <- strsplit(getURL(ng_url, cainfo = cert), "\n", perl=TRUE)[[1]]
   result <- ngram_parse(html)
-  if (NCOL(result)==1) {
-    result$Phrase <-0
-    colnames(result)[2] <- phrases[1]
-  }
-  result <- reshape2::melt(result, id.vars="Year", variable.name="Phrase", value.name="Frequency")
+#   browser()
+  if (NROW(result) > 0) result <- reshape2::melt(result, id.vars="Year", 
+                                                 variable.name="Phrase",
+                                                 value.name="Frequency")
   return(result)
 }
 
 ngram_url <- function(phrases, query=character()){
-  url <- 'https://books.google.com/ngrams/interactive_chart'
+  url <- 'https://books.google.com/ngrams/graph'
+#   url <- 'https://books.google.com/ngrams/interactive_chart'
   n <- length(phrases)
   for (i in 1:n){
     p <- phrases[i]
@@ -150,7 +159,8 @@ ngram_url <- function(phrases, query=character()){
 }
 
 ngram_parse <- function(html){
-  if (any(grepl("No valid ngrams to plot!<br>", html))) stop("No valid ngrams.") 
+#   if (any(grepl("No valid ngrams to plot!<br>", html))) stop("No valid ngrams.") 
+   if (any(grepl("No valid ngrams to plot!<br>", html))) return(data.frame())
   
   # Warn about character substitution
   lapply(grep("^Google has substituted ",
@@ -158,13 +168,14 @@ ngram_parse <- function(html){
                                               "Google has substituted \\1", html)),
               value=TRUE), warning, call. = FALSE)  
   data_line <- grep("var data", html)
+  year_line <- grep("drawD3Chart", html)
   ngram_data <- fromJSON(sub(".*=", "", html[data_line]))
-  browser()
-  years <- as.integer(strsplit(html[data_line + 1], ",")[[1]][2:3])
+  years <- as.integer(strsplit(html[year_line], ",")[[1]][2:3])
   cols <- unlist(lapply(ngram_data, function(x) x$ngram))
-  data <- as.data.frame(lapply(ngram_data, function(x) x$timeseries))
+  data <- as.data.frame(lapply(ngram_data[lapply(ngram_data, length) > 0],
+                               function(x) x$timeseries))
   years <- seq.int(years[1], years[2])
-  if (NROW(data)==0) return(data.frame(Year=years))
+  if (NROW(data)==0) return(data.frame())
   data <- cbind(years, data)
   colnames(data) <- c("Year", cols)
   return(data)

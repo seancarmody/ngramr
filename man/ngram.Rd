@@ -3,7 +3,7 @@
 \title{Get n-gram frequencies}
 \usage{
 ngram(phrases, corpus = "eng_2012", year_start = 1500, year_end = 2008,
-  smoothing = 3, count = FALSE, tag = NULL)
+  smoothing = 3, count = FALSE, tag = NULL, case_ins = FALSE)
 }
 \arguments{
   \item{phrases}{vector of phrases, with a maximum of 12
@@ -24,6 +24,9 @@ ngram(phrases, corpus = "eng_2012", year_start = 1500, year_end = 2008,
 
   \item{tag}{apply a part-of-speech tag to the whole vector
   of phrases}
+
+  \item{case_ins}{Logical indicating whether to force a
+  case insenstive search.  Default is \code{FALSE}.}
 }
 \description{
 \code{ngram} downloads data from the Google Ngram Viewer
