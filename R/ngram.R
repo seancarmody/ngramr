@@ -67,7 +67,7 @@
 
 ngram <- function(phrases, corpus='eng_2012', year_start = 1500,
                   year_end = 2008, smoothing = 3, count=FALSE,
-                  tag = NULL) {
+                  tag = NULL, case_ins=FALSE) {
   stopifnot(is.character(phrases))
   if (length(phrases) > 12){
     phrases <- phrases[1:12]
@@ -77,7 +77,7 @@ ngram <- function(phrases, corpus='eng_2012', year_start = 1500,
                                                     year_start=year_start,
                                                     year_end=year_end,
                                                     smoothing=smoothing,
-                                                    tag=tag))
+                                                    tag=tag, case_ins))
   result <- do.call("rbind", dfs)
   result$Corpus <- as.factor(result$Corpus)
   class(result) <- c("ngram", class(result))
@@ -87,7 +87,7 @@ ngram <- function(phrases, corpus='eng_2012', year_start = 1500,
   return(result)
 }
 
-ngram_single <- function(phrases, corpus, tag, ...){
+ngram_single <- function(phrases, corpus, tag, case_ins, ...){
   phrases <- phrases[1:ifelse(length(phrases) < 13, length(phrases), 12)]
   if (!is.null(tag)) {
     if (grepl("NOUN|VERB|ADJ|ADV|PRON|DET|ADP|NUM|CONJ|PRT", tag))
@@ -100,20 +100,26 @@ ngram_single <- function(phrases, corpus, tag, ...){
     warning("Invalid corpus name. Defaulting to 'eng_2012'", call.=FALSE)
     corpus <- "eng_2012"
   }
-  df <- ngram_fetch(phrases, corpus_n, ...)
+  df <- ngram_fetch(phrases, corpus_n, case_ins,...)
   df$Corpus <- corpus
   return(df)
 }
 
-ngram_fetch <- function(phrases, corpus, year_start,  year_end, smoothing) {
+ngram_fetch <- function(phrases, corpus, case_ins, year_start,  year_end, smoothing) {
   query <- as.list(environment())
+  if(case_ins) query["case_insensitive"] <- "on"
   query$phrases <- NULL
   phrases <- phrases[phrases != ""]
   if (length(phrases)==0) stop("No valid phrases provided.")
   ng_url <- ngram_url(phrases, query)
+  print(ng_url)
   cert <- system.file("CurlSSL/cacert.pem", package = "RCurl")
   html <- strsplit(getURL(ng_url, cainfo = cert), "\n", perl=TRUE)[[1]]
   result <- ngram_parse(html)
+  if (NCOL(result)==1) {
+    result$Phrase <-0
+    colnames(result)[2] <- phrases[1]
+  }
   result <- reshape2::melt(result, id.vars="Year", variable.name="Phrase", value.name="Frequency")
   return(result)
 }
@@ -153,10 +159,13 @@ ngram_parse <- function(html){
               value=TRUE), warning, call. = FALSE)  
   data_line <- grep("var data", html)
   ngram_data <- fromJSON(sub(".*=", "", html[data_line]))
+  browser()
   years <- as.integer(strsplit(html[data_line + 1], ",")[[1]][2:3])
   cols <- unlist(lapply(ngram_data, function(x) x$ngram))
   data <- as.data.frame(lapply(ngram_data, function(x) x$timeseries))
-  data <- cbind(seq.int(years[1], years[2]), data)
+  years <- seq.int(years[1], years[2])
+  if (NROW(data)==0) return(data.frame(Year=years))
+  data <- cbind(years, data)
   colnames(data) <- c("Year", cols)
   return(data)
 }
