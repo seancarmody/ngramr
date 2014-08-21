@@ -1,5 +1,12 @@
+ngramr 1.4.4
+------------
+
+* Removed debugging from ngrami
+
 ngramr 1.4.3
 ------------
+
+* Fixed the Pulser bug
 
 
 ngramr 1.4.2

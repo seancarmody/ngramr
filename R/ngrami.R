@@ -12,7 +12,6 @@ ngrami <- function(phrases, aggregate=TRUE, ...){
   phrases_all <- c(phrases, phrases_all, tolower(phrases), toupper(phrases))
   phrases_all <- unique(phrases_all)
   result <- ngram(phrases_all, ...)
-  browser()
   smoothing <- attr(result, "smoothing")
   if (aggregate){
     phrases <- sort(phrases)
