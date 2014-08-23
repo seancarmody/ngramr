@@ -137,7 +137,7 @@ ngram_url <- function(phrases, query=character()){
 #   url <- 'https://books.google.com/ngrams/interactive_chart'
   n <- length(phrases)
   for (i in 1:n){
-    if (grepl("\\+", phrases[i])) phrases[i] <- paste0("(", phrases[i], ")")
+    if (grepl("\\+|/", phrases[i])) phrases[i] <- paste0("(", phrases[i], ")")
     p <- phrases[i]
     if (!(Encoding(p) %in% c("unknown", "UTF-8"))){
       phrases[i] <- iconv(p, Encoding(p), "UTF-8")
