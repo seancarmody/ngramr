@@ -137,6 +137,7 @@ ngram_url <- function(phrases, query=character()){
 #   url <- 'https://books.google.com/ngrams/interactive_chart'
   n <- length(phrases)
   for (i in 1:n){
+    if (grepl("\\+", phrases[i])) phrases[i] <- paste0("(", phrases[i], ")")
     p <- phrases[i]
     if (!(Encoding(p) %in% c("unknown", "UTF-8"))){
       phrases[i] <- iconv(p, Encoding(p), "UTF-8")
@@ -144,8 +145,8 @@ ngram_url <- function(phrases, query=character()){
   }
   direct_url <- paste(rep("t1", n), phrases, rep("c0", n), sep=";,", collapse=";.")
   direct_url <- gsub(",", "%2c", URLencode(direct_url, reserved=TRUE), fixed=TRUE)
-  direct_url <- gsub("%28", "(", direct_url)
-  direct_url <- gsub("%29", ")", direct_url)
+#   direct_url <- gsub("%28", "(", direct_url)
+#   direct_url <- gsub("%29", ")", direct_url)
   direct_url <- gsub("+", "%2b", direct_url, fixed=TRUE)
   phrases <- paste(curlEscape(str_trim(phrases)), collapse='%2c')
   if (phrases=="") stop("No valid phrases provided.")

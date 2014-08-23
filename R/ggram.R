@@ -70,6 +70,7 @@ ggram <- function(phrases, ignore_case = FALSE, code_corpus = FALSE, geom = "lin
   if (is.character(geom) && !(geom %in% c("area", "line")) && attr(ng, "smoothing") > 0) {
     warning("ngram data is smoothed. Consider setting smoothing = 0.")
   }
+  if (!"Year" %in% names(ng)) stop("No ngram data returned")
   ng <- within(ng, Year <- as.Date(paste(Year, 1, 1, sep="-")))
   if (!code_corpus) ng <- within(ng,
                                  levels(Corpus) <- corpuses[levels(Corpus), 1])
