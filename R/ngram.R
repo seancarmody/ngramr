@@ -123,7 +123,7 @@ ngram_fetch <- function(phrases, corpus, year_start,  year_end, smoothing, case_
   ng_url <- ngram_url(phrases, query)
 #   print(ng_url)
   cert <- system.file("CurlSSL/cacert.pem", package = "RCurl")
-  html <- strsplit(getURL(ng_url, cainfo = cert), "\n", perl=TRUE)[[1]]
+  html <- strsplit(getURL(ng_url, cainfo = cert, followlocation = TRUE), "\n", perl=TRUE)[[1]]
   result <- ngram_parse(html)
 #   browser()
   if (NROW(result) > 0) result <- reshape2::melt(result, id.vars="Year", 
@@ -143,11 +143,6 @@ ngram_url <- function(phrases, query=character()){
       phrases[i] <- iconv(p, Encoding(p), "UTF-8")
     }   
   }
-  direct_url <- paste(rep("t1", n), phrases, rep("c0", n), sep=";,", collapse=";.")
-  direct_url <- gsub(",", "%2c", URLencode(direct_url, reserved=TRUE), fixed=TRUE)
-#   direct_url <- gsub("%28", "(", direct_url)
-#   direct_url <- gsub("%29", ")", direct_url)
-  direct_url <- gsub("+", "%2b", direct_url, fixed=TRUE)
   phrases <- paste(curlEscape(str_trim(phrases)), collapse='%2c')
   if (phrases=="") stop("No valid phrases provided.")
   url <- paste0(url, "?content=", phrases) 
@@ -155,7 +150,6 @@ ngram_url <- function(phrases, query=character()){
   url <- gsub("%28", "(", url)
   url <- gsub("%29", ")", url)
   url <- gsub("%20", "+", url)
-  url <- paste0(url, "&direct_url=", direct_url) 
   return(url)
 }
 
