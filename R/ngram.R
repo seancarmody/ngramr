@@ -124,6 +124,7 @@ ngram_fetch <- function(phrases, corpus, year_start,  year_end, smoothing, case_
 #   print(ng_url)
   cert <- system.file("CurlSSL/cacert.pem", package = "RCurl")
   html <- strsplit(getURL(ng_url, cainfo = cert, followlocation = TRUE), "\n", perl=TRUE)[[1]]
+  if (html[1] == "Please try again later.") stop('Server busy, answered "Please try again later."')
   result <- ngram_parse(html)
 #   browser()
   if (NROW(result) > 0) result <- reshape2::melt(result, id.vars="Year", 
