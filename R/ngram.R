@@ -174,6 +174,7 @@ ngram_parse <- function(html){
   if (NROW(data)==0) return(data.frame())
   data <- cbind(years, data)
   colnames(data) <- c("Year", cols)
+  data <- data[!grepl("\\*|\\(All\\)", names(data))]
   return(data)
 }
 
