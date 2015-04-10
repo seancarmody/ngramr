@@ -24,11 +24,11 @@ theme_google <- function(...) {
 scale_colour_google <- function(...){
   palette = c("#264EC0", "#D22310", "#FC8608", "#168713", "#850086", "#1086B9", 
                 "#D22B63", "#559D05", "#A71B23", "#21436F", "#852D86", "#219B86")
-  scale_colour_manual("", values = palette, ...)
+  scale_colour_manual(..., values = palette)
 }
 
 scale_fill_google <- function(...){
   palette = c("#264EC0", "#D22310", "#FC8608", "#168713", "#850086", "#1086B9", 
                 "#D22B63", "#559D05", "#A71B23", "#21436F", "#852D86", "#219B86")
-  scale_fill_manual("", values = palette, ...)
+  scale_fill_manual(..., values = palette)
 }
