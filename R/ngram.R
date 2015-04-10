@@ -100,7 +100,7 @@ ngram_single <- function(phrases, corpus, tag, case_ins, ...){
   corpus_n <- get_corpus(corpus)
   if (is.na(corpus_n)) {
     warning("Invalid corpus name. Defaulting to 'eng_2012'", call.=FALSE)
-    corpus <- "eng_2012"
+    corpus_n <- get_corpus("eng_2012")
   }
   result <- data.frame()
   for (phrase in phrases) {
