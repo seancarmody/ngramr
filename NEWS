@@ -1,3 +1,13 @@
+ngramr 1.5.0
+------------
+Incorporated eMPee584 changes (https://github.com/seancarmody/ngramr/pull/22):
+* Make wildcard searches expand to all terms
+* Error out on server answer "Please try again later."    1a655f3
+* Fix setting default corpus. 0b22dc4
+* scale functions: do not explicitly set name, allow overwrite.   3a21061
+* Allow passing through additional parameters to ngram_single.    ac6b1cc
+* For wildcard searches, drop the cumulated (All) column
+
 ngramr 1.4.5
 ------------
 
