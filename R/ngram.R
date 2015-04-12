@@ -69,7 +69,7 @@
 
 ngram <- function(phrases, corpus='eng_2012', year_start = 1500,
                   year_end = 2008, smoothing = 3, count=FALSE,
-                  tag = NULL, case_ins=FALSE) {
+                  tag = NULL, case_ins=FALSE, ...) {
   stopifnot(is.character(phrases))
   if (length(phrases) > 12){
     phrases <- phrases[1:12]
@@ -79,7 +79,7 @@ ngram <- function(phrases, corpus='eng_2012', year_start = 1500,
                                                     year_start=year_start,
                                                     year_end=year_end,
                                                     smoothing=smoothing,
-                                                    tag=tag, case_ins))
+                                                    tag=tag, case_ins, ...))
   result <- do.call("rbind", dfs)
   result$Corpus <- as.factor(result$Corpus)
   class(result) <- c("ngram", class(result))
@@ -100,7 +100,7 @@ ngram_single <- function(phrases, corpus, tag, case_ins, ...){
   corpus_n <- get_corpus(corpus)
   if (is.na(corpus_n)) {
     warning("Invalid corpus name. Defaulting to 'eng_2012'", call.=FALSE)
-    corpus <- "eng_2012"
+    corpus_n <- get_corpus("eng_2012")
   }
   result <- data.frame()
   for (phrase in phrases) {
@@ -123,7 +123,8 @@ ngram_fetch <- function(phrases, corpus, year_start,  year_end, smoothing, case_
   ng_url <- ngram_url(phrases, query)
 #   print(ng_url)
   cert <- system.file("CurlSSL/cacert.pem", package = "RCurl")
-  html <- strsplit(getURL(ng_url, cainfo = cert), "\n", perl=TRUE)[[1]]
+  html <- strsplit(getURL(ng_url, cainfo = cert, followlocation = TRUE), "\n", perl=TRUE)[[1]]
+  if (html[1] == "Please try again later.") stop('Server busy, answered "Please try again later."')
   result <- ngram_parse(html)
 #   browser()
   if (NROW(result) > 0) result <- reshape2::melt(result, id.vars="Year", 
@@ -143,11 +144,6 @@ ngram_url <- function(phrases, query=character()){
       phrases[i] <- iconv(p, Encoding(p), "UTF-8")
     }   
   }
-  direct_url <- paste(rep("t1", n), phrases, rep("c0", n), sep=";,", collapse=";.")
-  direct_url <- gsub(",", "%2c", URLencode(direct_url, reserved=TRUE), fixed=TRUE)
-#   direct_url <- gsub("%28", "(", direct_url)
-#   direct_url <- gsub("%29", ")", direct_url)
-  direct_url <- gsub("+", "%2b", direct_url, fixed=TRUE)
   phrases <- paste(curlEscape(str_trim(phrases)), collapse='%2c')
   if (phrases=="") stop("No valid phrases provided.")
   url <- paste0(url, "?content=", phrases) 
@@ -155,7 +151,6 @@ ngram_url <- function(phrases, query=character()){
   url <- gsub("%28", "(", url)
   url <- gsub("%29", ")", url)
   url <- gsub("%20", "+", url)
-  url <- paste0(url, "&direct_url=", direct_url) 
   return(url)
 }
 
@@ -179,6 +174,7 @@ ngram_parse <- function(html){
   if (NROW(data)==0) return(data.frame())
   data <- cbind(years, data)
   colnames(data) <- c("Year", cols)
+  data <- data[!grepl("\\*|\\(All\\)", names(data))]
   return(data)
 }
 
