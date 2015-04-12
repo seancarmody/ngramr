@@ -69,7 +69,7 @@
 
 ngram <- function(phrases, corpus='eng_2012', year_start = 1500,
                   year_end = 2008, smoothing = 3, count=FALSE,
-                  tag = NULL, case_ins=FALSE, ...) {
+                  tag = NULL, case_ins=FALSE) {
   stopifnot(is.character(phrases))
   if (length(phrases) > 12){
     phrases <- phrases[1:12]
@@ -79,7 +79,7 @@ ngram <- function(phrases, corpus='eng_2012', year_start = 1500,
                                                     year_start=year_start,
                                                     year_end=year_end,
                                                     smoothing=smoothing,
-                                                    tag=tag, case_ins, ...))
+                                                    tag=tag, case_ins))
   result <- do.call("rbind", dfs)
   result$Corpus <- as.factor(result$Corpus)
   class(result) <- c("ngram", class(result))
