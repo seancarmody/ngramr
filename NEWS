@@ -8,6 +8,8 @@ Incorporated eMPee584 changes (https://github.com/seancarmody/ngramr/pull/22):
 * Allow passing through additional parameters to ngram_single.    ac6b1cc
 * For wildcard searches, drop the cumulated (All) column
 
+Added travis-ci testing
+
 ngramr 1.4.5
 ------------
 
