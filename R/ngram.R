@@ -123,7 +123,7 @@ ngram_fetch <- function(phrases, corpus, year_start,  year_end, smoothing, case_
   ng_url <- ngram_url(phrases, query)
 #   print(ng_url)
   cert <- system.file("CurlSSL/cacert.pem", package = "RCurl")
-  html <- strsplit(getURL(ng_url, cainfo = cert, followlocation = TRUE), "\n", perl=TRUE)[[1]]
+  html <- strsplit(content(GET(ng_url, config(cainfo = cert)), "text"), "\n", perl=TRUE)[[1]]
   if (html[1] == "Please try again later.") stop('Server busy, answered "Please try again later."')
   result <- ngram_parse(html)
 #   browser()
