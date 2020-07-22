@@ -186,6 +186,8 @@ get_corpus <- function(corpus){
            'eng_fiction_2012'=16, 'eng_fiction_2009'=4, 'eng_1m_2009'=1, 'fre_2012'=19, 'fre_2009'=7, 
            'ger_2012'=20, 'ger_2009'=8, 'heb_2012'=24, 'heb_2009'=9, 
            'spa_2012'=21, 'spa_2009'=10, 'rus_2012'=25, 'rus_2009'=12, 'ita_2012'=22,
-           'eng_2019'=26)
+           'eng_2019'=26, 'eng_us_2019'=28, 'eng_gb_2019'=29, 'eng_fiction_2019'=27,
+           'chi_sim_2019'=34, 'fre_2019'=30, 'ger_2019'=31, 'heb_2019'=35, 'ita_2019'=33,
+           'rus_2019'=36, 'spa_2019'=32)
   return(unname(corpora[corpus]))
 }
