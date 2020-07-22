@@ -114,7 +114,7 @@ ngram_single <- function(phrases, corpus, tag, case_ins, ...){
     corpus_n <- get_corpus("eng_2019")
   }
   df <- ngram_fetch(phrases, corpus_n, case_ins,...)
-  df <- pivot_longer(df, -Year, names_to="Phrase", values_to="Frequency")
+  df <- tidyr::pivot_longer(df, -Year, names_to="Phrase", values_to="Frequency")
   df$Corpus <- corpus
   # for (phrase in phrases) {
   #   df <- ngram_fetch(phrase, corpus_n, case_ins,...)
