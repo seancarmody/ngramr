@@ -7,7 +7,7 @@ ngramr
 
 Note: with the switch to using `RCurl` to access SSL pages, `ngramr` will generally no longer work behind a proxy.
 
-The [Google Books Ngram Viewer](http://books.google.com/ngrams) allows you to enter a list of phrases and then displays a graph showing how often the phrases have occurred in a large corpus of books (e.g., "British English", "English Fiction", "French") over time. The current corpus collected in 2012 contains almost [half a trillion](http://languagelog.ldc.upenn.edu/nll/?p=4258) words for English alone.
+The [Google Books Ngram Viewer](http://books.google.com/ngrams) allows you to enter a list of phrases and then displays a graph showing how often the phrases have occurred in a large corpus of books (e.g., "British English", "English Fiction", "French") over time. The current corpus collected in 2019 contains almost [half a trillion](http://languagelog.ldc.upenn.edu/nll/?p=4258) words for English alone.
 
 The underlying data is hidden in Web page, embedded in some Javascript.
 This package extracts the data and provides it in the form of an R dataframe. The code was adapted from a handy Python script available from 
