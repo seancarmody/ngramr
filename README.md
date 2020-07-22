@@ -34,7 +34,7 @@ source:
 If you have [`devtools`](http://cran.r-project.org/web/packages/devtools/index.html)
 installed, install the latest stable version this package directly from GitHub:
 
-    require(devtools)
+    library(devtools)
     install_github("ngramr", "seancarmody")
     require(ngramr)
    
