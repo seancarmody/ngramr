@@ -26,27 +26,38 @@
 #' Below is a list of available corpora.
 #' \tabular{ll}{
 #' \bold{Corpus} \tab \bold{Corpus Name}\cr
+#' eng_us_2019\tab American English 2019\cr
 #' eng_us_2012\tab American English 2012\cr
 #' eng_us_2009\tab American English 2009\cr
+#' eng_gb_2019\tab British English 2019\cr
 #' eng_gb_2012\tab British English 2012\cr
 #' eng_gb_2009\tab British English 2009\cr
+#' chi_sim_2019\tab Chinese 2019\cr
 #' chi_sim_2012\tab Chinese 2012\cr
 #' chi_sim_2009\tab Chinese 2009\cr
+#' eng_2019\tab English 2019\cr
 #' eng_2012\tab English 2012\cr
 #' eng_2009\tab English 2009\cr
+#' eng_fiction_2019\tab English Fiction 2019\cr
 #' eng_fiction_2012\tab English Fiction 2012\cr
 #' eng_fiction_2009\tab English Fiction 2009\cr
 #' eng_1m_2009\tab Google One Million\cr
+#' fre_2019\tab French 2019\cr
 #' fre_2012\tab French 2012\cr
 #' fre_2009\tab French 2009\cr
+#' ger_2019\tab German 2019\cr
 #' ger_2012\tab German 2012\cr
 #' ger_2009\tab German 2009\cr
+#' heb_2019\tab Hebrew 2019\cr
 #' heb_2012\tab Hebrew 2012\cr
 #' heb_2009\tab Hebrew 2009\cr
+#' spa_2019\tab Spanish 2019\cr
 #' spa_2012\tab Spanish 2012\cr
 #' spa_2009\tab Spanish 2009\cr
+#' rus_2019\tab Russian 2019\cr
 #' rus_2012\tab Russian 2012\cr
 #' rus_2009\tab Russian 2009\cr
+#' ita_2019\tab Italian 2019\cr
 #' ita_2012\tab Italian 2012\cr
 #' }
 #' 
