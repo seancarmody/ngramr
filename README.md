@@ -3,7 +3,8 @@ ngramr
 
 ### R package to query the Google Ngram Viewer
 
-*The package has been updated to deal with the change to Google's website.*
+*This package is currently broken due to changes in Google's ngram viewer website. I am
+planning on attempting a fix.*
 
 Note: with the switch to using `RCurl` to access SSL pages, `ngramr` will generally no longer work behind a proxy.
 
