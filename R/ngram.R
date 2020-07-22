@@ -67,7 +67,7 @@
 #' head(freq)
 #' @export
 
-ngram <- function(phrases, corpus='eng_2012', year_start = 1500,
+ngram <- function(phrases, corpus='eng_2019', year_start = 1500,
                   year_end = 2008, smoothing = 3, count=FALSE,
                   tag = NULL, case_ins=FALSE) {
   stopifnot(is.character(phrases))
@@ -99,18 +99,21 @@ ngram_single <- function(phrases, corpus, tag, case_ins, ...){
   }
   corpus_n <- get_corpus(corpus)
   if (is.na(corpus_n)) {
-    warning("Invalid corpus name. Defaulting to 'eng_2012'", call.=FALSE)
-    corpus_n <- get_corpus("eng_2012")
+    warning("Invalid corpus name. Defaulting to 'eng_2019'", call.=FALSE)
+    corpus_n <- get_corpus("eng_2019")
   }
-  result <- data.frame()
-  for (phrase in phrases) {
-    df <- ngram_fetch(phrase, corpus_n, case_ins,...)
-    if (NROW(df) > 0) {
-      df$Corpus <- corpus
-      result <- rbind(result, df)
-    }
-  }
-  return(result)
+  df <- ngram_fetch(phrases, corpus_n, case_ins,...)
+  df <- pivot_longer(df, -Year, names_to="Phrase", values_to="Frequency")
+  df$Corpus <- corpus
+  # for (phrase in phrases) {
+  #   df <- ngram_fetch(phrase, corpus_n, case_ins,...)
+  #   return(df)
+  #   if (NROW(df) > 0) {
+  #     df$Corpus <- corpus
+  #     result <- rbind(result, df)
+  #   }
+  # }
+  return(df)
 }
 
 ngram_fetch <- function(phrases, corpus, year_start,  year_end, smoothing, case_ins=FALSE) {
@@ -126,7 +129,7 @@ ngram_fetch <- function(phrases, corpus, year_start,  year_end, smoothing, case_
   html <- strsplit(content(GET(ng_url, config(cainfo = cert)), "text"), "\n", perl=TRUE)[[1]]
   if (html[1] == "Please try again later.") stop('Server busy, answered "Please try again later."')
   result <- ngram_parse(html)
-#   browser()
+  return(result)
   if (NROW(result) > 0) result <- reshape2::melt(result, id.vars="Year", 
                                                  variable.name="Phrase",
                                                  value.name="Frequency")
@@ -155,7 +158,6 @@ ngram_url <- function(phrases, query=character()){
 }
 
 ngram_parse <- function(html){
-#   if (any(grepl("No valid ngrams to plot!<br>", html))) stop("No valid ngrams.") 
    if (any(grepl("No valid ngrams to plot!<br>", html))) return(data.frame())
   
   # Warn about character substitution
@@ -163,7 +165,7 @@ ngram_parse <- function(html){
               gsub("<.?b.?>","", sub("Replaced (.*) to match how we processed the books",
                                               "Google has substituted \\1", html)),
               value=TRUE), warning, call. = FALSE)  
-  data_line <- grep("var data", html)
+  data_line <- grep("ngrams.data", html)
   year_line <- grep("drawD3Chart", html)
   ngram_data <- fromJSON(sub(".*=", "", html[data_line]))
   years <- as.integer(strsplit(html[year_line], ",")[[1]][2:3])
@@ -183,6 +185,7 @@ get_corpus <- function(corpus){
            'chi_sim_2012'=23, 'chi_sim_2009'=11,'eng_2012'=15, 'eng_2009'=0,
            'eng_fiction_2012'=16, 'eng_fiction_2009'=4, 'eng_1m_2009'=1, 'fre_2012'=19, 'fre_2009'=7, 
            'ger_2012'=20, 'ger_2009'=8, 'heb_2012'=24, 'heb_2009'=9, 
-           'spa_2012'=21, 'spa_2009'=10, 'rus_2012'=25, 'rus_2009'=12, 'ita_2012'=22)
+           'spa_2012'=21, 'spa_2009'=10, 'rus_2012'=25, 'rus_2009'=12, 'ita_2012'=22,
+           'eng_2019'=26)
   return(unname(corpora[corpus]))
 }

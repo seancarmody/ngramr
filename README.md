@@ -3,8 +3,7 @@ ngramr
 
 ### R package to query the Google Ngram Viewer
 
-*This package is currently broken due to changes in Google's ngram viewer website. I am
-planning on attempting a fix.*
+*This package was updated in July 2020 to reflect changes to the Google ngram viewer webpage format. It has not yet been comprehensively tested (and has not been pushed to CRAN). Please let me know if anything is not working as expected.*
 
 Note: with the switch to using `RCurl` to access SSL pages, `ngramr` will generally no longer work behind a proxy.
 
@@ -20,6 +19,8 @@ It was written by [Jean-Baptiste Michel](https://twitter.com/jb_michel).
 This package required R version 2.15 or higher. If you are using an older version of R
 you will be prompted to upgrade when you try to install the package, so you may as well
 upgrade now!
+
+*Note: package not currently available on CRAN*
 
 The official release of ngramr is available on [CRAN](http://cran.r-project.org/web/packages/ngramr/index.html). To istall from CRAN, use the following command:
 
