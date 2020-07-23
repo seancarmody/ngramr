@@ -35,12 +35,12 @@ If you have [`devtools`](http://cran.r-project.org/web/packages/devtools/index.h
 installed, install the latest stable version this package directly from GitHub:
 
     library(devtools)
-    install_github("ngramr", "seancarmody")
+    install_github("seancarmody/ngramr")
     library(ngramr)
    
 and if you are feeling a little more adventurous, you can install the development version:
 
-    install_github("ngramr", "seancarmody", "develop")
+    install_github("seancarmody/ngramr", "develop")
 
 although it may not always work.
 
