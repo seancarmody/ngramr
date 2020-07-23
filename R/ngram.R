@@ -149,7 +149,7 @@ ngram_url <- function(phrases, query=character()){
       phrases[i] <- iconv(p, Encoding(p), "UTF-8")
     }   
   }
-  phrases <- paste(curlEscape(str_trim(phrases)), collapse='%2c')
+  phrases <- paste(RCurl::curlEscape(str_trim(phrases)), collapse='%2c')
   if (phrases=="") stop("No valid phrases provided.")
   url <- paste0(url, "?content=", phrases) 
   if (length(query) > 0) url <- modify_url(url, query=query)
