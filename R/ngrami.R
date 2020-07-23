@@ -17,7 +17,7 @@ ngrami <- function(phrases, aggregate=TRUE, ...){
     phrases <- sort(phrases)
     result$Phrase <- factor(tolower(result$Phrase))
     if (identical(levels(result$Phrase), tolower(phrases))) levels(result$Phrase) <- phrases 
-    result <- ddply(result, c("Year", "Corpus", "Phrase"), summarise, Frequency = sum(Frequency))
+    result <- result %>% group_by(Year, Corpus, Phrase) %>%  summarise(Frequency = sum(Frequency))
   }
   class(result) <- c("ngram", class(result))
   attr(result, "smoothing") <- smoothing
