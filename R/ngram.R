@@ -116,14 +116,6 @@ ngram_single <- function(phrases, corpus, tag, case_ins, ...){
   df <- ngram_fetch(phrases, corpus_n, case_ins,...)
   df <- tidyr::pivot_longer(df, -Year, names_to="Phrase", values_to="Frequency")
   df$Corpus <- corpus
-  # for (phrase in phrases) {
-  #   df <- ngram_fetch(phrase, corpus_n, case_ins,...)
-  #   return(df)
-  #   if (NROW(df) > 0) {
-  #     df$Corpus <- corpus
-  #     result <- rbind(result, df)
-  #   }
-  # }
   return(df)
 }
 
@@ -135,9 +127,8 @@ ngram_fetch <- function(phrases, corpus, year_start,  year_end, smoothing, case_
   phrases <- phrases[phrases != ""]
   if (length(phrases)==0) stop("No valid phrases provided.")
   ng_url <- ngram_url(phrases, query)
-#   print(ng_url)
   cert <- system.file("CurlSSL/cacert.pem", package = "RCurl")
-  html <- strsplit(content(GET(ng_url, config(cainfo = cert)), "text"), "\n", perl=TRUE)[[1]]
+  html <- strsplit(httr::content(httr::GET(ng_url, config(cainfo = cert)), "text"), "\n", perl=TRUE)[[1]]
   if (html[1] == "Please try again later.") stop('Server busy, answered "Please try again later."')
   result <- ngram_parse(html)
   return(result)

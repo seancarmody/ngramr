@@ -12,11 +12,9 @@ Depends:
 Imports:
     httr,
     RCurl,
-    dplyr,
     tidyr,
     rjson,
     stringr,
-    reshape2,
     ggplot2,
     scales
 License: GPL (>=2)
