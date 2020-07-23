@@ -36,7 +36,7 @@ installed, install the latest stable version this package directly from GitHub:
 
     library(devtools)
     install_github("ngramr", "seancarmody")
-    require(ngramr)
+    library(ngramr)
    
 and if you are feeling a little more adventurous, you can install the development version:
 
@@ -50,7 +50,7 @@ If you are behind a proxy, `install_github` may not work for you. Instead of fid
 
 Here is an example of how to use the `ngram` function:
 
-    require(ggplot2)
+    library(ggplot2)
     ng  <- ngram(c("hacker", "programmer"), year_start = 1950)
     ggplot(ng, aes(x=Year, y=Frequency, colour=Phrase)) +
       geom_line()
@@ -63,7 +63,7 @@ The same result can be achieved even more simply by using the `ggram` plotting w
 
 ![Ngram chart, with options](http://i.imgur.com/p5Q3pgM.png)
 
-    require(ggplot2)
+    library(ggplot2)
     ggram(c("monarchy", "democracy"), year_start = 1500, year_end = 2000, 
           corpus = "eng_gb_2012", ignore_case = TRUE, 
           geom = "area", geom_options = list(position = "stack")) + 
@@ -73,7 +73,7 @@ The colors used by Google Ngram are available through the `google_theme` option,
 
 ![Ngram chart, with Google theme](http://i.imgur.com/qKHvQA4.png)
 
-    require(ggplot2)
+    library(ggplot2)
     ng <- c("((The United States is + The United States has) / The United States)",
           "((The United States are + The United States have) / The United States)")
     ggram(ng, year_start = 1800, google_theme = TRUE) +
