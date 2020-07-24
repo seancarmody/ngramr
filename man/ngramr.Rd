@@ -22,18 +22,17 @@ The code is based on the \code{getNgrams.py} Python script available on
 written by Jean-Baptiste Michel. The \href{http://www.culturomics.org/home}{Culturomics}
 website itself is worth exploring.
 
-Note that compared to the 2009 versions, the 2012 versions have larger numbers
-of books, improved OCR, improved library and publisher metadata. The 2012 versions
-also don't form ngrams that cross sentence boundaries, and do form ngrams across
+Note that compared to the 2009 versions, the 2012 and 2019 versions have larger numbers
+of books, improved OCR, improved library and publisher metadata. The 2012 and 2019
+corpuses also don't form ngrams that cross sentence boundaries, and do form ngrams across
 page boundaries, unlike the 2009 versions.
 
-Like the Google Ngram Viewer website itself, this package is aimed at
-for quick inquiries into the usage of small sets of phrases.
+Like the Google Ngram Viewer website itself, this package is aimed at for quick
+inquiries into the usage of small sets of phrases.
 
-Please respect the terms of service of the Google Books Ngram Viewer
-while using this code. This code is meant to help viewers retrieve data
-behind a few queries, not bang at Google's  servers with thousands of queries.
-The complete dataset can be
+Please respect the terms of service of the Google Books Ngram Viewer while using this
+code. This code is meant to help viewers retrieve data behind a few queries, not bang
+at Google's  servers with thousands of queries. The complete dataset can be
 \href{http://storage.googleapis.com/books/ngrams/books/datasetsv2.html}{freely downloaded}.
 }
 \references{
