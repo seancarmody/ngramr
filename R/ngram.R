@@ -128,7 +128,7 @@ ngram_fetch <- function(phrases, corpus, year_start,  year_end, smoothing, case_
   if (length(phrases)==0) stop("No valid phrases provided.")
   ng_url <- ngram_url(phrases, query)
   cert <- system.file("CurlSSL/cacert.pem", package = "RCurl")
-  html <- strsplit(httr::content(httr::GET(ng_url, config(cainfo = cert)), "text"), "\n", perl=TRUE)[[1]]
+  html <- strsplit(httr::content(httr::GET(ng_url, httr::config(cainfo = cert)), "text"), "\n", perl=TRUE)[[1]]
   if (html[1] == "Please try again later.") stop('Server busy, answered "Please try again later."')
   result <- ngram_parse(html)
   return(result)
@@ -152,7 +152,7 @@ ngram_url <- function(phrases, query=character()){
   phrases <- paste(RCurl::curlEscape(str_trim(phrases)), collapse='%2c')
   if (phrases=="") stop("No valid phrases provided.")
   url <- paste0(url, "?content=", phrases) 
-  if (length(query) > 0) url <- modify_url(url, query=query)
+  if (length(query) > 0) url <- httr::modify_url(url, query=query)
   url <- gsub("%28", "(", url)
   url <- gsub("%29", ")", url)
   url <- gsub("%20", "+", url)
