@@ -1,34 +1,30 @@
 #' Print n-gram contents
 #' 
 #' @param x ngram object as returned by \code{link{ngram}}
-#' @param rows number of rows to print from top and bottom of ngram data set. Default is 6.
+#' @param rows number of rows to print. Default is 6.
 #' @param ... additional parameters passed to default print method.
 #' @export
 #' @method print ngram
 #' @examples
 #' x <- ngram(c("hacker", "programmer"), year_start = 1950)
-#' x
-#' print(x, rows = 3)
+#' print(x)
 
-print.ngram <- function(x, rows = 6, ...) {
-  cat(paste("Phrases:", paste(levels(x$Phrase), collapse=", "), "\n"))
-  cat(paste("Case-sentitive:", attributes(x)$case_sensitive), "\n")
-  cat(paste("Corpuses:", paste(levels(x$Corpus), collapse=", "), "\n"))
-  cat(paste("Smoothing:", attributes(x)$smoothing), "\n")
-  cat("\n")
+print.ngram <- function(x, rows=6, ...) {
+  df <- x
+  class(df) <- class(df)[-1]
   
-  df <- as.data.frame(x)
-  ng.len <-dim(df)[1]
-  if (ng.len > getOption("max.print") / 2){
-    if (2*rows > ng.len) rows <- floor(getOption("max.print") / 4)
-    df <- rbind(df[1:rows,], df[(ng.len - rows):ng.len,])
+  if (all(c("Phrase", "Corpus") %in% names(x))) {
+    cat(paste("Phrases:\t", paste(levels(x$Phrase), collapse=", "), "\n"))
+    cat(paste("Case-sentitive:\t", attributes(x)$case_sensitive), "\n")
+    cat(paste("Corpuses:\t", paste(levels(x$Corpus), collapse=", "), "\n"))
+    cat(paste("Smoothing:\t", attributes(x)$smoothing), "\n")
+    cat(paste("From:\t\t", min(x$Year)), "\n")
+    cat(paste("To:\t\t", max(x$Year)), "\n")
+    
+    cat("\n")
   }
-  ng.cat <- capture.output(print(df, right=FALSE, ...))
-  ng.len <- length(ng.cat)
-  if (ng.len > 2 * rows) ng.cat <- c(ng.cat[1:(rows + 1)], 
-                                      c("---"), 
-                                      ng.cat[(ng.len - rows + 1):ng.len])
-  cat(paste(ng.cat, collapse="\n"))
+  
+  print(df, n=rows, ...)
   invisible(x)
 }
 
