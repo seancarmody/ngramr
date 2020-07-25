@@ -5,7 +5,7 @@
 \alias{corpuses}
 \title{Google n-gram corpus information}
 \format{
-a 22 x 4 ngram data frame
+a 33 x 4 ngram data frame
 }
 \usage{
 corpuses
