@@ -8,7 +8,7 @@ ngram(
   phrases,
   corpus = "eng_2019",
   year_start = 1500,
-  year_end = 2008,
+  year_end = 2020,
   smoothing = 3,
   count = FALSE,
   tag = NULL,
