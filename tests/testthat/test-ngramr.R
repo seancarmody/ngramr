@@ -6,4 +6,5 @@ test_that("google calls work", {
                          corpus = c("eng_2012", "eng_us_2012"),
                          year_start = 1950, year_end=2008)),
                dim(hacker))
+  expect_equal(dim(ngramw(c("dog", "cat"), year_start  = 1950)), c(70, 4))
 })
