@@ -13,7 +13,7 @@ NULL
 
 #' Google n-gram corpus information
 #'
-#' Details of the various corpuses available through the Google n-gram took
+#' Details of the various corpuses available through the Google n-gram tool
 #' 
 #' @docType data
 #' @usage corpuses
