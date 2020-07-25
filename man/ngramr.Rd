@@ -4,7 +4,7 @@
 \name{ngramr}
 \alias{ngramr}
 \alias{ngramr-package}
-\title{Dig into the Google Ngram Viewer using R}
+\title{ngramr: Dig into the Google Ngram Viewer using R}
 \description{
 The \href{http://books.google.com/ngrams}{Google Books Ngram Viewer} allows you to enter a 
 list of phrases and then displays a graph showing how often the phrases have occurred in a
