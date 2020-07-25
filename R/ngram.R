@@ -79,7 +79,7 @@
 #' @export
 
 ngram <- function(phrases, corpus='eng_2019', year_start = 1500,
-                  year_end = 2008, smoothing = 3, count=FALSE,
+                  year_end = 2020, smoothing = 3, count=FALSE,
                   tag = NULL, case_ins=FALSE) {
   stopifnot(is.character(phrases))
   if (length(phrases) > 12){
