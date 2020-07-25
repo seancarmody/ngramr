@@ -23,8 +23,11 @@ print.ngram <- function(x, rows=6, ...) {
     
     cat("\n")
   }
-  
-  print(df, n=rows, ...)
+  if (class(df)[1] == "tbl_df"){
+    print(df, n = rows, ...)
+  } else {
+    print(head(df, rows))
+  }
   invisible(x)
 }
 
