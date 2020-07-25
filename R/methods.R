@@ -12,21 +12,22 @@
 print.ngram <- function(x, rows=6, ...) {
   df <- x
   class(df) <- class(df)[-1]
+  np.rows <- dim(df)[1] - rows
   
   if (all(c("Phrase", "Corpus", "Year") %in% names(x))) {
-    cat(paste("Phrases:\t", paste(levels(x$Phrase), collapse=", "), "\n"))
-    cat(paste("Case-sentitive:\t", attributes(x)$case_sensitive), "\n")
-    cat(paste("Corpuses:\t", paste(levels(x$Corpus), collapse=", "), "\n"))
-    cat(paste("Smoothing:\t", attributes(x)$smoothing), "\n")
-    cat(paste("From:\t\t", min(x$Year)), "\n")
-    cat(paste("To:\t\t", max(x$Year)), "\n")
-    
+    cli::cat_line("# An ngram", col = "grey")
+    cli::cat_line("# Phrases:\t\t", paste(levels(x$Phrase), collapse=", "))
+    cli::cat_line("# Case-sentitive:\t", attributes(x)$case_sensitive)
+    cli::cat_line("# Corpuses:\t\t", paste(levels(x$Corpus), collapse=", "))
+    cli::cat_line("# Smoothing:\t\t", attributes(x)$smoothing)
+    cli::cat_line("# From:\t\t\t", min(x$Year))
+    cli::cat_line("# To:\t\t\t", max(x$Year))
     cat("\n")
   }
-  if (class(df)[1] == "tbl_df"){
-    print(df, n = rows, ...)
-  } else {
-    print(head(df, rows))
+  
+  print(head(as.data.frame(df), rows))
+  if (np.rows > 0) {
+    cli::cat_line(cli::cli_text(cli::col_grey("# ... with {np.rows} more row{?s}")))
   }
   invisible(x)
 }
@@ -34,5 +35,7 @@ print.ngram <- function(x, rows=6, ...) {
 #' @export
 `[.ngram` <- function(x, ...){
   class(x) <- class(x)[-1]
-  x[...]
+  x <- x[...]
+  if (all(c("Phrase", "Corpus", "Year") %in% names(x))) {class(x) <- c("ngram", class(x))}
+  return(x)
 }
