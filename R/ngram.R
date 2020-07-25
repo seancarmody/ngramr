@@ -96,6 +96,7 @@ ngram <- function(phrases, corpus='eng_2019', year_start = 1500,
   class(result) <- c("ngram", class(result))
   attr(result, "smoothing") <- smoothing
   attr(result, "case_sensitive") <- TRUE
+  result$Phrase <- factor(result$Phrase)
   if (count) result <- add_count(result)
   return(result)
 }
@@ -149,7 +150,7 @@ ngram_url <- function(phrases, query=character()){
       phrases[i] <- iconv(p, Encoding(p), "UTF-8")
     }   
   }
-  phrases <- paste(RCurl::curlEscape(str_trim(phrases)), collapse='%2c')
+  phrases <- paste(RCurl::curlEscape(stringr::str_trim(phrases)), collapse='%2c')
   if (phrases=="") stop("No valid phrases provided.")
   url <- paste0(url, "?content=", phrases) 
   if (length(query) > 0) url <- httr::modify_url(url, query=query)

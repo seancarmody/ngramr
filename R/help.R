@@ -32,7 +32,7 @@
 #' Michel, Jean-Baptiste, et al. "Quantitative analysis of culture using millions
 #' of digitized books." \emph{Science} 331, No. 6014 (2011): 176--182.
 #' 
-#' @import rjson stringr dplyr tidyr 
+#' @import dplyr tidyr 
 #' @docType package
 #' @name ngramr
 #' @aliases ngramr ngramr-package
