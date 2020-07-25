@@ -170,9 +170,9 @@ ngram_parse <- function(html){
               value=TRUE), warning, call. = FALSE)  
   data_line <- grep("ngrams.data", html)
   year_line <- grep("drawD3Chart", html)
-  ngram_data <- rjson::fromJSON(sub("^.*=", "", html[data_line]))
+  data = html[data_line]
+  ngram_data <- rjson::fromJSON(sub(".*?=", "", data))
   ngram_data <- ngram_data[unlist(lapply(ngram_data, function(x) !("type" %in% names(x)) || x$type != 'ALTERNATE_FORM'))]
-  # browser()
   years <- as.integer(strsplit(html[year_line], ",")[[1]][2:3])
   cols <- unlist(lapply(ngram_data, function(x) x$ngram))
   data <- as.data.frame(lapply(ngram_data[lapply(ngram_data, length) > 0],
