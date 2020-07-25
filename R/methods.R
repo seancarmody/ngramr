@@ -31,3 +31,8 @@ print.ngram <- function(x, rows = 6, ...) {
   cat(paste(ng.cat, collapse="\n"))
   invisible(x)
 }
+
+# setMethod("[", "ngram",
+#           function(x, ...) {tibble::as_tibble(x)[...]}
+# )
+# 
