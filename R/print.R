@@ -18,7 +18,12 @@ print.ngram <- function(x, rows = 6, ...) {
   cat("\n")
   
   df <- as.data.frame(x)
-  ng.cat <- capture.output(print(df, right=FALSE))
+  ng.len <-dim(df)[1]
+  if (ng.len > getOption("max.print")){
+    if (2*rows > ng.len) rows <- floor(getOption("max.print") / 2)
+    df <- rbind(df[1:rows,], df[(ng.len - rows):ng.len,])
+  }
+  ng.cat <- capture.output(print(df, right=FALSE, ...))
   ng.len <- length(ng.cat)
   if (ng.len > 2 * rows) ng.cat <- c(ng.cat[1:(rows + 1)], 
                                       c("---"), 
