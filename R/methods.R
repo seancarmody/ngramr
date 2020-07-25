@@ -13,7 +13,7 @@ print.ngram <- function(x, rows=6, ...) {
   df <- x
   class(df) <- class(df)[-1]
   
-  if (all(c("Phrase", "Corpus") %in% names(x))) {
+  if (all(c("Phrase", "Corpus", "Year") %in% names(x))) {
     cat(paste("Phrases:\t", paste(levels(x$Phrase), collapse=", "), "\n"))
     cat(paste("Case-sentitive:\t", attributes(x)$case_sensitive), "\n")
     cat(paste("Corpuses:\t", paste(levels(x$Corpus), collapse=", "), "\n"))
