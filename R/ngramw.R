@@ -8,7 +8,6 @@
 
 ngramw <- function(phrases, ignore_case=FALSE, ...) {
   ng <- if (ignore_case) ngrami(phrases, ...) else ngram(phrases, ...) 
-  class(ng) <- "data.frame"
-  ng <- dcast(ng, Year + Corpus ~ Phrase, value.var="Frequency")
+  ng <- pivot_wider(ng, names_from = "Phrase", values_from = "Frequency")
   return(ng)
 }
