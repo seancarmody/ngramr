@@ -31,7 +31,8 @@ print.ngram <- function(x, rows=6, ...) {
   invisible(x)
 }
 
-# setMethod("[", "ngram",
-#           function(x, ...) {tibble::as_tibble(x)[...]}
-# )
-# 
+#' @export
+`[.ngram` <- function(x, ...){
+  class(x) <- class(x)[-1]
+  x[...]
+}
