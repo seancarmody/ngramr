@@ -11,6 +11,6 @@ a 33 x 4 ngram data frame
 corpuses
 }
 \description{
-Details of the various corpuses available through the Google n-gram took
+Details of the various corpuses available through the Google n-gram tool
 }
 \keyword{datasets}
