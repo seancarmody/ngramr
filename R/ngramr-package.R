@@ -1,5 +1,6 @@
 #' ngramr: Dig into the Google Ngram Viewer using R
 #' 
+#' @description 
 #' The \href{http://books.google.com/ngrams}{Google Books Ngram Viewer} allows you to enter a 
 #' list of phrases and then displays a graph showing how often the phrases have occurred in a
 #' corpus of books (e.g., "British English", "English Fiction", "French") over time.
@@ -32,8 +33,9 @@
 #' Michel, Jean-Baptiste, et al. "Quantitative analysis of culture using millions
 #' of digitized books." \emph{Science} 331, No. 6014 (2011): 176--182.
 #' 
+#' @keywords internal
 #' @import dplyr tidyr 
 #' @docType package
 #' @name ngramr
 #' @aliases ngramr ngramr-package
-NULL
+"_PACKAGE"
