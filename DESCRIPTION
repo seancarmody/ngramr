@@ -5,8 +5,8 @@ Version: 1.6.2
 Date: 2020-07-22
 Author: Sean Carmody
 Maintainer: Sean Carmody <seancarmody@gmail.com>
-Description: Retrieve and plot word frequencies through time from the Google
-    Ngram Viewer.
+Description: Retrieve and plot word frequencies through time from the "Google
+    Ngram Viewer".
 Depends:
     R (>= 3.5.0)
 Imports:
