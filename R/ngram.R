@@ -133,10 +133,6 @@ ngram_fetch <- function(phrases, corpus, year_start,  year_end, smoothing, case_
   if (html[1] == "Please try again later.") stop('Server busy, answered "Please try again later."')
   result <- ngram_parse(html)
   return(result)
-  if (NROW(result) > 0) result <- reshape2::melt(result, id.vars="Year", 
-                                                 variable.name="Phrase",
-                                                 value.name="Frequency")
-  return(result)
 }
 
 ngram_url <- function(phrases, query=character()){
