@@ -18,7 +18,7 @@ ngrami <- function(phrases, aggregate=TRUE, ...){
     phrases <- sort(phrases)
     result$Phrase <- factor(tolower(result$Phrase))
     if (identical(levels(result$Phrase), tolower(phrases))) levels(result$Phrase) <- phrases 
-    result <- summarise(group_by(result, Year, Corpus, Phrase), Frequency = sum(Frequency))
+    result <- summarise(group_by(result, .data$Year, .data$Corpus, .data$Phrase), Frequency = sum(Frequency))
     # result <- result %>% group_by(Year, Corpus, Phrase) %>%  summarise(Frequency = sum(Frequency))
   }
   class(result) <- c("ngram", class(result))

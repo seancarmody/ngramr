@@ -61,7 +61,6 @@
 
 ggram <- function(phrases, ignore_case = FALSE, code_corpus = FALSE, geom = "line",
                   geom_options = list(), lab = NA, google_theme = FALSE, ...) {
-  try_require(c("ggplot2", "scales"))
   if ("ngram" %in% class(phrases)) {
     ng <- phrases
   } else {
@@ -86,12 +85,12 @@ ggram <- function(phrases, ignore_case = FALSE, code_corpus = FALSE, geom = "lin
       scale_fill_google() +
       theme_google() + labs(y = NULL) +
       scale_x_date(expand=c(0,0)) +
-      scale_y_continuous(expand=c(0,0), labels = percent)
+      scale_y_continuous(expand=c(0,0), labels = scales::percent)
   } else {
     p <- p +
       scale_colour_discrete("") +
       scale_fill_discrete("") +
-      scale_y_continuous(labels = percent)
+      scale_y_continuous(labels = scales::percent)
   }
   if (!is.na(lab)) p <- p + labs(y=lab)
   return(p)

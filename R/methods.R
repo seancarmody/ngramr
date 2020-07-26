@@ -25,7 +25,7 @@ print.ngram <- function(x, rows=6, ...) {
     cat("\n")
   }
   
-  print(head(as.data.frame(df), rows))
+  print(utils::head(as.data.frame(df), rows))
   if (np.rows > 0) {
     cli::cat_line(cli::cli_text(cli::col_grey("# ... with {np.rows} more row{?s}")))
   }
