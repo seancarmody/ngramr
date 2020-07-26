@@ -118,6 +118,7 @@ ngram_single <- function(phrases, corpus, tag, case_ins, ...){
   df <- ngram_fetch(phrases, corpus_n, case_ins,...)
   if (NROW(df) > 0){
     df <- tidyr::pivot_longer(df, -.data$Year, names_to="Phrase", values_to="Frequency")
+    df$Phrase <- textutils::HTMLdecode(df$Phrase)
     df$Corpus <- corpus
   }
   return(df)
