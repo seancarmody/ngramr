@@ -8,11 +8,7 @@
 ngrami <- function(phrases, aggregate=TRUE, ...){
   if (any(grepl("/|\\+| - ", phrases))) stop("Complex operators not supported for case insensitive search.")
   phrases <- tolower(phrases)
-  phrases_all <- sapply(phrases, function(x) paste0(toupper(substr(x, 1, 1)),
-                                                tolower(substring(x, 2)))) 
-  phrases_all <- c(phrases, phrases_all, tolower(phrases), toupper(phrases))
-  phrases_all <- unique(phrases_all)
-  result <- ngram(phrases_all, ...)
+  result <- ngram(phrases, ..., case_ins = TRUE)
   smoothing <- attr(result, "smoothing")
   if (aggregate){
     phrases <- sort(phrases)
