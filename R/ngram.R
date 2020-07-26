@@ -131,8 +131,7 @@ ngram_fetch <- function(phrases, corpus, year_start,  year_end, smoothing, case_
   phrases <- phrases[phrases != ""]
   if (length(phrases)==0) stop("No valid phrases provided.")
   ng_url <- ngram_url(phrases, query)
-  cert <- system.file("CurlSSL/cacert.pem", package = "RCurl")
-  html <- strsplit(httr::content(httr::GET(ng_url, httr::config(cainfo = cert)), "text"), "\n", perl=TRUE)[[1]]
+  html <- strsplit(httr::content(httr::GET(ng_url), "text"), "\n", perl=TRUE)[[1]]
   if (html[1] == "Please try again later.") stop('Server busy, answered "Please try again later."')
   result <- ngram_parse(html)
   return(result)
@@ -140,7 +139,6 @@ ngram_fetch <- function(phrases, corpus, year_start,  year_end, smoothing, case_
 
 ngram_url <- function(phrases, query=character()){
   url <- 'https://books.google.com/ngrams/graph'
-#   url <- 'https://books.google.com/ngrams/interactive_chart'
   n <- length(phrases)
   for (i in 1:n){
     if (grepl("\\+|/", phrases[i])) phrases[i] <- paste0("(", phrases[i], ")")
