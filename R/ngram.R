@@ -82,6 +82,7 @@ ngram <- function(phrases, corpus='eng_2019', year_start = 1500,
                   year_end = 2020, smoothing = 3, count=FALSE,
                   tag = NULL, case_ins=FALSE) {
   stopifnot(is.character(phrases))
+  if (!all(check_balanced(phrases))) stop("Mis-matched parentheses")
   if (length(phrases) > 12){
     phrases <- phrases[1:12]
     warning("Maximum number of phrases exceeded: only using first 12.")
@@ -115,8 +116,10 @@ ngram_single <- function(phrases, corpus, tag, case_ins, ...){
     corpus_n <- get_corpus("eng_2019")
   }
   df <- ngram_fetch(phrases, corpus_n, case_ins,...)
-  df <- tidyr::pivot_longer(df, -.data$Year, names_to="Phrase", values_to="Frequency")
-  df$Corpus <- corpus
+  if (NROW(df) > 0){
+    df <- tidyr::pivot_longer(df, -.data$Year, names_to="Phrase", values_to="Frequency")
+    df$Corpus <- corpus
+  }
   return(df)
 }
 
@@ -191,4 +194,13 @@ get_corpus <- function(corpus){
            'chi_sim_2019'=34, 'fre_2019'=30, 'ger_2019'=31, 'heb_2019'=35, 'ita_2019'=33,
            'rus_2019'=36, 'spa_2019'=32)
   return(unname(corpora[corpus]))
+}
+
+check_balanced <- function(x){
+  sapply(x, function(str) {
+    str <- gsub("[^\\(\\)]", "", str)
+    str <- strsplit(str, "")[[1]]
+    str <- ifelse(str=='(', 1, -1)
+    all(cumsum(str) >= 0) && sum(str) == 0
+  })
 }
