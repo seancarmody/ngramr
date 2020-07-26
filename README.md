@@ -5,7 +5,8 @@ ngramr
 
 *This package was updated in July 2020 to reflect changes to the Google ngram viewer webpage format. It has not yet been comprehensively tested (and has not been pushed to CRAN). Please let me know if anything is not working as expected.*
 
-Note: with the switch to using `RCurl` to access SSL pages, `ngramr` will generally no longer work behind a proxy.
+Note: with the switch to using `RCurl` to access SSL pages, `ngramr` stopped working behind a proxy.
+Now it seems to work again - let me know if you have problems.
 
 The [Google Books Ngram Viewer](http://books.google.com/ngrams) allows you to enter a list of phrases and then displays a graph showing how often the phrases have occurred in a large corpus of books (e.g., "British English", "English Fiction", "French") over time. The current corpus collected in 2019 contains almost [half a trillion](http://languagelog.ldc.upenn.edu/nll/?p=4258) words for English alone.
 

@@ -15,7 +15,7 @@ print.ngram <- function(x, rows=6, ...) {
   np.rows <- dim(df)[1] - rows
   
   if (all(c("Phrase", "Corpus", "Year") %in% names(x))) {
-    cli::cat_line("# An ngram", col = "grey")
+    cli::cat_line("# An ngram data table", col = "green")
     cli::cat_line("# Phrases:\t\t", paste(levels(x$Phrase), collapse=", "))
     cli::cat_line("# Case-sentitive:\t", attributes(x)$case_sensitive)
     cli::cat_line("# Corpuses:\t\t", paste(levels(x$Corpus), collapse=", "))
