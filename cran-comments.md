@@ -10,4 +10,4 @@
   * Possibly mis-spelled words in DESCRIPTION. The spelling ("Ngram") is correct
 
 ## Downstream dependencies
-Reverse dependencies checked with devtools::revdep_check(). No dependencies or issues found.
+Reverse dependencies checked with devtools::revdep(). No dependencies or issues found.
