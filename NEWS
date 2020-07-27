@@ -1,6 +1,7 @@
 ngramr 1.6.0
 ------------
-Update to address change in the format of Google Ngram Viewer webpage
+Update to address issue (#26) resulting from change in the format of
+Google Ngram Viewer webpage
 
 ngramr 1.5.0
 ------------
