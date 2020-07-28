@@ -125,6 +125,7 @@ ngram_single <- function(phrases, corpus, tag, case_ins, ...){
 }
 
 ngram_fetch <- function(phrases, corpus, year_start,  year_end, smoothing, case_ins=FALSE) {
+  # Retrieve HTML data
   query <- as.list(environment())
   if (case_ins) query["case_insensitive"] <- "on"
   query$phrases <- NULL
@@ -132,10 +133,15 @@ ngram_fetch <- function(phrases, corpus, year_start,  year_end, smoothing, case_
   phrases <- phrases[phrases != ""]
   if (length(phrases)==0) stop("No valid phrases provided.")
   ng_url <- ngram_url(phrases, query)
-  html <- strsplit(httr::content(httr::GET(ng_url), "text"), "\n", perl=TRUE)[[1]]
-  if (html[1] == "Please try again later.") stop('Server busy, answered "Please try again later."')
+  html <- ngram_fetch_html(ng_url)
   result <- ngram_parse(html)
   return(result)
+}
+
+ngram_fetch_html <- function(url){
+  html <- strsplit(httr::content(httr::GET(url), "text"), "\n", perl=TRUE)[[1]]
+  if (html[1] == "Please try again later.") stop('Server busy, answered "Please try again later."')
+  return(html)  
 }
 
 ngram_url <- function(phrases, query=character()){
@@ -160,7 +166,6 @@ ngram_url <- function(phrases, query=character()){
 
 ngram_parse <- function(html){
    if (any(grepl("No valid ngrams to plot!<br>", html))) return(data.frame())
-  
   # Warn about character substitution
   lapply(grep("^Google has substituted ",
               gsub("<.?b.?>","", sub("Replaced (.*) to match how we processed the books",
@@ -168,7 +173,14 @@ ngram_parse <- function(html){
               value=TRUE), warning, call. = FALSE)  
   data_line <- grep("ngrams.data", html)
   year_line <- grep("drawD3Chart", html)
+  warn_line <- grep("class=\"warning-text\"", html)
+  if (length(warn_line) > 0){
+    warning_message = textutils::HTMLdecode(html[warn_line + 1])
+    warning_message = gsub("")
+    cli::cat_line("Warning:", warning_message, col="red")
+  }
   data = html[data_line]
+  if (gsub(" ", "", data[1]) == "ngrams.data=[];") stop("no data returned")
   ngram_data <- rjson::fromJSON(sub(".*?=", "", data))
   ngram_data <- ngram_data[unlist(lapply(ngram_data, function(x) !("type" %in% names(x)) || x$type != 'ALTERNATE_FORM'))]
   years <- as.integer(strsplit(html[year_line], ",")[[1]][2:3])
