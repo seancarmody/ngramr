@@ -6,9 +6,9 @@
 #' @export
      
 ngrami <- function(phrases, aggregate=TRUE, ...){
-  if (any(grepl("/|\\+| - ", phrases))) stop("Complex operators not supported for case insensitive search.")
-  phrases <- tolower(phrases)
+  if (any(grepl("/|\\+| - |_", phrases))) stop("Complex operators not supported for case insensitive search.")
   result <- ngram(phrases, ..., case_ins = TRUE)
+  phrases <- tolower(phrases)
   smoothing <- attr(result, "smoothing")
   if (aggregate){
     phrases <- sort(phrases)
