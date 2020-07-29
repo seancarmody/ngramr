@@ -144,6 +144,42 @@ ngram_fetch_html <- function(url){
   return(html)  
 }
 
+ngram_fetch_xml <- function(url, text=FALSE){
+  html <- xml2::read_html(url)
+  return(html)
+}
+
+ngram_check_warnings <- function(html){
+  node <- xml2::xml_find_first(html, "//div[@id='warning-area']")
+  warnings <- list()
+  # return(node)
+  if (length(node) > 0) {
+    for (n in xml2::xml_find_all(node, "div")){
+      type <- xml2::xml_text(xml2::xml_find_first(n, "mwc-icon"))
+      msg <- stringr::str_trim(xml2::xml_text(xml2::xml_find_first(n, "span")))
+      warnings <- c(warnings, list(type = type, message = msg))
+    }
+  }
+  return(warnings)
+}
+
+ngram_fetch_data <- function(html, debug = FALSE){
+  json <- xml2::xml_find_first(html, "//div[@id='chart']/following::script")
+  json <- stringr::str_trim(xml2::xml_text(json))
+  json <- stringr::str_split(json, "\n")[[1]]
+  json <- stringr::str_trim(json)
+  years <- as.numeric(stringr::str_split(grep("drawD3Chart", json, value=TRUE), ",")[[1]][2:3])
+  if (debug) return(list(json=json, years=years))
+  json <- grep("ngrams.data", json, value = TRUE)
+  data <- rjson::fromJSON(sub(".*?=", "", json))
+  data <- lapply(data,
+                 function(x) tibble::add_column(tibble::as_tibble(x), Year = seq.int(years[1], years[2])))
+  data <- bind_rows(data)
+  data <- dplyr::relocate(data, Year, ngram, timeseries)
+  data <- dplyr::rename(data, Phrase = ngram, Frequency = timeseries)
+  return(data)
+}
+
 ngram_url <- function(phrases, query=character()){
   url <- 'https://books.google.com/ngrams/graph'
   n <- length(phrases)
@@ -176,8 +212,8 @@ ngram_parse <- function(html){
   warn_line <- grep("class=\"warning-text\"", html)
   if (length(warn_line) > 0){
     warning_message = textutils::HTMLdecode(html[warn_line + 1])
-    warning_message = gsub("")
-    cli::cat_line("Warning:", warning_message, col="red")
+    warning_message = stringr::str_trim(warning_message)
+    cli::cat_line("Warning: ", warning_message, col="red")
   }
   data = html[data_line]
   if (gsub(" ", "", data[1]) == "ngrams.data=[];") stop("no data returned")
@@ -198,8 +234,8 @@ ngram_parse <- function(html){
 get_corpus <- function(corpus){
   corpora <- c('eng_us_2012'=17, 'eng_us_2009'=5, 'eng_gb_2012'=18, 'eng_gb_2009'=6, 
            'chi_sim_2012'=23, 'chi_sim_2009'=11,'eng_2012'=15, 'eng_2009'=0,
-           'eng_fiction_2012'=16, 'eng_fiction_2009'=4, 'eng_1m_2009'=1, 'fre_2012'=19, 'fre_2009'=7, 
-           'ger_2012'=20, 'ger_2009'=8, 'heb_2012'=24, 'heb_2009'=9, 
+           'eng_fiction_2012'=16, 'eng_fiction_2009'=4, 'eng_1m_2009'=1, 'fre_2012'=19,
+           'fre_2009'=7, 'ger_2012'=20, 'ger_2009'=8, 'heb_2012'=24, 'heb_2009'=9, 
            'spa_2012'=21, 'spa_2009'=10, 'rus_2012'=25, 'rus_2009'=12, 'ita_2012'=22,
            'eng_2019'=26, 'eng_us_2019'=28, 'eng_gb_2019'=29, 'eng_fiction_2019'=27,
            'chi_sim_2019'=34, 'fre_2019'=30, 'ger_2019'=31, 'heb_2019'=35, 'ita_2019'=33,
@@ -208,6 +244,7 @@ get_corpus <- function(corpus){
 }
 
 check_balanced <- function(x){
+  # Check parenthesis are appropriately balanced (i.e. every open is closed)
   sapply(x, function(str) {
     str <- gsub("[^\\(\\)]", "", str)
     str <- strsplit(str, "")[[1]]
