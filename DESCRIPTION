@@ -21,6 +21,7 @@ Imports:
     stringr,
     ggplot2,
     scales,
+    xml2,
     textutils
 License: GPL (>=2)
 URL: https://github.com/seancarmody/ngramr

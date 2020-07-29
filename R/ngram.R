@@ -144,8 +144,10 @@ ngram_fetch_html <- function(url){
   return(html)  
 }
 
-ngram_fetch_xml <- function(url, text=FALSE){
-  html <- xml2::read_html(url)
+ngram_fetch_xml <- function(url, text = FALSE){
+  if (text) {
+    html <- httr::content(httr::GET(url), "text")
+    } else html <- xml2::read_html(url)
   return(html)
 }
 
@@ -164,19 +166,22 @@ ngram_check_warnings <- function(html){
 }
 
 ngram_fetch_data <- function(html, debug = FALSE){
+  corpus <- xml2::xml_find_first(html, "//select[@id='form-corpus']/option")
+  corpus <- as.integer(xml2::xml_attr(corpus, "value"))
   json <- xml2::xml_find_first(html, "//div[@id='chart']/following::script")
-  json <- stringr::str_trim(xml2::xml_text(json))
+  json <- xml2::xml_text(json)
   json <- stringr::str_split(json, "\n")[[1]]
   json <- stringr::str_trim(json)
-  years <- as.numeric(stringr::str_split(grep("drawD3Chart", json, value=TRUE), ",")[[1]][2:3])
-  if (debug) return(list(json=json, years=years))
+  years <- as.integer(stringr::str_split(grep("drawD3Chart", json, value=TRUE), ",")[[1]][2:3])
+  if (debug) return(list(json=json, years=years, corpus=corpus))
   json <- grep("ngrams.data", json, value = TRUE)
   data <- rjson::fromJSON(sub(".*?=", "", json))
   data <- lapply(data,
                  function(x) tibble::add_column(tibble::as_tibble(x), Year = seq.int(years[1], years[2])))
   data <- bind_rows(data)
-  data <- dplyr::relocate(data, Year, ngram, timeseries)
-  data <- dplyr::rename(data, Phrase = ngram, Frequency = timeseries)
+  data <- mutate(data, corpus_call = corpus)
+  data <- dplyr::relocate(data, .data$Year, .data$ngram, .data$timeseries)
+  data <- dplyr::rename(data, Phrase = .data$ngram, Frequency = .data$timeseries)
   return(data)
 }
 
