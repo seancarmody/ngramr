@@ -10,7 +10,9 @@
 #' @param smoothing smoothing paramater, default is 3
 #' @param count logical, denoting whether phrase counts should be returned as
 #'   well as frequencies. Default is \code{FALSE}.
-#' @param tag apply a part-of-speech tag to the whole vector of phrases
+#' @param tag \lifecycle{soft-deprecated}
+#'   apply a part-of-speech tag to the whole
+#'   vector of phrases
 #' @param case_ins Logical indicating whether to force a case insenstive search.
 #'   Default is \code{FALSE}.
 #' @details
@@ -102,10 +104,9 @@ ngram <- function(phrases, corpus = "eng_2019", year_start = 1500,
   return(result)
 }
 
-ngram_new <- function(phrases, corpus=26, year_start = 1800,
-                  year_end = 2020, smoothing = 3, case_ins=FALSE,
-                  count = FALSE,
-                  aggregate = FALSE, clean = TRUE) {
+ngram_new <- function(phrases, corpus = 26, year_start = 1800, year_end = 2020,
+                      smoothing = 3, case_ins=FALSE, count = FALSE,
+                      aggregate = FALSE, clean = TRUE) {
   query <- as.list(environment())
   if (case_ins) query["case_insensitive"] <- "on"
   query$phrases <- NULL
@@ -132,7 +133,6 @@ ngram_new <- function(phrases, corpus=26, year_start = 1800,
   class(ng) <- c("ngram", class(ng))
   attr(ng, "smoothing") <- smoothing
   attr(ng, "case_sensitive") <- TRUE
-  ng$Phrase <- factor(textutils::HTMLdecode(ng$Phrase))
   ng$Corpus <- as.factor(ng$Corpus)
   ng$type <- NULL
   if (count) ng <- add_count(ng)
@@ -216,6 +216,7 @@ ngram_fetch_data <- function(html, debug = FALSE) {
   data <- lapply(data,
                  function(x) tibble::add_column(tibble::as_tibble(x), Year = seq.int(years[1], years[2])))
   data <- bind_rows(data)
+  data$ngram <- factor(textutils::HTMLdecode(data$ngram))
   data <- mutate(data, Corpus = get_corpus(corpus, text = FALSE))
   data <- separate(data, ngram, c("clean", "C"), ":", remove = FALSE, extra = "drop", fill = "right")
   data <- mutate(data, n = get_corpus(.data$C),

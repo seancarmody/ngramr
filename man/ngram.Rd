@@ -29,7 +29,9 @@ ngram(
 \item{count}{logical, denoting whether phrase counts should be returned as
 well as frequencies. Default is \code{FALSE}.}
 
-\item{tag}{apply a part-of-speech tag to the whole vector of phrases}
+\item{tag}{\lifecycle{soft-deprecated}
+apply a part-of-speech tag to the whole
+vector of phrases}
 
 \item{case_ins}{Logical indicating whether to force a case insenstive search.
 Default is \code{FALSE}.}
