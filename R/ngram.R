@@ -211,9 +211,9 @@ ngram_fetch_data <- function(html, debug = FALSE){
   data <- lapply(data,
                  function(x) tibble::add_column(tibble::as_tibble(x), Year = seq.int(years[1], years[2])))
   data <- bind_rows(data)
-  data <- mutate(data, Corpus = get_corpus(corpus, text=FALSE))
+  data <- mutate(data, Corpus = get_corpus(.data$corpus, text=FALSE))
   data <- separate(data, ngram, c("clean", "C"), ":", remove=FALSE, extra = "drop", fill="right")
-  data <- mutate(data, n = get_corpus(.data$C), Corpus = if_else(is.na(n), Corpus, .data$C), C = NULL, n = NULL)
+  data <- mutate(data, n = get_corpus(.data$C), Corpus = if_else(is.na(n), .data$Corpus, .data$C), C = NULL, n = NULL)
   data <- dplyr::relocate(data, .data$Year, .data$ngram, .data$timeseries, .data$Corpus)
   data <- dplyr::rename(data, Phrase = .data$ngram, Frequency = .data$timeseries)
   return(data)
