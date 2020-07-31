@@ -96,6 +96,7 @@ ngram <- function(phrases, corpus = "eng_2019", year_start = 1500,
                                                     smoothing = smoothing,
                                                     tag = tag, case_ins))
   result <- bind_rows(dfs)
+  if (NROW(result) == 0) return(NULL)
   result$Corpus <- as.factor(result$Corpus)
   class(result) <- c("ngram", class(result))
   attr(result, "smoothing") <- smoothing
@@ -160,7 +161,7 @@ ngram_single <- function(phrases, corpus, tag, case_ins, ...) {
                               values_to = "Frequency")
     df$Phrase <- textutils::HTMLdecode(df$Phrase)
     df$Corpus <- corpus
-  }
+  } else return(NULL)
   return(df)
 }
 
@@ -254,7 +255,10 @@ ngram_url <- function(phrases, query=character()) {
 }
 
 ngram_parse <- function(html) {
-   if (any(grepl("No valid ngrams to plot!", html))) return(data.frame())
+   if (any(grepl("No valid ngrams to plot!", html))) {
+    warning("No valid ngrams to plot!", call. = FALSE)
+    return(data.frame())
+   }
   # Warn about character substitution
   lapply(grep("^Google has substituted ",
               gsub("<.?b.?>", "", sub("Replaced (.*) to match how we processed the books",
