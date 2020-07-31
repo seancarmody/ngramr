@@ -122,14 +122,19 @@ ngram_new <- function(phrases, corpus=26, year_start = 1800,
     }
     attr(ng, "warnings") <- warnings
   }
-  if (aggregate) ng <- filter(ng, .data$type != 'EXPANSION')
+  if (aggregate) {
+    ng <- filter(ng, .data$type != 'EXPANSION')
+    } else {
+    ng <- filter(ng, .data$type %in% c('NGRAM', 'EXPANSION'))
+  }
   if (clean) ng <- mutate(ng, Phrase = .data$clean)
   ng <- select(ng, -.data$clean)
   class(ng) <- c("ngram", class(ng))
   attr(ng, "smoothing") <- smoothing
   attr(ng, "case_sensitive") <- TRUE
-  ng$Phrase <- factor(ng$Phrase)
+  ng$Phrase <- factor(textutils::HTMLdecode(ng$Phrase))
   ng$Corpus <- as.factor(ng$Corpus)
+  ng$type <- NULL
   if (count) ng <- add_count(ng)
   return(ng)
 }
@@ -211,11 +216,12 @@ ngram_fetch_data <- function(html, debug = FALSE){
   data <- lapply(data,
                  function(x) tibble::add_column(tibble::as_tibble(x), Year = seq.int(years[1], years[2])))
   data <- bind_rows(data)
-  data <- mutate(data, Corpus = get_corpus(.data$corpus, text=FALSE))
+  data <- mutate(data, Corpus = get_corpus(corpus, text=FALSE))
   data <- separate(data, ngram, c("clean", "C"), ":", remove=FALSE, extra = "drop", fill="right")
-  data <- mutate(data, n = get_corpus(.data$C), Corpus = if_else(is.na(n), .data$Corpus, .data$C), C = NULL, n = NULL)
+  data <- mutate(data, n = get_corpus(.data$C),
+                 Corpus = if_else(is.na(n), .data$Corpus, .data$C), C = NULL, n = NULL)
   data <- dplyr::relocate(data, .data$Year, .data$ngram, .data$timeseries, .data$Corpus)
-  data <- dplyr::rename(data, Phrase = .data$ngram, Frequency = .data$timeseries)
+  data <- dplyr::rename(data, Phrase = .data$ngram, Frequency = .data$timeseries, Parent = .data$parent)
   return(data)
 }
 
