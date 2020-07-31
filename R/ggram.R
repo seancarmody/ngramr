@@ -45,7 +45,7 @@
 #'       corpus = "eng_fiction_2012",
 #'       geom = NULL) +
 #'   stat_smooth(method="loess", se=FALSE, span = 0.3)
-#'  
+#'
 #' # Setting the legend placement on a long query and using the Google theme.
 #' # Example taken from a post by Ben Zimmer at Language Log.
 #' require(ggplot2)
@@ -53,7 +53,7 @@
 #'       "((The United States are + The United States have) / The United States)")
 #' ggram(p, year_start = 1800, google_theme = TRUE) +
 #'       theme(legend.direction="vertical")
-#'     
+#'
 #' # Pass ngram data rather than phrases
 #' hacker
 #' ggram(hacker) + facet_wrap(~ Corpus)
@@ -66,13 +66,14 @@ ggram <- function(phrases, ignore_case = FALSE, code_corpus = FALSE,
   if ("ngram" %in% class(phrases)) {
     ng <- phrases
   } else {
-    if(ignore_case) {
+    if (ignore_case) {
       ng <- ngrami(phrases, ...)
     } else {
       ng <- ngram(phrases, ...)
     }
   }
-  if (is.character(geom) && !(geom %in% c("area", "line")) && attr(ng, "smoothing") > 0) {
+  if (is.character(geom) &&
+      !(geom %in% c("area", "line")) && attr(ng, "smoothing") > 0) {
     warning("ngram data is smoothed. Consider setting smoothing = 0.")
   }
   if (!"Year" %in% names(ng)) stop("No ngram data returned")
@@ -80,9 +81,11 @@ ggram <- function(phrases, ignore_case = FALSE, code_corpus = FALSE,
   if (!code_corpus) ng <- within(ng,
                                  levels(Corpus) <- corpuses[levels(Corpus), 1])
   p <- ggplot(data = ng,
-             aes_string(x = "Year", y = "Frequency", colour = "Phrase", fill = "Phrase"))
+             aes_string(x = "Year", y = "Frequency",
+                        colour = "Phrase", fill = "Phrase"))
   if (!(class(geom) == "character")) geom <- NULL
-  if (!is.null(geom)) p <- p + do.call(stat_identity, c(geom = geom, geom_options))
+  if (!is.null(geom)) p <- p + do.call(stat_identity,
+                                       c(geom = geom, geom_options))
   p <-  p + labs(x = NULL)
   if (google_theme) {
     # Google Ngram palette.

@@ -21,5 +21,5 @@ NULL
 #' @format a 33 x 4 ngram data frame
 #' @keywords datasets
 #' @export
-#' 
+#'
 NULL

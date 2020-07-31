@@ -12,7 +12,8 @@ ngram(
   smoothing = 3,
   count = FALSE,
   tag = NULL,
-  case_ins = FALSE
+  case_ins = FALSE,
+  aggregate = FALSE
 )
 }
 \arguments{

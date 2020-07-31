@@ -10,8 +10,7 @@
 #' @param smoothing smoothing paramater, default is 3
 #' @param count logical, denoting whether phrase counts should be returned as
 #'   well as frequencies. Default is \code{FALSE}.
-#' @param tag \lifecycle{soft-deprecated}
-#'   apply a part-of-speech tag to the whole
+#' @param tag apply a part-of-speech tag to the whole
 #'   vector of phrases
 #' @param case_ins Logical indicating whether to force a case insenstive search.
 #'   Default is \code{FALSE}.
@@ -20,11 +19,11 @@
 #'  Books collection. One was generated in July 2009, the second in July 2012.
 #'  Google will update these datasets as book scanning continues.
 #'
-#'  This function provides the annual frequency of words or phrases, known as
-#'  n-grams, in a sub-collection or "corpus" taken from the Google Books collection.
-#'  The search across the corpus is case-sensitive. For a case-insensitive search
-#'  use \code{\link{ngrami}}.
-#'  
+#'  This function provides the annual frequency of words or phrases, known
+#'  as n-grams, in a sub-collection or "corpus" taken from the Google Books
+#'  collection.The search across the corpus is case-sensitive. For a
+#'  case-insensitive search use \code{\link{ngrami}}.
+#'
 #' Below is a list of available corpora.
 #' \tabular{ll}{
 #' \bold{Corpus} \tab \bold{Corpus Name}\cr
@@ -65,11 +64,12 @@
 #'
 #' The Google Million is a sub-collection of Google Books. All are in
 #' English with dates ranging from 1500 to 2008.
-#' No more than about 6,000 books were chosen from any one year, which means that
-#' all of the scanned books from early years are present, and books from later
-#' years are randomly sampled. The random samplings reflect the subject distributions
-#' for the year (so there are more computer books in 2000 than 1980).
-#' 
+#' No more than about 6,000 books were chosen from any one year, which
+#' means that all of the scanned books from early years are present,
+#' and books from later years are randomly sampled. The random samplings
+#' reflect the subject distributions for the year (so there are more
+#' computer books in 2000 than 1980).
+#'
 #' See \url{http://books.google.com/ngrams/info} for the full Ngram syntax.
 #' @examples
 #' freq <- ngram(c("mouse", "rat"), year_start = 1950)
@@ -82,7 +82,8 @@
 
 ngram <- function(phrases, corpus = "eng_2019", year_start = 1500,
                   year_end = 2020, smoothing = 3, count=FALSE,
-                  tag = NULL, case_ins=FALSE) {
+                  tag = NULL, case_ins=FALSE,
+                  aggregate = FALSE) {
   stopifnot(is.character(phrases))
   if (!all(check_balanced(phrases))) stop("Mis-matched parentheses")
   if (length(phrases) > 12) {
@@ -94,7 +95,7 @@ ngram <- function(phrases, corpus = "eng_2019", year_start = 1500,
                                                     year_end = year_end,
                                                     smoothing = smoothing,
                                                     tag = tag, case_ins))
-  result <- do.call("rbind", dfs)
+  result <- bind_rows(dfs)
   result$Corpus <- as.factor(result$Corpus)
   class(result) <- c("ngram", class(result))
   attr(result, "smoothing") <- smoothing
@@ -105,7 +106,7 @@ ngram <- function(phrases, corpus = "eng_2019", year_start = 1500,
 }
 
 ngram_new <- function(phrases, corpus = 26, year_start = 1800, year_end = 2020,
-                      smoothing = 3, case_ins=FALSE, count = FALSE,
+                      smoothing = 3, case_ins=FALSE, 
                       aggregate = FALSE, clean = TRUE) {
   query <- as.list(environment())
   if (case_ins) query["case_insensitive"] <- "on"
@@ -120,6 +121,7 @@ ngram_new <- function(phrases, corpus = 26, year_start = 1800, year_end = 2020,
   if (length(warnings) > 0) {
     for (w in warnings) {
       warning(w$message, call. = FALSE)
+      if (is.null(ng)) return()
     }
     attr(ng, "warnings") <- warnings
   }
@@ -135,7 +137,6 @@ ngram_new <- function(phrases, corpus = 26, year_start = 1800, year_end = 2020,
   attr(ng, "case_sensitive") <- TRUE
   ng$Corpus <- as.factor(ng$Corpus)
   ng$type <- NULL
-  if (count) ng <- add_count(ng)
   return(ng)
 }
 
@@ -154,14 +155,17 @@ ngram_single <- function(phrases, corpus, tag, case_ins, ...) {
   }
   df <- ngram_fetch(phrases, corpus_n, case_ins, ...)
   if (NROW(df) > 0) {
-    df <- tidyr::pivot_longer(df, -.data$Year, names_to = "Phrase", values_to = "Frequency")
+    df <- tidyr::pivot_longer(df, -.data$Year,
+                              names_to = "Phrase",
+                              values_to = "Frequency")
     df$Phrase <- textutils::HTMLdecode(df$Phrase)
     df$Corpus <- corpus
   }
   return(df)
 }
 
-ngram_fetch <- function(phrases, corpus, year_start,  year_end, smoothing, case_ins=FALSE) {
+ngram_fetch <- function(phrases, corpus, year_start,  year_end,
+                        smoothing, case_ins=FALSE) {
   # Retrieve HTML data
   query <- as.list(environment())
   if (case_ins) query["case_insensitive"] <- "on"
@@ -176,7 +180,8 @@ ngram_fetch <- function(phrases, corpus, year_start,  year_end, smoothing, case_
 }
 
 ngram_fetch_html <- function(url) {
-  html <- strsplit(httr::content(httr::GET(url), "text"), "\n", perl = TRUE)[[1]]
+  html <- strsplit(httr::content(httr::GET(url), "text"),
+                   "\n", perl = TRUE)[[1]]
   if (html[1] == "Please try again later.") stop('Server busy, answered "Please try again later."')
   return(html)
 }
@@ -214,7 +219,8 @@ ngram_fetch_data <- function(html, debug = FALSE) {
   data <- rjson::fromJSON(sub(".*?=", "", json))
   if (length(data) == 0) return(NULL)
   data <- lapply(data,
-                 function(x) tibble::add_column(tibble::as_tibble(x), Year = seq.int(years[1], years[2])))
+                 function(x) tibble::add_column(tibble::as_tibble(x),
+                                                Year = seq.int(years[1], years[2])))
   data <- bind_rows(data)
   data$ngram <- factor(textutils::HTMLdecode(data$ngram))
   data <- mutate(data, Corpus = get_corpus(corpus, text = FALSE))
@@ -236,7 +242,8 @@ ngram_url <- function(phrases, query=character()) {
       phrases[i] <- iconv(p, Encoding(p), "UTF-8")
     }
   }
-  phrases <- paste(RCurl::curlEscape(stringr::str_trim(phrases)), collapse = "%2c")
+  phrases <- paste(RCurl::curlEscape(stringr::str_trim(phrases)),
+                   collapse = "%2c")
   if (phrases == "") stop("No valid phrases provided.")
   url <- paste0(url, "?content=", phrases)
   if (length(query) > 0) url <- httr::modify_url(url, query = query)
@@ -247,7 +254,7 @@ ngram_url <- function(phrases, query=character()) {
 }
 
 ngram_parse <- function(html) {
-   if (any(grepl("No valid ngrams to plot!<br>", html))) return(data.frame())
+   if (any(grepl("No valid ngrams to plot!", html))) return(data.frame())
   # Warn about character substitution
   lapply(grep("^Google has substituted ",
               gsub("<.?b.?>", "", sub("Replaced (.*) to match how we processed the books",
