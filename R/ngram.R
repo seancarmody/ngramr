@@ -102,6 +102,38 @@ ngram <- function(phrases, corpus='eng_2019', year_start = 1500,
   return(result)
 }
 
+ngram_new <- function(phrases, corpus=26, year_start = 1800,
+                  year_end = 2020, smoothing = 3, case_ins=FALSE,
+                  count = FALSE,
+                  aggregate = FALSE, clean = TRUE) {
+  query <- as.list(environment())
+  if (case_ins) query["case_insensitive"] <- "on"
+  query$phrases <- NULL
+  query$case_ins <- NULL
+  phrases <- phrases[phrases != ""]
+  if (length(phrases)==0) stop("No valid phrases provided.")
+  ng_url <- ngram_url(phrases, query)
+  html <- ngram_fetch_xml(ng_url)
+  ng <- ngram_fetch_data(html)
+  warnings <- ngram_check_warnings(html)
+  if (length(warnings) > 0) {
+    for (w in warnings){
+      warning(w$message, call. = FALSE)
+    }
+    attr(ng, "warnings") <- warnings
+  }
+  if (aggregate) ng <- filter(ng, .data$type != 'EXPANSION')
+  if (clean) ng <- mutate(ng, Phrase = .data$clean)
+  ng <- select(ng, -.data$clean)
+  class(ng) <- c("ngram", class(ng))
+  attr(ng, "smoothing") <- smoothing
+  attr(ng, "case_sensitive") <- TRUE
+  ng$Phrase <- factor(ng$Phrase)
+  ng$Corpus <- as.factor(ng$Corpus)
+  if (count) ng <- add_count(ng)
+  return(ng)
+}
+
 ngram_single <- function(phrases, corpus, tag, case_ins, ...){
   phrases <- phrases[1:ifelse(length(phrases) < 13, length(phrases), 12)]
   if (!is.null(tag)) {
@@ -154,12 +186,11 @@ ngram_fetch_xml <- function(url, text = FALSE){
 ngram_check_warnings <- function(html){
   node <- xml2::xml_find_first(html, "//div[@id='warning-area']")
   warnings <- list()
-  # return(node)
   if (length(node) > 0) {
     for (n in xml2::xml_find_all(node, "div")){
       type <- xml2::xml_text(xml2::xml_find_first(n, "mwc-icon"))
       msg <- stringr::str_trim(xml2::xml_text(xml2::xml_find_first(n, "span")))
-      warnings <- c(warnings, list(type = type, message = msg))
+      warnings <- c(warnings, list(list(type = type, message = msg)))
     }
   }
   return(warnings)
@@ -176,11 +207,14 @@ ngram_fetch_data <- function(html, debug = FALSE){
   if (debug) return(list(json=json, years=years, corpus=corpus))
   json <- grep("ngrams.data", json, value = TRUE)
   data <- rjson::fromJSON(sub(".*?=", "", json))
+  if (length(data) == 0) return(NULL)
   data <- lapply(data,
                  function(x) tibble::add_column(tibble::as_tibble(x), Year = seq.int(years[1], years[2])))
   data <- bind_rows(data)
-  data <- mutate(data, corpus_call = corpus)
-  data <- dplyr::relocate(data, .data$Year, .data$ngram, .data$timeseries)
+  data <- mutate(data, Corpus = get_corpus(corpus, text=FALSE))
+  data <- separate(data, ngram, c("clean", "C"), ":", remove=FALSE, extra = "drop", fill="right")
+  data <- mutate(data, n = get_corpus(.data$C), Corpus = if_else(is.na(n), Corpus, .data$C), C = NULL, n = NULL)
+  data <- dplyr::relocate(data, .data$Year, .data$ngram, .data$timeseries, .data$Corpus)
   data <- dplyr::rename(data, Phrase = .data$ngram, Frequency = .data$timeseries)
   return(data)
 }
@@ -236,7 +270,7 @@ ngram_parse <- function(html){
   return(data)
 }
 
-get_corpus <- function(corpus){
+get_corpus <- function(corpus, text = TRUE){
   corpora <- c('eng_us_2012'=17, 'eng_us_2009'=5, 'eng_gb_2012'=18, 'eng_gb_2009'=6, 
            'chi_sim_2012'=23, 'chi_sim_2009'=11,'eng_2012'=15, 'eng_2009'=0,
            'eng_fiction_2012'=16, 'eng_fiction_2009'=4, 'eng_1m_2009'=1, 'fre_2012'=19,
@@ -245,7 +279,7 @@ get_corpus <- function(corpus){
            'eng_2019'=26, 'eng_us_2019'=28, 'eng_gb_2019'=29, 'eng_fiction_2019'=27,
            'chi_sim_2019'=34, 'fre_2019'=30, 'ger_2019'=31, 'heb_2019'=35, 'ita_2019'=33,
            'rus_2019'=36, 'spa_2019'=32)
-  return(unname(corpora[corpus]))
+  if (text) return(unname(corpora[corpus])) else return (names(which(corpora == corpus)))
 }
 
 check_balanced <- function(x){
