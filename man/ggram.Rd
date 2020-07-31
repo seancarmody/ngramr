@@ -23,8 +23,8 @@ object returned by \code{\link{ngram}} or \code{\link{ngrami}}.}
 insensitive.
 Default is \code{FALSE}.}
 
-\item{code_corpus}{logical, indicating whether to use abbreviated corpus codes
-or longer form descriptions. Default is \code{FALSE}.}
+\item{code_corpus}{logical, indicating whether to use abbreviated corpus
+`codes or longer form descriptions. Default is \code{FALSE}.}
 
 \item{geom}{the ggplot2 geom used to plot the data; defaults to "line"}
 
@@ -52,22 +52,22 @@ ggram(c("hacker", "programmer"), year_start = 1950)
 # Changing the geom.
 ggram(c("cancer", "fumer", "cigarette"),
       year_start = 1900,
-      corpus = "fre_2012", 
+      corpus = "fre_2012",
       geom = "step")
-     
+
 # Passing more options.
 require(ggplot2)
 ggram(c("cancer", "smoking", "tobacco"),
-      year_start = 1900, 
-      corpus = "eng_fiction_2012", 
-      geom = "point", smoothing = 0, 
-      geom_options = list(alpha = .5)) + 
+      year_start = 1900,
+      corpus = "eng_fiction_2012",
+      geom = "point", smoothing = 0,
+      geom_options = list(alpha = .5)) +
   stat_smooth(method="loess", se = FALSE)
- 
+
 # Setting the layers manually.
 ggram(c("cancer", "smoking", "tobacco"),
       year_start = 1900, smoothing = 0,
-      corpus = "eng_fiction_2012", 
+      corpus = "eng_fiction_2012",
       geom = NULL) +
   stat_smooth(method="loess", se=FALSE, span = 0.3)
  
@@ -78,7 +78,7 @@ p <- c("((The United States is + The United States has) / The United States)",
       "((The United States are + The United States have) / The United States)")
 ggram(p, year_start = 1800, google_theme = TRUE) +
       theme(legend.direction="vertical")
-      
+    
 # Pass ngram data rather than phrases
 hacker
 ggram(hacker) + facet_wrap(~ Corpus)

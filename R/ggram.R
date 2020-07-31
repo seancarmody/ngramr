@@ -66,7 +66,11 @@ ggram <- function(phrases, ignore_case = FALSE, code_corpus = FALSE,
   if ("ngram" %in% class(phrases)) {
     ng <- phrases
   } else {
-    ng <- ifelse(ignore_case, ngrami(phrases, ...), ngram(phrases, ...))
+    if(ignore_case) {
+      ng <- ngrami(phrases, ...)
+    } else {
+      ng <- ngram(phrases, ...)
+    }
   }
   if (is.character(geom) && !(geom %in% c("area", "line")) && attr(ng, "smoothing") > 0) {
     warning("ngram data is smoothed. Consider setting smoothing = 0.")

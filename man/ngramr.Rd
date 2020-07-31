@@ -7,17 +7,17 @@
 \alias{ngramr-package}
 \title{ngramr: Dig into the Google Ngram Viewer using R}
 \description{
-The \href{http://books.google.com/ngrams}{Google Books Ngram Viewer} allows you to enter a 
+The \href{http://books.google.com/ngrams}{Google Books Ngram Viewer} allows you to enter a
 list of phrases and then displays a graph showing how often the phrases have occurred in a
 corpus of books (e.g., "British English", "English Fiction", "French") over time.
 The underlying data is hidden in web page, embedded in some Javascript.
 
 This package extracts the data an provides it in the form of an R dataframe.
 
-The key function is \code{ngram} which, given a collection of 
+The key function is \code{ngram} which, given a collection of
 phrases, returns a dataframe containing the frequencies by year.
 
-The code is based on the \code{getNgrams.py} Python script available on 
+The code is based on the \code{getNgrams.py} Python script available on
 \href{http://www.culturomics.org/Resources/get-ngrams}{Culturomics Code}
 written by Jean-Baptiste Michel. The \href{http://www.culturomics.org/home}{Culturomics}
 website itself is worth exploring.

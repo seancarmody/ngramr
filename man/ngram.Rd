@@ -31,7 +31,7 @@ well as frequencies. Default is \code{FALSE}.}
 
 \item{tag}{apply a part-of-speech tag to the whole vector of phrases}
 
-\item{case_ins}{Logical indicating whether to force a case insenstive search. 
+\item{case_ins}{Logical indicating whether to force a case insenstive search.
 Default is \code{FALSE}.}
 }
 \description{
@@ -42,11 +42,11 @@ returns it in a dataframe.
 Google generated two datasets drawn from digitised books in the Google
  Books collection. One was generated in July 2009, the second in July 2012.
  Google will update these datasets as book scanning continues.
- 
+
  This function provides the annual frequency of words or phrases, known as
  n-grams, in a sub-collection or "corpus" taken from the Google Books collection.
  The search across the corpus is case-sensitive. For a case-insensitive search
- use \code{\link{ngrami}}. 
+ use \code{\link{ngrami}}.
  
 Below is a list of available corpora.
 \tabular{ll}{
