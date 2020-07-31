@@ -19,7 +19,8 @@ ggram(
 \item{phrases}{vector of phrases. Alternatively, phrases can be an ngram
 object returned by \code{\link{ngram}} or \code{\link{ngrami}}.}
 
-\item{ignore_case}{logical, indicating whether the frequencies are case insensitive.
+\item{ignore_case}{logical, indicating whether the frequencies are case
+insensitive.
 Default is \code{FALSE}.}
 
 \item{code_corpus}{logical, indicating whether to use abbreviated corpus codes

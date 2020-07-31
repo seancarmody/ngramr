@@ -1,21 +1,21 @@
 #' ngramr: Dig into the Google Ngram Viewer using R
-#' 
-#' @description 
-#' The \href{http://books.google.com/ngrams}{Google Books Ngram Viewer} allows you to enter a 
+#'
+#' @description
+#' The \href{http://books.google.com/ngrams}{Google Books Ngram Viewer} allows you to enter a
 #' list of phrases and then displays a graph showing how often the phrases have occurred in a
 #' corpus of books (e.g., "British English", "English Fiction", "French") over time.
 #' The underlying data is hidden in web page, embedded in some Javascript.
 #' 
 #' This package extracts the data an provides it in the form of an R dataframe.
 #' 
-#' The key function is \code{ngram} which, given a collection of 
+#' The key function is \code{ngram} which, given a collection of
 #' phrases, returns a dataframe containing the frequencies by year.
 #' 
-#' The code is based on the \code{getNgrams.py} Python script available on 
+#' The code is based on the \code{getNgrams.py} Python script available on
 #' \href{http://www.culturomics.org/Resources/get-ngrams}{Culturomics Code}
 #' written by Jean-Baptiste Michel. The \href{http://www.culturomics.org/home}{Culturomics}
 #' website itself is worth exploring.
-#' 
+#'
 #' Note that compared to the 2009 versions, the 2012 and 2019 versions have larger numbers
 #' of books, improved OCR, improved library and publisher metadata. The 2012 and 2019
 #' corpuses also don't form ngrams that cross sentence boundaries, and do form ngrams across
@@ -28,8 +28,8 @@
 #' code. This code is meant to help viewers retrieve data behind a few queries, not bang
 #' at Google's  servers with thousands of queries. The complete dataset can be
 #' \href{http://storage.googleapis.com/books/ngrams/books/datasetsv2.html}{freely downloaded}.
-#' 
-#' @references 
+#'
+#' @references
 #' Michel, Jean-Baptiste, et al. "Quantitative analysis of culture using millions
 #' of digitized books." \emph{Science} 331, No. 6014 (2011): 176--182.
 #' 
