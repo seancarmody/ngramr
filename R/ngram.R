@@ -105,20 +105,15 @@ ngram <- function(phrases, corpus = "eng_2019", year_start = 1500,
   return(result)
 }
 
-ngram_new <- function(phrases, corpus = "eng_2019", year_start = 1800, year_end = 2020,
-                      smoothing = 3, case_ins=FALSE, 
+ngram_new <- function(phrases, corpus = "eng_2019", year_start = 1800, 
+                      year_end = 2020, smoothing = 3, case_ins=FALSE,
                       aggregate = FALSE, clean = FALSE) {
-  if (class(corpus) == "character") corpus <- get_corpus(corpus)
-  query <- as.list(environment())
-  if (case_ins) query["case_insensitive"] <- "on"
-  query$phrases <- NULL
-  query$case_ins <- NULL
-  phrases <- phrases[phrases != ""]
-  if (length(phrases) == 0) stop("No valid phrases provided.")
-  ng_url <- ngram_url(phrases, query)
-  html <- ngram_fetch_xml(ng_url)
-  ng <- ngram_fetch_data(html)
-  warnings <- ngram_check_warnings(html)
+  if (class(corpus) == "character")  corpus <- get_corpus(corpus)
+  phrases <- ngram_check_phrases(phrases)
+  result <- ngram_single_new(phrases, corpus, year_start, year_end,
+                             smoothing, case_ins)
+  ng <- result$ngram
+  warnings <- result$warnings
   show_warnings(warnings)
   if (length(ng) == 0) return(NULL)
   if (aggregate) {
@@ -134,6 +129,31 @@ ngram_new <- function(phrases, corpus = "eng_2019", year_start = 1800, year_end 
   ng$Corpus <- as.factor(ng$Corpus)
   ng$type <- NULL
   return(ng)
+}
+
+ngram_single_new <- function(phrases, corpus, year_start, year_end,
+                             smoothing, case_ins) {
+  query <- as.list(environment())
+  if (case_ins) query["case_insensitive"] <- "on"
+  query$phrases <- NULL
+  query$case_ins <- NULL
+  ng_url <- ngram_url(phrases, query)
+  html <- ngram_fetch_xml(ng_url)
+  ng <- ngram_fetch_data(html)
+  warnings <- ngram_check_warnings(html)
+  return(list(ngram = ng, warnings = warnings))
+}
+
+ngram_check_phrases <- function(phrases){
+  stopifnot(is.character(phrases))
+  phrases <- phrases[phrases != ""]
+  if (length(phrases) == 0) stop("No valid phrases provided.")
+  if (!all(check_balanced(phrases))) stop("mis-matched parentheses")
+  if (length(phrases) > 12) {
+    phrases <- phrases[1:12]
+    warning("Maximum number of phrases exceeded: only using first 12.")
+  }
+  return(phrases)
 }
 
 ngram_single <- function(phrases, corpus, tag, case_ins, ...) {
