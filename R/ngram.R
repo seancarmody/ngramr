@@ -119,13 +119,8 @@ ngram_new <- function(phrases, corpus = 26, year_start = 1800, year_end = 2020,
   html <- ngram_fetch_xml(ng_url)
   ng <- ngram_fetch_data(html)
   warnings <- ngram_check_warnings(html)
-  if (length(warnings) > 0) {
-    for (w in warnings) {
-      warning(w$message, call. = FALSE)
-      if (is.null(ng)) return()
-    }
-    attr(ng, "warnings") <- warnings
-  }
+  show_warnings(warnings)
+  if (length(ng) == 0) return(NULL)
   if (aggregate) {
     ng <- filter(ng, .data$type != "EXPANSION")
     } else {
@@ -201,6 +196,7 @@ ngram_check_warnings <- function(html) {
     for (n in xml2::xml_find_all(node, "div")) {
       type <- xml2::xml_text(xml2::xml_find_first(n, "mwc-icon"))
       msg <- stringr::str_trim(xml2::xml_text(xml2::xml_find_first(n, "span")))
+      msg <- stringr::str_replace_all(msg, "\\s+", " ")
       warnings <- c(warnings, list(list(type = type, message = msg)))
     }
   }
@@ -311,4 +307,12 @@ check_balanced <- function(x) {
     str <- ifelse(str == "(", 1, -1)
     all(cumsum(str) >= 0) && sum(str) == 0
   })
+}
+
+show_warnings <- function(warnings){
+  if (length(warnings) > 0) {
+    for (w in warnings) {
+      warning(w$message, call. = FALSE)
+    }
+  }
 }
