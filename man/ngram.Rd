@@ -12,8 +12,7 @@ ngram(
   smoothing = 3,
   count = FALSE,
   tag = NULL,
-  case_ins = FALSE,
-  aggregate = FALSE
+  case_ins = FALSE
 )
 }
 \arguments{
@@ -30,8 +29,7 @@ ngram(
 \item{count}{logical, denoting whether phrase counts should be returned as
 well as frequencies. Default is \code{FALSE}.}
 
-\item{tag}{\lifecycle{soft-deprecated}
-apply a part-of-speech tag to the whole
+\item{tag}{apply a part-of-speech tag to the whole
 vector of phrases}
 
 \item{case_ins}{Logical indicating whether to force a case insenstive search.
@@ -46,11 +44,11 @@ Google generated two datasets drawn from digitised books in the Google
  Books collection. One was generated in July 2009, the second in July 2012.
  Google will update these datasets as book scanning continues.
 
- This function provides the annual frequency of words or phrases, known as
- n-grams, in a sub-collection or "corpus" taken from the Google Books collection.
- The search across the corpus is case-sensitive. For a case-insensitive search
- use \code{\link{ngrami}}.
- 
+ This function provides the annual frequency of words or phrases, known
+ as n-grams, in a sub-collection or "corpus" taken from the Google Books
+ collection.The search across the corpus is case-sensitive. For a
+ case-insensitive search use \code{\link{ngrami}}.
+
 Below is a list of available corpora.
 \tabular{ll}{
 \bold{Corpus} \tab \bold{Corpus Name}\cr
@@ -91,10 +89,11 @@ ita_2012\tab Italian 2012\cr
 
 The Google Million is a sub-collection of Google Books. All are in
 English with dates ranging from 1500 to 2008.
-No more than about 6,000 books were chosen from any one year, which means that
-all of the scanned books from early years are present, and books from later
-years are randomly sampled. The random samplings reflect the subject distributions
-for the year (so there are more computer books in 2000 than 1980).
+No more than about 6,000 books were chosen from any one year, which
+means that all of the scanned books from early years are present,
+and books from later years are randomly sampled. The random samplings
+reflect the subject distributions for the year (so there are more
+computer books in 2000 than 1980).
 
 See \url{http://books.google.com/ngrams/info} for the full Ngram syntax.
 }

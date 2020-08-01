@@ -82,8 +82,7 @@
 
 ngram <- function(phrases, corpus = "eng_2019", year_start = 1500,
                   year_end = 2020, smoothing = 3, count=FALSE,
-                  tag = NULL, case_ins=FALSE,
-                  aggregate = FALSE) {
+                  tag = NULL, case_ins=FALSE) {
   stopifnot(is.character(phrases))
   if (!all(check_balanced(phrases))) stop("Mis-matched parentheses")
   if (length(phrases) > 12) {
@@ -106,9 +105,10 @@ ngram <- function(phrases, corpus = "eng_2019", year_start = 1500,
   return(result)
 }
 
-ngram_new <- function(phrases, corpus = 26, year_start = 1800, year_end = 2020,
+ngram_new <- function(phrases, corpus = "eng_2019", year_start = 1800, year_end = 2020,
                       smoothing = 3, case_ins=FALSE, 
-                      aggregate = FALSE, clean = TRUE) {
+                      aggregate = FALSE, clean = FALSE) {
+  if (class(corpus) == "character") corpus <- get_corpus(corpus)
   query <- as.list(environment())
   if (case_ins) query["case_insensitive"] <- "on"
   query$phrases <- NULL
