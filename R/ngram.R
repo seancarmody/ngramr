@@ -110,11 +110,8 @@ ngram_new <- function(phrases, corpus = "eng_2019", year_start = 1800,
                       aggregate = FALSE, clean = FALSE) {
   if (class(corpus) == "character")  corpus <- get_corpus_n(corpus, default = "eng_2019")
   phrases <- ngram_check_phrases(phrases)
-  result <- ngram_single_new(phrases, corpus, year_start, year_end,
+  ng <- ngram_single_new(phrases, corpus, year_start, year_end,
                              smoothing, case_ins)
-  ng <- result$ngram
-  warnings <- result$warnings
-  show_warnings(warnings)
   if (length(ng) == 0) return(NULL)
   if (aggregate) {
     ng <- filter(ng, .data$type != "EXPANSION")
@@ -141,7 +138,8 @@ ngram_single_new <- function(phrases, corpus, year_start, year_end,
   html <- ngram_fetch_xml(ng_url)
   ng <- ngram_fetch_data(html)
   warnings <- ngram_check_warnings(html)
-  return(list(ngram = ng, warnings = warnings))
+  show_warnings(warnings)
+  return(ng)
 }
 
 ngram_check_phrases <- function(phrases){
@@ -339,11 +337,10 @@ show_warnings <- function(warnings){
 
 get_corpus_n <- function(corpus, default = NA){
   stopifnot(is.character(corpus))
-  df <- ngramr:::corpuses
-  n <-  df[corpus, "Number"]
+  n <-  corpuses[corpus, "Number"]
   if (any(is.na(n)) && !is.na(default)) {
     if (is.character(default)) default <- get_corpus_n(default)
-    stopifnot(default %in% ngramr:::corpuses$Number)
+    stopifnot(default %in% corpuses$Number)
     invalid <- paste(corpus[is.na(n)], collapse = ", ")
     warning(paste0("Unknown corpus ", invalid, ". Using default corpus instead."), call. = FALSE)
     n[is.na(n)] <- default
@@ -353,11 +350,10 @@ get_corpus_n <- function(corpus, default = NA){
 
 get_corpus_text <- function(n, default = NA){
   stopifnot(is.numeric(n))
-  df <- ngramr:::corpuses
-  text <- row.names(df)[match(n, df$Number)]
+  text <- row.names(corpuses)[match(n, corpuses$Number)]
   if (any(is.na(text)) && !is.na(default)) {
     if (is.numeric(default)) default <- get_corpus_text(default)
-    stopifnot(default %in% row.names(ngramr:::corpuses))
+    stopifnot(default %in% row.names(corpuses))
     invalid <- paste(n[is.na(text)], collapse = ", ")
     warning(paste0("Unknown corpus ", invalid, ". Using default corpus instead."), call. = FALSE)
     text[is.na(text)] <- default
