@@ -5,7 +5,7 @@
 #' @param ... remaining parameters passed to ngram
 #' @export
      
-ngrami <- function(phrases, aggregate=TRUE, ...) {
+ngrami <- function(phrases, aggregate = TRUE, ...) {
   if (any(grepl("/|\\+| - |_", phrases))) {
     stop("Complex operators not supported for case insensitive search.")
   }
@@ -26,4 +26,8 @@ ngrami <- function(phrases, aggregate=TRUE, ...) {
   attr(result, "smoothing") <- smoothing
   attr(result, "case_sensitive") <- FALSE
   return(result)
+}
+
+ngrami_new <- function(phrases, aggregate = TRUE, ...){
+  ngram_new(phrases, aggregate = aggregate, case_ins = TRUE, drop_all = TRUE, ...)  
 }
