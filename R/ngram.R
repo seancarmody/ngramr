@@ -72,12 +72,10 @@
 #'
 #' See \url{http://books.google.com/ngrams/info} for the full Ngram syntax.
 #' @examples
-#' freq <- ngram(c("mouse", "rat"), year_start = 1950)
-#' head(freq)
-#' freq <- ngram(c("blue", "red"), tag = "ADJ")
-#' head(freq)
-#' freq <- ngram(c("President Roosevelt", "President Truman"), tag = "START", year_start = 1920)
-#' head(freq)
+#' ngram(c("mouse", "rat"), year_start = 1950)
+#' ngram(c("blue_ADJ", "red_ADJ"))
+#' ngram(c("blue", "red"), tag = "ADJ")
+#' ngram(c("President Roosevelt", "President Truman"), tag = "START", year_start = 1920)
 #' @export
 
 ngram <- function(phrases, corpus = "eng_2019", year_start = 1500,
@@ -110,8 +108,12 @@ ngram_new <- function(phrases, corpus = "eng_2019", year_start = 1800,
                       aggregate = FALSE, clean = FALSE) {
   if (class(corpus) == "character")  corpus <- get_corpus_n(corpus, default = "eng_2019")
   phrases <- ngram_check_phrases(phrases)
-  ng <- ngram_single_new(phrases, corpus, year_start, year_end,
-                             smoothing, case_ins)
+  dfs <- lapply(corpus, function(corp) ngram_single_new(phrases, corpus = corp,
+                                                    year_start = year_start,
+                                                    year_end = year_end,
+                                                    smoothing = smoothing,
+                                                    case_ins = case_ins))
+  ng <- bind_rows(dfs)
   if (length(ng) == 0) return(NULL)
   if (aggregate) {
     ng <- filter(ng, .data$type != "EXPANSION")
