@@ -203,3 +203,14 @@ check_balanced <- function(x){
     all(cumsum(str) >= 0) && sum(str) == 0
   })
 }
+
+truncate_years <- function(ngram){
+  stopifnot(class(ngram)[1] == "ngram")
+  ngram <- left_join(ngram, select(corpuses,
+                                   .data$Shorthand,
+                                   .data$Last.Year),
+                     by = c("Corpus" = "Shorthand"))
+  ngram <- filter(ngram, .data$Year <= .data$Last.Year)
+  ngram$Last.Year <- NULL
+  return(ngram)
+}
