@@ -108,7 +108,7 @@ ngram <- function(phrases, corpus = "eng_2019", year_start = 1500,
 ngram_new <- function(phrases, corpus = "eng_2019", year_start = 1800, 
                       year_end = 2020, smoothing = 3, case_ins=FALSE,
                       aggregate = FALSE, clean = FALSE) {
-  if (class(corpus) == "character")  corpus <- get_corpus(corpus)
+  if (class(corpus) == "character")  corpus <- get_corpus_n(corpus)
   phrases <- ngram_check_phrases(phrases)
   result <- ngram_single_new(phrases, corpus, year_start, year_end,
                              smoothing, case_ins)
@@ -240,9 +240,9 @@ ngram_fetch_data <- function(html, debug = FALSE) {
                                                 Year = seq.int(years[1], years[2])))
   data <- bind_rows(data)
   data$ngram <- factor(textutils::HTMLdecode(data$ngram))
-  data <- mutate(data, Corpus = get_corpus(corpus, text = FALSE))
+  data <- mutate(data, Corpus = get_corpus_text(corpus))
   data <- separate(data, ngram, c("clean", "C"), ":", remove = FALSE, extra = "drop", fill = "right")
-  data <- mutate(data, n = get_corpus(.data$C),
+  data <- mutate(data, n = get_corpus_n(.data$C),
                  Corpus = if_else(is.na(n), .data$Corpus, .data$C), C = NULL, n = NULL)
   data <- dplyr::relocate(data, .data$Year, .data$ngram, .data$timeseries, .data$Corpus)
   data <- dplyr::rename(data, Phrase = .data$ngram, Frequency = .data$timeseries, Parent = .data$parent)
