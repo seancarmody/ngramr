@@ -115,7 +115,9 @@ ngram_new <- function(phrases, corpus = "eng_2019", year_start = 1800,
                                                     smoothing = smoothing,
                                                     case_ins = case_ins))
   ng <- bind_rows(dfs)
+  class(ng) <- c("ngram", class(ng))
   if (length(ng) == 0) return(NULL)
+  ng <- truncate_years(ng)
   if (aggregate) {
     ng <- filter(ng, .data$type != "EXPANSION")
     } else {
@@ -130,7 +132,6 @@ ngram_new <- function(phrases, corpus = "eng_2019", year_start = 1800,
                                               .data$Phrase))
   }
   ng <- select(ng, -.data$clean)
-  class(ng) <- c("ngram", class(ng))
   attr(ng, "smoothing") <- smoothing
   attr(ng, "case_sensitive") <- !case_ins
   ng$Corpus <- as.factor(ng$Corpus)
