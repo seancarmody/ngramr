@@ -336,3 +336,15 @@ show_warnings <- function(warnings){
     }
   }
 }
+
+get_corpus_n <- function(corpus){
+  stopifnot(is.character(corpus))
+  df <- ngramr:::corpuses
+  return(df[corpus, "Number"])
+}
+
+get_corpus_text <- function(n){
+  stopifnot(is.numeric(n))
+  df <- ngramr:::corpuses
+  return(row.names(df)[match(n, df$Number)])
+}
