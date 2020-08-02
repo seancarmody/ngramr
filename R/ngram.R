@@ -126,8 +126,8 @@ ngram_new <- function(phrases, corpus = "eng_2019", year_start = 1800,
   if (drop_all) {
     ng <- mutate(ng, 
                  Phrase = if_else(type == "CASE_INSENSITIVE",
-                                  stringr::str_replace(Phrase, "\\s*\\(All\\)\\z", ""),
-                                              Phrase))
+                                  stringr::str_replace(.data$Phrase, "\\s*\\(All\\)\\z", ""),
+                                              .data$Phrase))
   }
   ng <- select(ng, -.data$clean)
   class(ng) <- c("ngram", class(ng))

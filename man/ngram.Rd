@@ -98,10 +98,8 @@ computer books in 2000 than 1980).
 See \url{http://books.google.com/ngrams/info} for the full Ngram syntax.
 }
 \examples{
-freq <- ngram(c("mouse", "rat"), year_start = 1950)
-head(freq)
-freq <- ngram(c("blue", "red"), tag = "ADJ")
-head(freq)
-freq <- ngram(c("President Roosevelt", "President Truman"), tag = "START", year_start = 1920)
-head(freq)
+ngram(c("mouse", "rat"), year_start = 1950)
+ngram(c("blue_ADJ", "red_ADJ"))
+ngram(c("blue", "red"), tag = "ADJ")
+ngram(c("President Roosevelt", "President Truman"), tag = "START", year_start = 1920)
 }
