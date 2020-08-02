@@ -95,6 +95,7 @@ ngram <- function(phrases, corpus='eng_2019', year_start = 1500,
   result <- do.call("rbind", dfs)
   result$Corpus <- as.factor(result$Corpus)
   class(result) <- c("ngram", class(result))
+  result <- truncate_years(result)
   attr(result, "smoothing") <- smoothing
   attr(result, "case_sensitive") <- TRUE
   result$Phrase <- factor(result$Phrase)
