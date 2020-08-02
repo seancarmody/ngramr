@@ -375,3 +375,14 @@ get_corpus_text <- function(n, default = NA){
   }
   return(text)
 }
+
+truncate_years <- function(ngram){
+  stopifnot(class(ngram)[1] == "ngram")
+  ngram <- left_join(ngram, select(corpuses,
+                                   .data$Shorthand,
+                                   .data$Last.Year),
+                     by = c("Corpus" = "Shorthand"))
+  ngram <- filter(ngram, .data$Year <= .data$Last.Year)
+  ngram$Last.Year <- NULL
+  return(ngram)
+}
