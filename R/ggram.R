@@ -79,7 +79,8 @@ ggram <- function(phrases, ignore_case = FALSE, code_corpus = FALSE,
   if (!"Year" %in% names(ng)) stop("No ngram data returned")
   ng <- within(ng, Year <- as.Date(paste(Year, 1, 1, sep = "-")))
   if (!code_corpus) ng <- within(ng,
-                                 levels(Corpus) <- corpuses[levels(Corpus), 1])
+                                 levels(Corpus) <- corpuses[levels(Corpus),
+                                                            "Informal.corpus.name"])
   p <- ggplot(data = ng,
              aes_string(x = "Year", y = "Frequency",
                         colour = "Phrase", fill = "Phrase"))
@@ -92,7 +93,7 @@ ggram <- function(phrases, ignore_case = FALSE, code_corpus = FALSE,
     p <- p +
       scale_colour_google() +
       scale_fill_google() +
-      theme_google() + labs(y = NULL) +
+      theme_google() + labs(y = NULL, colour = NULL) +
       scale_x_date(expand = c(0, 0)) +
       scale_y_continuous(expand = c(0, 0), labels = scales::percent)
   } else {
