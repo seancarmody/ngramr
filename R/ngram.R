@@ -105,7 +105,8 @@ ngram <- function(phrases, corpus = "eng_2019", year_start = 1500,
 
 ngram_new <- function(phrases, corpus = "eng_2019", year_start = 1800, 
                       year_end = 2020, smoothing = 3, case_ins=FALSE,
-                      aggregate = FALSE, clean = FALSE) {
+                      aggregate = FALSE, drop_corpus = FALSE,
+                      drop_parent = FALSE, drop_all = FALSE, type = FALSE) {
   if (class(corpus) == "character")  corpus <- get_corpus_n(corpus, default = "eng_2019")
   phrases <- ngram_check_phrases(phrases)
   dfs <- lapply(corpus, function(corp) ngram_single_new(phrases, corpus = corp,
@@ -120,12 +121,21 @@ ngram_new <- function(phrases, corpus = "eng_2019", year_start = 1800,
     } else {
     ng <- filter(ng, .data$type %in% c("NGRAM", "EXPANSION"))
   }
-  if (clean) ng <- mutate(ng, Phrase = .data$clean)
+  if (drop_corpus) ng <- mutate(ng, Phrase = .data$clean)
+  if (drop_parent || all(ng$Parent == "")) ng$Parent <- NULL
+  if (drop_all) {
+    ng <- mutate(ng, 
+                 Phrase = if_else(type == "CASE_INSENSITIVE",
+                                  stringr::str_replace(Phrase, "\\s*\\(All\\)\\z", ""),
+                                              Phrase))
+  }
   ng <- select(ng, -.data$clean)
   class(ng) <- c("ngram", class(ng))
   attr(ng, "smoothing") <- smoothing
-  attr(ng, "case_sensitive") <- TRUE
+  attr(ng, "case_sensitive") <- !case_ins
   ng$Corpus <- as.factor(ng$Corpus)
+  ng$Phrase <- as.factor(ng$Phrase)
+  if (type) ng$Type <- ng$type
   ng$type <- NULL
   return(ng)
 }
@@ -239,13 +249,16 @@ ngram_fetch_data <- function(html, debug = FALSE) {
                  function(x) tibble::add_column(tibble::as_tibble(x),
                                                 Year = seq.int(years[1], years[2])))
   data <- bind_rows(data)
-  data$ngram <- factor(textutils::HTMLdecode(data$ngram))
+  data$ngram <- textutils::HTMLdecode(data$ngram)
   data <- mutate(data, Corpus = get_corpus_text(corpus))
-  data <- separate(data, ngram, c("clean", "C"), ":", remove = FALSE, extra = "drop", fill = "right")
+  data <- separate(data, ngram, c("clean", "C"), ":", remove = FALSE,
+                   extra = "drop", fill = "right")
   data <- mutate(data, n = get_corpus_n(.data$C),
                  Corpus = if_else(is.na(n), .data$Corpus, .data$C), C = NULL, n = NULL)
   data <- dplyr::relocate(data, .data$Year, .data$ngram, .data$timeseries, .data$Corpus)
-  data <- dplyr::rename(data, Phrase = .data$ngram, Frequency = .data$timeseries, Parent = .data$parent)
+  data <- dplyr::rename(data, Phrase = .data$ngram, 
+                        Frequency = .data$timeseries,
+                        Parent = .data$parent)
   return(data)
 }
 
