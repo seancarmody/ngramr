@@ -4,3 +4,4 @@ README.md
 cran-comments.md
 ^\.travis\.yml$
 .travis.yml 
+^google$
