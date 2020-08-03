@@ -17,7 +17,7 @@ print.ngram <- function(x, rows=6, ...) {
   if (all(c("Phrase", "Corpus", "Year") %in% names(x))) {
     cli::cat_line("# Ngram data table", col = "green")
     cli::cat_line("# Phrases:\t\t", paste(levels(x$Phrase), collapse = ", "))
-    cli::cat_line("# Case-sentitive:\t", attributes(x)$case_sensitive)
+    cli::cat_line("# Case-sensitive:\t", attributes(x)$case_sensitive)
     cli::cat_line("# Corpuses:\t\t", paste(levels(x$Corpus), collapse = ", "))
     cli::cat_line("# Smoothing:\t\t", attributes(x)$smoothing)
     cli::cat_line("# Years:\t\t", min(x$Year), "-", max(x$Year))
