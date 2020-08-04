@@ -9,7 +9,7 @@ Note: with the switch to using `RCurl` to access SSL pages, `ngramr` stopped wor
 Now it seems to work again - let me know if you have problems.
 
 <!-- badges: start -->
-[![Travis build status](https://travis-ci.com/seancarmody/ngramr.svg?branch=master)](https://travis-ci.com/seancarmody/ngramr)
+[![Travis build status](https://travis-ci.com/seancarmody/ngramr.svg?branch=master)](https://travis-ci.com/seancarmody/ngramr) ![Twitter Follow](https://img.shields.io/twitter/follow/stubbornmule?label=%40stubbornmule&style=social)
 <!-- badges: end -->
 
 The [Google Books Ngram Viewer](http://books.google.com/ngrams) allows you to enter a list of phrases and then displays a graph showing how often the phrases have occurred in a large corpus of books (e.g., "British English", "English Fiction", "French") over time. The current corpus collected in 2019 contains almost [half a trillion](http://languagelog.ldc.upenn.edu/nll/?p=4258) words for English alone.
@@ -21,7 +21,7 @@ It was written by [Jean-Baptiste Michel](https://twitter.com/jb_michel).
 
 #### Installing
 
-This package required R version 2.15 or higher. If you are using an older version of R
+This package requires R version 3.5.0 or higher. If you are using an older version of R
 you will be prompted to upgrade when you try to install the package, so you may as well
 upgrade now!
 
