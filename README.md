@@ -1,15 +1,16 @@
-ngramr
-======
+# ngramr - R package to query the Google Ngram Viewer
 
-### R package to query the Google Ngram Viewer
-
-*This package was updated in July 2020 to reflect changes to the Google ngram viewer webpage format. It has not yet been comprehensively tested (and has not been pushed to CRAN). Please let me know if anything is not working as expected.*
+*This package was updated in July 2020 to reflect changes to the Google ngram
+viewer webpage format. It has not yet been comprehensively tested (and has not
+been pushed to CRAN). Please let me know if anything is not working as expected.*
 
 Note: with the switch to using `RCurl` to access SSL pages, `ngramr` stopped working behind a proxy.
 Now it seems to work again - let me know if you have problems.
 
 <!-- badges: start -->
-[![Travis build status](https://travis-ci.com/seancarmody/ngramr.svg?branch=master)](https://travis-ci.com/seancarmody/ngramr) ![Twitter Follow](https://img.shields.io/twitter/follow/stubbornmule?label=%40stubbornmule&style=social)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/ngramr)](https://cran.r-project.org/package=ngramr)
+[![Travis build status](https://travis-ci.com/seancarmody/ngramr.svg?branch=master)](https://travis-ci.com/seancarmody/ngramr)
 <!-- badges: end -->
 
 The [Google Books Ngram Viewer](http://books.google.com/ngrams) allows you to enter a list of phrases and then displays a graph showing how often the phrases have occurred in a large corpus of books (e.g., "British English", "English Fiction", "French") over time. The current corpus collected in 2019 contains almost [half a trillion](http://languagelog.ldc.upenn.edu/nll/?p=4258) words for English alone.
@@ -19,7 +20,7 @@ This package extracts the data and provides it in the form of an R dataframe. Th
 [Culturomics](http://www.culturomics.org/Resources/get-ngrams).
 It was written by [Jean-Baptiste Michel](https://twitter.com/jb_michel).
 
-#### Installing
+## Installing
 
 This package requires R version 3.5.0 or higher. If you are using an older version of R
 you will be prompted to upgrade when you try to install the package, so you may as well
@@ -51,7 +52,7 @@ although it may not always work.
 
 If you are behind a proxy, `install_github` may not work for you. Instead of fiddling around with the `RCurl` proxy settings, you can download the [ZIP archive](https://github.com/seancarmody/ngramr/archive/master.zip) and use `install_local` instead.
 
-#### Examples
+## Examples
 
 Here is an example of how to use the `ngram` function:
 
@@ -82,6 +83,8 @@ The colors used by Google Ngram are available through the `google_theme` option,
     ggram(ng, year_start = 1800, google_theme = TRUE) +
       theme(legend.direction = "vertical")
 
-#### Further Reading
+## Further Reading
 
 For more information, read [this Stubborn Mule post](http://www.stubbornmule.net/2013/07/ngramr/) and the [Google Ngram syntax](http://books.google.com/ngrams/info) documentation. If you would rather work with R and SQL on the raw Google Ngram datasets, [see this post](http://rpsychologist.com/how-to-work-with-google-ngram-data-sets-in-r-using-mysql/).
+
+![Twitter Follow](https://img.shields.io/twitter/follow/stubbornmule?label=%40stubbornmule&style=social)
