@@ -97,7 +97,7 @@ ngram <- function(phrases, corpus='eng_2019', year_start = 1500,
   class(result) <- c("ngram", class(result))
   result <- truncate_years(result)
   attr(result, "smoothing") <- smoothing
-  attr(result, "case_sensitive") <- TRUE
+  attr(result, "case_sensitive") <- ifelse(case_ins, FALSE, TRUE)
   result$Phrase <- factor(result$Phrase)
   if (count) result <- add_count(result)
   return(result)

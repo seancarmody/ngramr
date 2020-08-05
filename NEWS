@@ -1,3 +1,7 @@
+ngramr 1.6.5
+------------
+Fix case_sensitive attribute
+
 ngramr 1.6.4
 ------------
 Fix error in corpus count dataset
