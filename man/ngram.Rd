@@ -7,12 +7,16 @@
 ngram(
   phrases,
   corpus = "eng_2019",
-  year_start = 1500,
+  year_start = 1800,
   year_end = 2020,
   smoothing = 3,
+  case_ins = FALSE,
+  aggregate = FALSE,
   count = FALSE,
-  tag = NULL,
-  case_ins = FALSE
+  drop_corpus = FALSE,
+  drop_parent = FALSE,
+  drop_all = FALSE,
+  type = FALSE
 )
 }
 \arguments{
@@ -26,14 +30,26 @@ ngram(
 
 \item{smoothing}{smoothing paramater, default is 3}
 
-\item{count}{logical, denoting whether phrase counts should be returned as
-well as frequencies. Default is \code{FALSE}.}
-
-\item{tag}{apply a part-of-speech tag to the whole
-vector of phrases}
-
 \item{case_ins}{Logical indicating whether to force a case insenstive search.
 Default is \code{FALSE}.}
+
+\item{aggregate}{Sum up the frequencies for ngrams associated with wildcard
+or case insensitive searches. Default is \code{FALSE}.}
+
+\item{count}{Default is \code{FALSE}.}
+
+\item{drop_corpus}{When a corpus is specified directly with the ngram 
+(e.g \code{dog:eng_fiction_2012}) should the corpus be used retained in
+the phrase column of the results. Default is \code{FALSE}.}
+
+\item{drop_parent}{Drop the parent phrase associated with a wildcard
+or case-insensitive search. Default is \code{FALSE}.}
+
+\item{drop_all}{Delete the suffix "(All)" from aggregated case-insensitive
+searches. Default is \code{FALSE}.}
+
+\item{type}{Include the Google return type (e.g. NGRAM, NGRAM_COLLECTION,
+EXPANSION) from result set. Default is \code{FALSE}.}
 }
 \description{
 \code{ngram} downloads data from the Google Ngram Viewer website and
@@ -41,13 +57,17 @@ returns it in a dataframe.
 }
 \details{
 Google generated two datasets drawn from digitised books in the Google
- Books collection. One was generated in July 2009, the second in July 2012.
- Google will update these datasets as book scanning continues.
+ Books collection. One was generated in July 2009, the second in July 2012
+ and the third in 2019. Google is expected to update these datasets as book
+ scanning continues.
 
  This function provides the annual frequency of words or phrases, known
  as n-grams, in a sub-collection or "corpus" taken from the Google Books
  collection.The search across the corpus is case-sensitive. For a
  case-insensitive search use \code{\link{ngrami}}.
+ 
+ Note that the \code{tag} option is no longer available. Tags should be
+ specified directly in the ngram string (see examples).
 
 Below is a list of available corpora.
 \tabular{ll}{
@@ -100,6 +120,5 @@ See \url{http://books.google.com/ngrams/info} for the full Ngram syntax.
 \examples{
 ngram(c("mouse", "rat"), year_start = 1950)
 ngram(c("blue_ADJ", "red_ADJ"))
-ngram(c("blue", "red"), tag = "ADJ")
-ngram(c("President Roosevelt", "President Truman"), tag = "START", year_start = 1920)
+ngram(c("_START_ President Roosevelt", "_START_ President Truman"), year_start = 1920)
 }

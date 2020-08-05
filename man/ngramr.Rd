@@ -27,8 +27,8 @@ website itself is worth exploring.
 Note that compared to the 2009 versions, the 2012 and 2019 versions have
 larger numbers of books, improved OCR, improved library and publisher
 metadata. The 2012 and 2019 corpuses also don't form ngrams that cross
-sentence boundaries, and do form ngrams across page boundaries, unlike
-the 2009 versions.
+sentence boundaries, and do form ngrams across page boundaries and 
+support part of speech tagging, unlike the 2009 versions.
 
 Like the Google Ngram Viewer website itself, this package is aimed at for
 quick inquiries into the usage of small sets of phrases.

@@ -6,5 +6,5 @@
 #' @export
      
 ngrami <- function(phrases, aggregate = TRUE, ...){
-  ngram_new(phrases, aggregate = aggregate, case_ins = TRUE, drop_all = TRUE, ...)  
+  ngram(phrases, aggregate = aggregate, case_ins = TRUE, drop_all = TRUE, ...)  
 }

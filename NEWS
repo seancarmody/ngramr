@@ -1,3 +1,9 @@
+ngramr 1.7.0
+------------
+* Comprehensive refactor of underlying code
+* More robust error/warning handling
+* Dropped the "tag" argument from ngram functions
+
 ngramr 1.6.0
 ------------
 Update to address issue (#26) resulting from change in the format of

@@ -10,19 +10,33 @@
 #' @param smoothing smoothing paramater, default is 3
 #' @param count logical, denoting whether phrase counts should be returned as
 #'   well as frequencies. Default is \code{FALSE}.
-#' @param tag apply a part-of-speech tag to the whole
-#'   vector of phrases
 #' @param case_ins Logical indicating whether to force a case insenstive search.
 #'   Default is \code{FALSE}.
+#' @param aggregate Sum up the frequencies for ngrams associated with wildcard
+#'   or case insensitive searches. Default is \code{FALSE}.
+#' @param count Default is \code{FALSE}.
+#' @param drop_corpus When a corpus is specified directly with the ngram 
+#'   (e.g \code{dog:eng_fiction_2012}) should the corpus be used retained in
+#'   the phrase column of the results. Default is \code{FALSE}.
+#' @param drop_parent  Drop the parent phrase associated with a wildcard
+#'   or case-insensitive search. Default is \code{FALSE}.
+#' @param drop_all Delete the suffix "(All)" from aggregated case-insensitive
+#'   searches. Default is \code{FALSE}.
+#' @param type Include the Google return type (e.g. NGRAM, NGRAM_COLLECTION,
+#'   EXPANSION) from result set. Default is \code{FALSE}.
 #' @details
 #'  Google generated two datasets drawn from digitised books in the Google
-#'  Books collection. One was generated in July 2009, the second in July 2012.
-#'  Google will update these datasets as book scanning continues.
+#'  Books collection. One was generated in July 2009, the second in July 2012
+#'  and the third in 2019. Google is expected to update these datasets as book
+#'  scanning continues.
 #'
 #'  This function provides the annual frequency of words or phrases, known
 #'  as n-grams, in a sub-collection or "corpus" taken from the Google Books
 #'  collection.The search across the corpus is case-sensitive. For a
 #'  case-insensitive search use \code{\link{ngrami}}.
+#'  
+#'  Note that the \code{tag} option is no longer available. Tags should be
+#'  specified directly in the ngram string (see examples).
 #'
 #' Below is a list of available corpora.
 #' \tabular{ll}{
@@ -74,49 +88,24 @@
 #' @examples
 #' ngram(c("mouse", "rat"), year_start = 1950)
 #' ngram(c("blue_ADJ", "red_ADJ"))
-#' ngram(c("blue", "red"), tag = "ADJ")
-#' ngram(c("President Roosevelt", "President Truman"), tag = "START", year_start = 1920)
+#' ngram(c("_START_ President Roosevelt", "_START_ President Truman"), year_start = 1920)
 #' @export
 
-ngram <- function(phrases, corpus = "eng_2019", year_start = 1500,
-                  year_end = 2020, smoothing = 3, count=FALSE,
-                  tag = NULL, case_ins=FALSE) {
-  stopifnot(is.character(phrases))
-  if (!all(check_balanced(phrases))) stop("Mis-matched parentheses")
-  if (length(phrases) > 12) {
-    phrases <- phrases[1:12]
-    warning("Maximum number of phrases exceeded: only using first 12.")
-  }
-  dfs <- lapply(corpus, function(corp) ngram_single(phrases, corpus = corp,
-                                                    year_start = year_start,
-                                                    year_end = year_end,
-                                                    smoothing = smoothing,
-                                                    tag = tag, case_ins))
-  result <- bind_rows(dfs)
-  if (NROW(result) == 0) return(NULL)
-  result$Corpus <- as.factor(result$Corpus)
-  class(result) <- c("ngram", class(result))
-  attr(result, "smoothing") <- smoothing
-  attr(result, "case_sensitive") <- TRUE
-  result$Phrase <- factor(result$Phrase)
-  if (count) result <- add_count(result)
-  return(result)
-}
-
-ngram_new <- function(phrases, corpus = "eng_2019", year_start = 1800, 
+ngram <- function(phrases, corpus = "eng_2019", year_start = 1800, 
                       year_end = 2020, smoothing = 3, case_ins=FALSE,
-                      aggregate = FALSE, drop_corpus = FALSE,
+                      aggregate = FALSE, count = FALSE, drop_corpus = FALSE,
                       drop_parent = FALSE, drop_all = FALSE, type = FALSE) {
   if (class(corpus) == "character")  corpus <- get_corpus_n(corpus, default = "eng_2019")
   phrases <- ngram_check_phrases(phrases)
-  dfs <- lapply(corpus, function(corp) ngram_single_new(phrases, corpus = corp,
+  # Loop over corpuses
+  dfs <- lapply(corpus, function(corp) ngram_single(phrases, corpus = corp,
                                                     year_start = year_start,
                                                     year_end = year_end,
                                                     smoothing = smoothing,
                                                     case_ins = case_ins))
   ng <- bind_rows(dfs)
-  class(ng) <- c("ngram", class(ng))
   if (length(ng) == 0) return(NULL)
+  class(ng) <- c("ngram", class(ng))
   ng <- truncate_years(ng)
   if (aggregate) {
     ng <- filter(ng, .data$type != "EXPANSION")
@@ -128,8 +117,8 @@ ngram_new <- function(phrases, corpus = "eng_2019", year_start = 1800,
   if (drop_all) {
     ng <- mutate(ng, 
                  Phrase = if_else(type == "CASE_INSENSITIVE",
-                                  stringr::str_replace(.data$Phrase, "\\s*\\(All\\)\\z", ""),
-                                              .data$Phrase))
+                                  stringr::str_replace(.data$Phrase, "\\s*\\(All\\)\\z", ""), 
+                                  .data$Phrase))
   }
   ng <- select(ng, -.data$clean)
   attr(ng, "smoothing") <- smoothing
@@ -138,10 +127,11 @@ ngram_new <- function(phrases, corpus = "eng_2019", year_start = 1800,
   ng$Phrase <- as.factor(ng$Phrase)
   if (type) ng$Type <- ng$type
   ng$type <- NULL
+  if(count) ng <- add_count(ng)
   return(ng)
 }
 
-ngram_single_new <- function(phrases, corpus, year_start, year_end,
+ngram_single <- function(phrases, corpus, year_start, year_end,
                              smoothing, case_ins) {
   query <- as.list(environment())
   if (case_ins) query["case_insensitive"] <- "on"
@@ -167,52 +157,6 @@ ngram_check_phrases <- function(phrases){
   return(phrases)
 }
 
-ngram_single <- function(phrases, corpus, tag, case_ins, ...) {
-  phrases <- phrases[1:ifelse(length(phrases) < 13, length(phrases), 12)]
-  if (!is.null(tag)) {
-    if (grepl("NOUN|VERB|ADJ|ADV|PRON|DET|ADP|NUM|CONJ|PRT", tag))
-      phrases <- paste0(phrases, "_", gsub("_", "", tag))
-    else if (grepl("ROOT|START|END", tag))
-      phrases <- paste(paste0("_", tag, "_"), phrases)
-  }
-  corpus_n <- get_corpus(corpus)
-  if (is.na(corpus_n)) {
-    warning("Unknown corpus. Using default corpus instead.", call. = FALSE)
-    corpus_n <- get_corpus("eng_2019")
-  }
-  df <- ngram_fetch(phrases, corpus_n, case_ins, ...)
-  if (NROW(df) > 0) {
-    df <- tidyr::pivot_longer(df, -.data$Year,
-                              names_to = "Phrase",
-                              values_to = "Frequency")
-    df$Phrase <- textutils::HTMLdecode(df$Phrase)
-    df$Corpus <- corpus
-  } else return(NULL)
-  return(df)
-}
-
-ngram_fetch <- function(phrases, corpus, year_start,  year_end,
-                        smoothing, case_ins=FALSE) {
-  # Retrieve HTML data
-  query <- as.list(environment())
-  if (case_ins) query["case_insensitive"] <- "on"
-  query$phrases <- NULL
-  query$case_ins <- NULL
-  phrases <- phrases[phrases != ""]
-  if (length(phrases) == 0) stop("No valid phrases provided.")
-  ng_url <- ngram_url(phrases, query)
-  html <- ngram_fetch_html(ng_url)
-  result <- ngram_parse(html)
-  return(result)
-}
-
-ngram_fetch_html <- function(url) {
-  html <- strsplit(httr::content(httr::GET(url), "text"),
-                   "\n", perl = TRUE)[[1]]
-  if (html[1] == "Please try again later.") stop('Server busy, answered "Please try again later."')
-  return(html)
-}
-
 ngram_fetch_xml <- function(url, text = FALSE) {
   if (text) {
     html <- httr::content(httr::GET(url), "text")
@@ -228,6 +172,7 @@ ngram_check_warnings <- function(html) {
       type <- xml2::xml_text(xml2::xml_find_first(n, "mwc-icon"))
       msg <- stringr::str_trim(xml2::xml_text(xml2::xml_find_first(n, "span")))
       msg <- stringr::str_replace_all(msg, "\\s+", " ")
+      msg <- stringr::str_replace(msg, "No valid ngrams to plot!", "No valid ngrams retrieved!")
       warnings <- c(warnings, list(list(type = type, message = msg)))
     }
   }
@@ -282,41 +227,6 @@ ngram_url <- function(phrases, query=character()) {
   url <- gsub("%29", ")", url)
   url <- gsub("%20", "+", url)
   return(url)
-}
-
-ngram_parse <- function(html) {
-   if (any(grepl("No valid ngrams to plot!", html))) {
-    warning("No valid ngrams to plot!", call. = FALSE)
-    return(data.frame())
-   }
-  # Warn about character substitution
-  lapply(grep("^Google has substituted ",
-              gsub("<.?b.?>", "", sub("Replaced (.*) to match how we processed the books",
-                                              "Google has substituted \\1", html)),
-              value = TRUE), warning, call. = FALSE)
-  data_line <- grep("ngrams.data", html)
-  year_line <- grep("drawD3Chart", html)
-  warn_line <- grep("class=\"warning-text\"", html)
-  if (length(warn_line) > 0) {
-    warning_message <- textutils::HTMLdecode(html[warn_line + 1])
-    warning_message <- stringr::str_trim(warning_message)
-    cli::cat_line("Warning: ", warning_message, col = "red")
-  }
-  data <- html[data_line]
-  if (gsub(" ", "", data[1]) == "ngrams.data=[];") stop("no data returned")
-  ngram_data <- rjson::fromJSON(sub(".*?=", "", data))
-  ngram_data <- ngram_data[unlist(lapply(ngram_data,
-                                         function(x) !("type" %in% names(x)) || x$type != "ALTERNATE_FORM"))]
-  years <- as.integer(strsplit(html[year_line], ",")[[1]][2:3])
-  cols <- unlist(lapply(ngram_data, function(x) x$ngram))
-  data <- as.data.frame(lapply(ngram_data[lapply(ngram_data, length) > 0],
-                               function(x) x$timeseries))
-  years <- seq.int(years[1], years[2])
-  if (NROW(data) == 0) return(data.frame())
-  data <- cbind(years, data)
-  colnames(data) <- c("Year", cols)
-  data <- data[!grepl("\\*|\\(All\\)", names(data))]
-  return(data)
 }
 
 get_corpus <- function(corpus, text = TRUE) {
