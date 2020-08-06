@@ -2,7 +2,9 @@
 
 *This package was significantly updated in July 2020 to reflect changes to the
 Google ngram viewer webpage format (and has not been pushed to CRAN). Please
-let me know if anything is not working as expected.*
+let me know if anything is not working as expected. Note that the `tag` 
+parameter has been removed. If this feature is essential for you, please us
+version v1.6.5.*
 
 Note: with the switch to using `RCurl` to access SSL pages, `ngramr` stopped
 working behind a proxy. Now it seems to work again - let me know if you have
