@@ -1,9 +1,8 @@
 # ngramr - R package to query the Google Ngram Viewer
 
-*This package was updated in July 2020 to reflect changes to the Google
-ngram viewer webpage format. It has not yet been comprehensively tested
-(and has not been pushed to CRAN). Please let me know if anything is not
-working as expected.*
+*This package was significantly updated in July 2020 to reflect changes to the
+Google ngram viewer webpage format (and has not been pushed to CRAN). Please
+let me know if anything is not working as expected.*
 
 Note: with the switch to using `RCurl` to access SSL pages, `ngramr` stopped
 working behind a proxy. Now it seems to work again - let me know if you have
@@ -57,6 +56,11 @@ development version:
     install_github("seancarmody/ngramr", "develop")
 
 although it may not always work.
+
+If the latest release has broken some of your old code, you can install an
+older version, for example:
+
+    install_github("seancarmody/ngramr", "v1.6.5")
 
 If you are behind a proxy, `install_github` may not work for you. Instead of
 fiddling around with the `RCurl` proxy settings, you can download the
