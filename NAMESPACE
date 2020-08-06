@@ -2,6 +2,7 @@
 
 S3method("[",ngram)
 S3method(print,ngram)
+export(chunk)
 export(corpuses)
 export(ggram)
 export(hacker)

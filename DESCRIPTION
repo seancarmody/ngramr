@@ -1,7 +1,7 @@
 Package: ngramr
 Type: Package
 Title: Retrieve and Plot Google n-Gram Data
-Version: 1.6.5
+Version: 1.7.0
 Date: 2020-07-22
 Author: Sean Carmody
 Maintainer: Sean Carmody <seancarmody@gmail.com>
@@ -21,10 +21,13 @@ Imports:
     stringr,
     ggplot2,
     scales,
-    textutils
+    xml2,
+    textutils,
+    lifecycle
 License: GPL (>=2)
 URL: https://github.com/seancarmody/ngramr
 RoxygenNote: 7.1.1
 Encoding: UTF-8
 Suggests: 
     testthat
+RdMacros: lifecycle
