@@ -33,12 +33,12 @@ package, so you may as well upgrade now!
 
 *Note: package not currently available on CRAN*
 
-The official release of ngramr is available on [CRAN][4]. To istall from
+The official release of ngramr is available on [CRAN][4]. To install from
 CRAN, use the following command:
 
     install.packages('ngramr')
 
-If you have any problems installing the package on OSX, try installing from
+If you have any problems installing the package on macOS, try installing from
 source:
 
     install.packages("ngramr", type="source")
@@ -89,7 +89,7 @@ plotting wrapper that supports many options, as in this example:
           geom = "area", geom_options = list(position = "stack")) + 
           labs(y = NULL)
 
-The colors used by Google Ngram are available through the `google_theme`
+The colours used by Google Ngram are available through the `google_theme`
 option, as in this example posted by Ben Zimmer [at Language Log][7]:
 
 ![Ngram chart, with Google theme](http://i.imgur.com/qKHvQA4.png)

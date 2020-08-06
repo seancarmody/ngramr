@@ -31,3 +31,4 @@ Encoding: UTF-8
 Suggests: 
     testthat
 RdMacros: lifecycle
+Language: en-AU

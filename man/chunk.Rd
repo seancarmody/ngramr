@@ -15,7 +15,7 @@ chunk(x, len = NULL, n = NULL)
 }
 \description{
 \code{chunk} takes a vector (or list) and returns a list of chunks
-of (approximately) equal to a specifed length.
+of (approximately) equal to a specified length.
 }
 \details{
 If \code{n} is specified, \code{len} is ignored and \code{chunk} returns

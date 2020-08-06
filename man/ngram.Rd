@@ -28,9 +28,9 @@ ngram(
 
 \item{year_end}{end year, default is 2008}
 
-\item{smoothing}{smoothing paramater, default is 3}
+\item{smoothing}{smoothing parameter, default is 3}
 
-\item{case_ins}{Logical indicating whether to force a case insenstive search.
+\item{case_ins}{Logical indicating whether to force a case insensitive search.
 Default is \code{FALSE}.}
 
 \item{aggregate}{Sum up the frequencies for ngrams associated with wildcard

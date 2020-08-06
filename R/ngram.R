@@ -7,10 +7,10 @@
 #' @param corpus Google corpus to search (see Details for possible values)
 #' @param year_start start year, default is 1500
 #' @param year_end end year, default is 2008
-#' @param smoothing smoothing paramater, default is 3
+#' @param smoothing smoothing parameter, default is 3
 #' @param count logical, denoting whether phrase counts should be returned as
 #'   well as frequencies. Default is \code{FALSE}.
-#' @param case_ins Logical indicating whether to force a case insenstive search.
+#' @param case_ins Logical indicating whether to force a case insensitive search.
 #'   Default is \code{FALSE}.
 #' @param aggregate Sum up the frequencies for ngrams associated with wildcard
 #'   or case insensitive searches. Default is \code{FALSE}.

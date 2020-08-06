@@ -1,7 +1,7 @@
 #' Chunk a vector or list
 #'
 #' \code{chunk} takes a vector (or list) and returns a list of chunks
-#' of (approximately) equal to a specifed length.
+#' of (approximately) equal to a specified length.
 #'
 #' @param x vector of list
 #' @param len target length of chunks
