@@ -1,3 +1,7 @@
+ngramr 1.7.1
+------------
+* Change year_start default to 1800 in documentation
+
 ngramr 1.7.0
 ------------
 * Comprehensive refactor of underlying code

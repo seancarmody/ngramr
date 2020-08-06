@@ -5,7 +5,7 @@
 #'
 #' @param phrases vector of phrases, with a maximum of 12 items
 #' @param corpus Google corpus to search (see Details for possible values)
-#' @param year_start start year, default is 1500
+#' @param year_start start year, default is 1800. Data available back to 1500.
 #' @param year_end end year, default is 2008
 #' @param smoothing smoothing parameter, default is 3
 #' @param count logical, denoting whether phrase counts should be returned as
