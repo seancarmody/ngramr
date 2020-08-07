@@ -24,7 +24,7 @@ ngram(
 
 \item{corpus}{Google corpus to search (see Details for possible values)}
 
-\item{year_start}{start year, default is 1500}
+\item{year_start}{start year, default is 1800. Data available back to 1500.}
 
 \item{year_end}{end year, default is 2008}
 
