@@ -1,6 +1,7 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
 README.md
+.Renviron
 cran-comments.md
 ^\.travis\.yml$
 .travis.yml 
