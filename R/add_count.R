@@ -16,13 +16,3 @@ add_count <- function(ng) {
   class(ng) <- c("ngram", class(ng))
   return(ng)
 }
-
-calc_frequency <- function(ng) {
-  ng_attrib <- attributes(ng)[c("case_sensitive", "smoothing")]
-  ng <- merge(ng, corpus_totals[, 1:3])
-  ng$Frequncy <- ng$Count * ng$N.1grams
-  ng$N.1grams <- NULL
-  attributes(ng) <- c(attributes(ng), ng_attrib)
-  class(ng) <- c("ngram", class(ng))
-  return(ng)
-}
