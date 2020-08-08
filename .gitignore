@@ -9,5 +9,6 @@
 .Rproj.user
 .RData
 .Rprofile
+.Renviron
 *.Rproj
 google/*
