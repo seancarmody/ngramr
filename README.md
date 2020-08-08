@@ -17,6 +17,8 @@ status](https://www.r-pkg.org/badges/version/ngramr)](https://cran.r-project.org
 [![Travis build status](https://travis-ci.com/seancarmody/ngramr.svg?branch=master)](https://travis-ci.com/seancarmody/ngramr)
 <!-- badges: end -->
 
+<!-- [![codecov](https://codecov.io/github/seancarmody/ngramr/branch/master/graphs/badge.svg)](https://codecov.io/github/seancarmody/ngramr) -->
+
 The [Google Books Ngram Viewer][1] allows you to enter a list of phrases and
 then displays a graph showing how often the phrases have occurred in a large
 corpus of books (e.g., "British English", "English Fiction", "French") over
@@ -102,11 +104,16 @@ option, as in this example posted by Ben Zimmer [at Language Log][7]:
     ggram(ng, year_start = 1800, google_theme = TRUE) +
       theme(legend.direction = "vertical")
 
+## Getting help
+
+If you encounter a bug, please file an issue with a reproducible
+example on [GitHub][12]. 
+
 ## Further Reading
 
 For more information, read [this Stubborn Mule post][8] and the
 [Google Ngram syntax][9] documentation. Language Log has a [good post][10]
-written just after the launch of the 2012 corpus.
+written just after the launch of the 2012 corpus. 
 
 If you would rather work with R and SQL on the raw Google Ngram datasets,
 [see this post][11].
@@ -124,3 +131,4 @@ If you would rather work with R and SQL on the raw Google Ngram datasets,
 [9]:  http://books.google.com/ngrams/info "Goole Ngram info"
 [10]: https://languagelog.ldc.upenn.edu/nll/?p=4258 "A new chapter for ngrams"
 [11]: http://rpsychologist.com/how-to-work-with-google-ngram-data-sets-in-r-using-mysql/ "Ngrams with R and mysql"
+[12]: https://github.com/seancarmody/ngramr/issues "ngramr issues on GitHub"
