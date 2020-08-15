@@ -159,8 +159,8 @@ ngram_check_phrases <- function(phrases){
 
 ngram_fetch_xml <- function(url, text = FALSE) {
   if (text) {
-    html <- httr::content(httr::GET(url), "text")
-    } else html <- xml2::read_html(url)
+    html <- paste(readLines(url(url)), collapse = "\n")
+    } else html <- xml2::read_html(url(url))
   return(html)
 }
 

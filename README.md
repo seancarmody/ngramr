@@ -6,10 +6,6 @@ let me know if anything is not working as expected. Note that the `tag`
 parameter has been removed. If this feature is essential for you, please use
 version v1.6.5.*
 
-Note: with the switch to using `RCurl` to access SSL pages, `ngramr` stopped
-working behind a proxy. Now it seems to work again - let me know if you have
-problems.
-
 <!-- badges: start -->
 [![CRAN
 status](https://www.r-pkg.org/badges/version/ngramr)](https://cran.r-project.org/package=ngramr)
