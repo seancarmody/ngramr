@@ -1,3 +1,7 @@
+ngramr 1.7.2
+------------
+* Change download code to use 'url' to ensure code works behind a proxy server
+
 ngramr 1.7.1
 ------------
 * Change year_start default to 1800 in documentation

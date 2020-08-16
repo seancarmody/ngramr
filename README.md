@@ -64,7 +64,7 @@ older version, for example:
     install_github("seancarmody/ngramr", "v1.6.5")
 
 If you are behind a proxy, `install_github` may not work for you. Instead of
-fiddling around with the `RCurl` proxy settings, you can download the
+fiddling around with the `RCurl` proxy settings, you can download the latest
 [ZIP archive][6] and use `install_local` instead.
 
 ## Examples
@@ -121,7 +121,7 @@ If you would rather work with R and SQL on the raw Google Ngram datasets,
 [3]:  https://twitter.com/jb_michel "@jb_michel"
 [4]:  http://cran.r-project.org/web/packages/ngramr/index.html "ngramr on CRAN"
 [5]:  http://cran.r-project.org/web/packages/devtools/index.html "devtools"
-[6]:  https://github.com/seancarmody/ngramr/archive/v1.7.1.zip "ngramr ZIP"
+[6]:  https://github.com/seancarmody/ngramr/archive/latest.zip "ngramr ZIP"
 [7]:  http://languagelog.ldc.upenn.edu/nll/?p=4979 "US: singular or plural?"
 [8]:  http://www.stubbornmule.net/2013/07/ngramr/ "Mule on ngramr"
 [9]:  http://books.google.com/ngrams/info "Goole Ngram info"
