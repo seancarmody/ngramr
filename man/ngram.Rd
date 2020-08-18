@@ -118,7 +118,8 @@ computer books in 2000 than 1980).
 See \url{http://books.google.com/ngrams/info} for the full Ngram syntax.
 }
 \examples{
-ngram(c("mouse", "rat"), year_start = 1950)
+\donttest{ngram(c("mouse", "rat"), year_start = 1950)
 ngram(c("blue_ADJ", "red_ADJ"))
 ngram(c("_START_ President Roosevelt", "_START_ President Truman"), year_start = 1920)
+}
 }

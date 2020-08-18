@@ -46,7 +46,12 @@ millions of digitized books." \emph{Science} 331, No. 6014 (2011): 176--182.
 Useful links:
 \itemize{
   \item \url{https://github.com/seancarmody/ngramr}
+  \item Report bugs at \url{https://github.com/seancarmody/ngramr/issues}
 }
+
+}
+\author{
+\strong{Maintainer}: Sean Carmody \email{seancarmody@gmail.com} [copyright holder]
 
 }
 \keyword{internal}

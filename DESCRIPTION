@@ -2,11 +2,13 @@ Package: ngramr
 Type: Package
 Title: Retrieve and Plot Google n-Gram Data
 Version: 1.7.2
-Date: 2020-07-22
-Author: Sean Carmody
+Date: 2020-08-18
+Authors@R: c(
+    person("Sean", "Carmody", email = "seancarmody@gmail.com", role = c("aut", "cre", "cph"))
+    )
 Maintainer: Sean Carmody <seancarmody@gmail.com>
 Description: Retrieve and plot word frequencies through time from the "Google
-    Ngram Viewer".
+    Ngram Viewer" <https://books.google.com/ngrams>.
 Depends:
     R (>= 3.5.0)
 Imports:
@@ -24,8 +26,9 @@ Imports:
     xml2,
     textutils,
     lifecycle
-License: GPL (>=2)
 URL: https://github.com/seancarmody/ngramr
+BugReports: https://github.com/seancarmody/ngramr/issues
+License: GPL (>=2)
 RoxygenNote: 7.1.1
 Encoding: UTF-8
 Suggests: 

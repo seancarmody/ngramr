@@ -23,8 +23,9 @@ for English alone.
 
 The underlying data is hidden in Web page, embedded in some Javascript.
 This package extracts the data and provides it in the form of an R dataframe.
-The code was adapted from a handy Python script available from 
-[Culturomics][2]. It was written by [Jean-Baptiste Michel][3].
+Early versions of code was adapted from a handy Python script available from 
+[Culturomics][2], written by [Jean-Baptiste Michel][3]. The code has been
+comprehensively redeveloped since then.
 
 ## Installing
 

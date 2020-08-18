@@ -8,6 +8,11 @@
 * Local and Travis CI builds generatoed no NOTES. 
 * Win-builder generated 1 NOTE
   * Possibly mis-spelled words in DESCRIPTION. The spelling ("Ngram") is correct
+* Addressed CRAN submission requirements as follows:
+  * Added link in DESCRIPTION to the Google Ngram Viewer webservice
+  * Switched a number of examples from \dontrun to \donttest to manage example run time to 5 sec
+  * Added Authors@R field
+  * Note that I have not included Jean-Baptiste Michel in the Authors@R list. Jean-Baptiste wrote some python code which provided the original inspiration for this package. Since then the code has been significantly re-written. I don't see an appropriate role type to include a reference to Jean-Baptiste within the Authors@R list.
 
 ## Downstream dependencies
 Reverse dependencies checked with devtools::revdep(). No dependencies or issues found.
