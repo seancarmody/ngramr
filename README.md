@@ -1,10 +1,9 @@
 # ngramr - R package to query the Google Ngram Viewer
 
 *This package was significantly updated in July 2020 to reflect changes to the
-Google ngram viewer webpage format (and has not been pushed to CRAN). Please
-let me know if anything is not working as expected. Note that the `tag` 
-parameter has been removed. If this feature is essential for you, please use
-version v1.6.5.*
+Google ngram viewer webpage format. Please let me know if anything is not
+working as expected. Note that the `tag`  parameter has been removed. If
+this feature is essential for you, please usen v1.6.5.*
 
 <!-- badges: start -->
 [![CRAN
@@ -32,8 +31,6 @@ comprehensively redeveloped since then.
 This package requires R version 3.5.0 or higher. If you are using an older
 version of R you will be prompted to upgrade when you try to install the
 package, so you may as well upgrade now!
-
-*Note: package not currently available on CRAN*
 
 The official release of ngramr is available on [CRAN][4]. To install from
 CRAN, use the following command:
