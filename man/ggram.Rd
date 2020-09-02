@@ -42,8 +42,8 @@ plots it in \code{ggplot2} style.
 }
 \details{
 Google generated two datasets drawn from digitised books in the Google
- books collection. One was generated in July 2009, the second in July 2012.
- Google will update these datasets as book scanning continues.
+books collection. One was generated in July 2009, the second in July 2012.
+Google will update these datasets as book scanning continues.
 }
 \examples{
 library(ggplot2)

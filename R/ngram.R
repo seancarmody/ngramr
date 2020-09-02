@@ -1,7 +1,7 @@
 #' Get n-gram frequencies
 #'
-#' \code{ngram} downloads data from the Google Ngram Viewer website and
-#' returns it in a dataframe.
+#' `ngram` downloads data from the Google Ngram Viewer website and
+#' returns it in a tibble.
 #'
 #' @param phrases vector of phrases, with a maximum of 12 items
 #' @param corpus Google corpus to search (see Details for possible values)
@@ -9,21 +9,24 @@
 #' @param year_end end year, default is 2008
 #' @param smoothing smoothing parameter, default is 3
 #' @param count logical, denoting whether phrase counts should be returned as
-#'   well as frequencies. Default is \code{FALSE}.
+#'   well as frequencies. Default is `FALSE`.
 #' @param case_ins Logical indicating whether to force a case insensitive search.
-#'   Default is \code{FALSE}.
+#'   Default is `FALSE`.
 #' @param aggregate Sum up the frequencies for ngrams associated with wildcard
-#'   or case insensitive searches. Default is \code{FALSE}.
-#' @param count Default is \code{FALSE}.
+#'   or case insensitive searches. Default is `FALSE`.
+#' @param count Default is `FALSE`.
 #' @param drop_corpus When a corpus is specified directly with the ngram 
-#'   (e.g \code{dog:eng_fiction_2012}) should the corpus be used retained in
-#'   the phrase column of the results. Default is \code{FALSE}.
+#'   (e.g `dog:eng_fiction_2012`) should the corpus be used retained in
+#'   the phrase column of the results. Default is `FALSE`.
 #' @param drop_parent  Drop the parent phrase associated with a wildcard
-#'   or case-insensitive search. Default is \code{FALSE}.
+#'   or case-insensitive search. Default is `FALSE`.
 #' @param drop_all Delete the suffix "(All)" from aggregated case-insensitive
-#'   searches. Default is \code{FALSE}.
+#'   searches. Default is `FALSE`.
 #' @param type Include the Google return type (e.g. NGRAM, NGRAM_COLLECTION,
-#'   EXPANSION) from result set. Default is \code{FALSE}.
+#'   EXPANSION) from result set. Default is `FALSE`.
+#' @return `ngram` returns an object of class "`ngram`",
+#'   which is a tidyverse `tibble` enriched with attributes reflecting 
+#'   some of the parameters used in the Ngram Viewer query.
 #' @details
 #'  Google generated two datasets drawn from digitised books in the Google
 #'  Books collection. One was generated in July 2009, the second in July 2012
@@ -32,10 +35,9 @@
 #'
 #'  This function provides the annual frequency of words or phrases, known
 #'  as n-grams, in a sub-collection or "corpus" taken from the Google Books
-#'  collection.The search across the corpus is case-sensitive. For a
-#'  case-insensitive search use \code{\link{ngrami}}.
+#'  collection.The search across the corpus is case-sensitive.
 #'  
-#'  Note that the \code{tag} option is no longer available. Tags should be
+#'  Note that the `tag` option is no longer available. Tags should be
 #'  specified directly in the ngram string (see examples).
 #'
 #' Below is a list of available corpora.

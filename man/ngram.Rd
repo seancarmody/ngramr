@@ -38,7 +38,7 @@ or case insensitive searches. Default is \code{FALSE}.}
 
 \item{count}{Default is \code{FALSE}.}
 
-\item{drop_corpus}{When a corpus is specified directly with the ngram 
+\item{drop_corpus}{When a corpus is specified directly with the ngram
 (e.g \code{dog:eng_fiction_2012}) should the corpus be used retained in
 the phrase column of the results. Default is \code{FALSE}.}
 
@@ -51,23 +51,27 @@ searches. Default is \code{FALSE}.}
 \item{type}{Include the Google return type (e.g. NGRAM, NGRAM_COLLECTION,
 EXPANSION) from result set. Default is \code{FALSE}.}
 }
+\value{
+\code{ngram} returns an object of class "\code{ngram}",
+which is a tidyverse \code{tibble} enriched with attributes reflecting
+some of the parameters used in the Ngram Viewer query.
+}
 \description{
 \code{ngram} downloads data from the Google Ngram Viewer website and
-returns it in a dataframe.
+returns it in a tibble.
 }
 \details{
 Google generated two datasets drawn from digitised books in the Google
- Books collection. One was generated in July 2009, the second in July 2012
- and the third in 2019. Google is expected to update these datasets as book
- scanning continues.
+Books collection. One was generated in July 2009, the second in July 2012
+and the third in 2019. Google is expected to update these datasets as book
+scanning continues.
 
- This function provides the annual frequency of words or phrases, known
- as n-grams, in a sub-collection or "corpus" taken from the Google Books
- collection.The search across the corpus is case-sensitive. For a
- case-insensitive search use \code{\link{ngrami}}.
- 
- Note that the \code{tag} option is no longer available. Tags should be
- specified directly in the ngram string (see examples).
+This function provides the annual frequency of words or phrases, known
+as n-grams, in a sub-collection or "corpus" taken from the Google Books
+collection.The search across the corpus is case-sensitive.
+
+Note that the \code{tag} option is no longer available. Tags should be
+specified directly in the ngram string (see examples).
 
 Below is a list of available corpora.
 \tabular{ll}{

@@ -19,10 +19,10 @@ of (approximately) equal to a specified length.
 }
 \details{
 If \code{n} is specified, \code{len} is ignored and \code{chunk} returns
- a list of length \code{n} of "chunks" of \code{x}. Otherwise
- \code{n} is calculated to break the vector into chunks which are
- each approximately of length \code{len}. If both \code{len} and
- \code{n} are unspecified, \code{chunk} simply returns \code{x}.
+a list of length \code{n} of "chunks" of \code{x}. Otherwise
+\code{n} is calculated to break the vector into chunks which are
+each approximately of length \code{len}. If both \code{len} and
+\code{n} are unspecified, \code{chunk} simply returns \code{x}.
 }
 \examples{
 chunk(letters, 10)

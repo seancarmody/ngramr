@@ -82,7 +82,8 @@ ggram <- function(phrases, ignore_case = FALSE, code_corpus = FALSE,
                                                             "Informal.corpus.name"])
   p <- ggplot(data = ng,
              aes_string(x = "Year", y = "Frequency",
-                        colour = "Phrase", fill = "Phrase"))
+                        colour = "Phrase", fill = "Phrase",
+                        label = "Phrase"))
   if (!(class(geom) == "character")) geom <- NULL
   if (!is.null(geom)) p <- p + do.call(stat_identity,
                                        c(geom = geom, geom_options))
