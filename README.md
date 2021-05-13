@@ -3,7 +3,7 @@
 *This package was significantly updated in July 2020 to reflect changes to the
 Google ngram viewer webpage format. Please let me know if anything is not
 working as expected. Note that the `tag`  parameter has been removed. If
-this feature is essential for you, please usen v1.6.5.*
+this feature is essential for you, please use v1.6.5.*
 
 <!-- badges: start -->
 [![CRAN
