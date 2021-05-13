@@ -1,13 +1,11 @@
 ## Test environments
-* local MacOS install, R 4.0.2
+* local MacOS install, R 4.0.5
 * win-builder (devel and release)
 * [Travis CI](http://travis.ci/)
 
 ## R CMD check results
 * There were no ERRORs or WARNINGs
-* Local and Travis CI builds generatoed no NOTES. 
-* Win-builder generated 1 NOTE
-  * Possibly mis-spelled words in DESCRIPTION. The spelling ("Ngram") is correct
+* Local and Travis CI builds generated no NOTES. 
 * Addressed CRAN submission requirements as follows:
   * Added link in DESCRIPTION to the Google Ngram Viewer webservice
   * Switched a number of examples from \dontrun to \donttest to manage example run time to 5 sec
