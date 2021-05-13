@@ -35,7 +35,7 @@ quick inquiries into the usage of small sets of phrases.
 
 Please respect the terms of service of the Google Books Ngram Viewer while
 using this code. This code is meant to help viewers retrieve data behind
-a few queries, not bang at Google's  servers with thousands of queries.
+a few queries, not bang at Google's  servers with dozens of queries.
 The complete dataset can be
 \href{https://storage.googleapis.com/books/ngrams/books/datasetsv3.html}{downloaded here}.
 }
