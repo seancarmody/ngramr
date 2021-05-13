@@ -1,0 +1,28 @@
+1 tackle_*    ""         NGRAM_COLLECTION   220
+2 tackle_NOUN ""         NGRAM              220
+3 tackle_NOUN "tackle_*" EXPANSION          220
+4 tackle_VERB "tackle_*" EXPANSION          220
+
+1 duPont           "Dupont (All)"     EXPANSION          220
+2 Dupont           "Dupont (All)"     EXPANSION          220
+3 DuPont           "Dupont (All)"     EXPANSION          220
+4 DUPONT           "Dupont (All)"     EXPANSION          220
+5 Dupont (All)     ""                 CASE_INSENSITIVE   220
+6 Fitzgerald       "Fitzgerald (All)" EXPANSION          220
+7 FitzGerald       "Fitzgerald (All)" EXPANSION          220
+8 FITZGERALD       "Fitzgerald (All)" EXPANSION          220
+9 Fitzgerald (All) ""                 CASE_INSENSITIVE   220
+
+1 read _DET_ book ""     NGRAM   220
+
+ 1 read * _DET_ book       ""                  NGRAM_COLLECTION   220
+ 2 read as _DET_ book      "read * _DET_ book" EXPANSION          220
+ 3 read from _DET_ book    "read * _DET_ book" EXPANSION          220
+ 4 read in _DET_ book      "read * _DET_ book" EXPANSION          220
+ 5 read like _DET_ book    "read * _DET_ book" EXPANSION          220
+ 6 read of _DET_ book      "read * _DET_ book" EXPANSION          220
+ 7 read over _DET_ book    "read * _DET_ book" EXPANSION          220
+ 8 read such _DET_ book    "read * _DET_ book" EXPANSION          220
+ 9 read through _DET_ book "read * _DET_ book" EXPANSION          220
+10 read upon _DET_ book    "read * _DET_ book" EXPANSION          220
+11 read with _DET_ book    "read * _DET_ book" EXPANSION          220
