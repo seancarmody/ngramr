@@ -7,3 +7,4 @@ cran-comments.md
 .travis.yml 
 ^google$
 ^CRAN-RELEASE$
+^CRAN-SUBMISSION$

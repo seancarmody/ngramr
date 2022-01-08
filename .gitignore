@@ -12,3 +12,5 @@
 .Renviron
 *.Rproj
 google/*
+.Rbuildignore
+CRAN-SUBMISSION
