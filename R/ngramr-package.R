@@ -38,8 +38,8 @@
 #' millions of digitized books." \emph{Science} 331, No. 6014 (2011): 176--182.
 #' 
 #' @keywords internal
-#' @import dplyr tidyr ggplot2
-#' @importFrom rlang .data
+#' @import dplyr tidyr ggplot2 
+#' @importFrom rlang .data 
 #' @docType package
 #' @name ngramr
 #' @aliases ngramr ngramr-package

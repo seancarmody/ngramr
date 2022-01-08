@@ -1,3 +1,8 @@
+ngramr 1.7.5
+------------
+* Tidied fromJSON call
+* Started to use lifecycle in documentation (ngrami)
+
 ngramr 1.7.4
 ------------
 * Imposed version dependency for dplyr to ensure relocate available

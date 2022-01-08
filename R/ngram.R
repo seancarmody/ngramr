@@ -182,7 +182,7 @@ ngram_check_warnings <- function(html) {
   return(warnings)
 }
 
-ngram_fetch_data <- function(html, debug = FALSE) {
+ngram_fetch_data <- function(html) {
   corpus <- xml2::xml_find_first(html, "//select[@id='form-corpus']/option")
   corpus <- as.integer(xml2::xml_attr(corpus, "value"))
   json <- xml2::xml_find_first(html, "//div[@id='chart']/following::script")
@@ -190,9 +190,9 @@ ngram_fetch_data <- function(html, debug = FALSE) {
   json <- stringr::str_split(json, "\n")[[1]]
   json <- stringr::str_trim(json)
   years <- as.integer(stringr::str_split(grep("drawD3Chart", json, value = TRUE), ",")[[1]][2:3])
-  if (debug) return(list(json = json, years = years, corpus = corpus))
-  json <- grep("ngrams.data", json, value = TRUE)
-  data <- rjson::fromJSON(sub(".*?=", "", json))
+  json <- grep("ngrams.data =", json, value = TRUE)
+  json <- stringr::str_match(json, "ngrams.data = (.*);")[2]
+  data <- rjson::fromJSON(json)
   if (length(data) == 0) return(NULL)
   data <- lapply(data,
                  function(x) tibble::add_column(tibble::as_tibble(x),

@@ -3,6 +3,9 @@
 #' @param phrases vector of phrases
 #' @param aggregate sum up each of the terms
 #' @param ... remaining parameters passed to ngram
+#' @description 
+#' `r lifecycle::badge("stable")`
+#' This function is a simple wrapper of `ngram` for case insensitive searches.
 #' @export
      
 ngrami <- function(phrases, aggregate = TRUE, ...){
