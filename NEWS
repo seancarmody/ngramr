@@ -1,3 +1,7 @@
+ngramr 1.7.6
+------------
+* Drop use of lifecycle badges
+
 ngramr 1.7.5
 ------------
 * Tidied fromJSON call

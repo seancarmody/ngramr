@@ -24,8 +24,7 @@ Imports:
     ggplot2,
     scales,
     xml2,
-    textutils,
-    lifecycle
+    textutils
 URL: https://github.com/seancarmody/ngramr
 BugReports: https://github.com/seancarmody/ngramr/issues
 License: GPL (>=2)
@@ -34,5 +33,4 @@ Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
 Suggests: 
     testthat
-RdMacros: lifecycle
 Language: en-AU

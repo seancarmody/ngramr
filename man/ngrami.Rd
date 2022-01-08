@@ -14,6 +14,5 @@ ngrami(phrases, aggregate = TRUE, ...)
 \item{...}{remaining parameters passed to ngram}
 }
 \description{
-\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#stable}{\figure{lifecycle-stable.svg}{options: alt='[Stable]'}}}{\strong{[Stable]}}
 This function is a simple wrapper of \code{ngram} for case insensitive searches.
 }
