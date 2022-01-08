@@ -71,12 +71,12 @@ Here is an example of how to use the `ngram` function:
 
 The result is a ggplot2 line graph of the following form:
 
-![Ngram Chart](http://i.imgur.com/EhSE9eK.png)
+![Ngram Chart](man/figures/hacker.png)
 
 The same result can be achieved even more simply by using the `ggram`
 plotting wrapper that supports many options, as in this example:
 
-![Ngram chart, with options](http://i.imgur.com/p5Q3pgM.png)
+![Ngram chart, with options](man/figures/archy.png)
 
     ggram(c("monarchy", "democracy"), year_start = 1500, year_end = 2000, 
           corpus = "eng_gb_2012", ignore_case = TRUE, 
