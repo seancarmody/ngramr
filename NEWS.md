@@ -44,7 +44,7 @@
 
 # ngramr 1.5.0
 
-* Incorporated (22, @seancarmody) pull changes
+* Incorporated (#22, @seancarmody) pull changes
 * Make wildcard searches expand to all terms
 * Error out on server answer "Please try again later."    1a655f3
 * Fix setting default corpus. 0b22dc4
