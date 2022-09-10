@@ -1,6 +1,11 @@
+# ngramr 1.7.7
+
+* Update for changes in ngram viewer website
+
 # ngramr 1.7.6
 
 * Drop use of lifecycle badges
+* Add markdown format NEWS file
 
 # ngramr 1.7.5
 
