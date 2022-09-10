@@ -84,7 +84,7 @@ ggram <- function(phrases, ignore_case = FALSE, code_corpus = FALSE,
              aes_string(x = "Year", y = "Frequency",
                         colour = "Phrase", fill = "Phrase",
                         label = "Phrase"))
-  if (!(class(geom) == "character")) geom <- NULL
+  if (!inherits(geom, "character")) geom <- NULL
   if (!is.null(geom)) p <- p + do.call(stat_identity,
                                        c(geom = geom, geom_options))
   p <-  p + labs(x = NULL)

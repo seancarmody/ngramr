@@ -39,8 +39,9 @@ or case insensitive searches. Default is \code{FALSE}.}
 \item{count}{Default is \code{FALSE}.}
 
 \item{drop_corpus}{When a corpus is specified directly with the ngram
-(e.g \code{dog:en-fiction-2012}) specifies whether the corpus be used retained in
-the phrase column of the results. Default is \code{FALSE}.}
+(e.g \code{dog:eng_fiction_2012}) specifies whether the corpus be used retained in
+the phrase column of the results. Note that that this method requires that
+the old corpus codes (eng_fiction_2012 not en-fiction-2012) are used. Default is \code{FALSE}.}
 
 \item{drop_parent}{Drop the parent phrase associated with a wildcard
 or case-insensitive search. Default is \code{FALSE}.}

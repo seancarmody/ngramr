@@ -202,9 +202,9 @@ ngram_fetch_data <- function(html) {
   data <- bind_rows(data)
   data <- data |> mutate(ngram = textutils::HTMLdecode(data$ngram), Corpus = corpus) |>
             separate(ngram, c("clean", "C"), ":", remove = FALSE, extra = "drop", fill = "right") |>
-            left_join(select(corpuses, Shorthand, Shorthand.Old), by = c("C" = "Shorthand.Old")) |>
+            left_join(select(corpuses, .data$Shorthand, .data$Shorthand.Old), by = c("C" = "Shorthand.Old")) |>
             mutate(Corpus = if_else(is.na(.data$Shorthand), .data$Corpus, .data$Shorthand)) |> 
-            select(-C, -Shorthand) |>
+            select(-.data$C, -.data$Shorthand) |>
             relocate(.data$Year, .data$ngram, .data$timeseries, .data$Corpus) |>
             rename(Phrase = .data$ngram,  Frequency = .data$timeseries, Parent = .data$parent)
   return(data)
