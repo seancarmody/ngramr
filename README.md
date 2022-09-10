@@ -27,7 +27,7 @@ the `corpuses` dataset.
 
 ## Installing
 
-This package requires R version 4.1.0 or higher. If you are using an older
+This package requires R version 4.0.1 or higher. If you are using an older
 version of R you will be prompted to upgrade when you try to install the
 package, so you may as well upgrade now!
 

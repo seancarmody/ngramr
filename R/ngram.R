@@ -200,13 +200,13 @@ ngram_fetch_data <- function(html) {
                  function(x) tibble::add_column(tibble::as_tibble(x),
                                                 Year = seq.int(years[1], years[2])))
   data <- bind_rows(data)
-  data <- data |> mutate(ngram = textutils::HTMLdecode(data$ngram), Corpus = corpus) |>
-            separate(ngram, c("clean", "C"), ":", remove = FALSE, extra = "drop", fill = "right") |>
-            left_join(select(corpuses, .data$Shorthand, .data$Shorthand.Old), by = c("C" = "Shorthand.Old")) |>
-            mutate(Corpus = if_else(is.na(.data$Shorthand), .data$Corpus, .data$Shorthand)) |> 
-            select(-.data$C, -.data$Shorthand) |>
-            relocate(.data$Year, .data$ngram, .data$timeseries, .data$Corpus) |>
-            rename(Phrase = .data$ngram,  Frequency = .data$timeseries, Parent = .data$parent)
+  data <- mutate(data, ngram = textutils::HTMLdecode(data$ngram), Corpus = corpus)
+  data <- separate(data, ngram, c("clean", "C"), ":", remove = FALSE, extra = "drop", fill = "right")
+  data <- left_join(data, select(corpuses, .data$Shorthand, .data$Shorthand.Old), by = c("C" = "Shorthand.Old"))
+  data <- mutate(data, Corpus = if_else(is.na(.data$Shorthand), .data$Corpus, .data$Shorthand)) 
+  data <- select(data, -.data$C, -.data$Shorthand) 
+  data <- relocate(data, .data$Year, .data$ngram, .data$timeseries, .data$Corpus)
+  data <- rename(data, Phrase = .data$ngram,  Frequency = .data$timeseries, Parent = .data$parent)
   return(data)
 }
 
