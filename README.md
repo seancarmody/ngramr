@@ -72,7 +72,7 @@ Here is an example of how to use the `ngram` function:
 
     library(ggplot2)
     ng  <- ngram(c("hacker", "programmer"), year_start = 1950)
-    ggplot(ng, aes(x=Year, y=Frequency, colour=Phrase)) +
+    ggplot(ng, aes(x = Year, y = Frequency, colour = Phrase)) +
       geom_line()
 
 The result is a ggplot2 line graph of the following form:
