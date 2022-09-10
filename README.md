@@ -3,7 +3,7 @@
 <!-- badges: start -->
 [![CRAN
 status](https://www.r-pkg.org/badges/version/ngramr)](https://cran.r-project.org/package=ngramr)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.5830712.svg)](https://doi.org/10.5281/zenodo.5830712)
+[![DOI](https://zenodo.org/badge/11216907.svg)](https://zenodo.org/badge/latestdoi/11216907)
 [![Travis build status](https://travis-ci.com/seancarmody/ngramr.svg?branch=master)](https://travis-ci.com/seancarmody/ngramr)
 <!-- badges: end -->
 
