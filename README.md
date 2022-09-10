@@ -21,6 +21,10 @@ Early versions of code was adapted from a handy Python script available from
 [Culturomics][2], written by [Jean-Baptiste Michel][3]. The code has been
 comprehensively redeveloped since then.
 
+Note that in September 2022 the format of the corpus codes changed 
+(e.g. "eng_2019" became "en_GB_2019"). The old codes are available in the
+the `corpuses` dataset.
+
 ## Installing
 
 This package requires R version 3.5.0 or higher. If you are using an older
@@ -56,6 +60,8 @@ older version, for example:
 
     install_github("seancarmody/ngramr", "v1.6.5")
 
+Note though that many releases fix problems that arise when Google changes the
+format of the Ngram Viewer website so older versions generally no longer work.
 If you are behind a proxy, `install_github` may not work for you. Instead of
 fiddling around with the `RCurl` proxy settings, you can download the latest
 [ZIP archive][6] and use `install_local` instead.
@@ -79,7 +85,7 @@ plotting wrapper that supports many options, as in this example:
 ![Ngram chart, with options](man/figures/archy.png)
 
     ggram(c("monarchy", "democracy"), year_start = 1500, year_end = 2000, 
-          corpus = "eng_gb_2012", ignore_case = TRUE, 
+          corpus = "en-GB-2012", ignore_case = TRUE, 
           geom = "area", geom_options = list(position = "stack")) + 
           labs(y = NULL)
 

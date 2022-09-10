@@ -16,8 +16,9 @@
 #'   or case insensitive searches. Default is `FALSE`.
 #' @param count Default is `FALSE`.
 #' @param drop_corpus When a corpus is specified directly with the ngram 
-#'   (e.g `dog:eng-fiction-2012`) should the corpus be used retained in
-#'   the phrase column of the results. Default is `FALSE`.
+#'   (e.g `dog:eng_fiction_2012`) specifies whether the corpus be used retained in
+#'   the phrase column of the results. Note that that this method requires that
+#'   the old corpus codes (eng_fiction_2012 not en-fiction-2012) are used. Default is `FALSE`.
 #' @param drop_parent  Drop the parent phrase associated with a wildcard
 #'   or case-insensitive search. Default is `FALSE`.
 #' @param drop_all Delete the suffix "(All)" from aggregated case-insensitive
@@ -40,42 +41,43 @@
 #'  Note that the `tag` option is no longer available. Tags should be
 #'  specified directly in the ngram string (see examples).
 #'
-#' Below is a list of available corpora.
+#' Below is a list of available corpora. Note that the data for the 2012
+#' corpuses only extends to 2009.
 #' \tabular{ll}{
 #' \bold{Corpus} \tab \bold{Corpus Name}\cr
-#' eng-us-2019\tab American English 2019\cr
-#' eng-us-2012\tab American English 2012\cr
-#' eng-us-2009\tab American English 2009\cr
-#' eng-gb-2019\tab British English 2019\cr
-#' eng-gb-2012\tab British English 2012\cr
-#' eng-gb-2009\tab British English 2009\cr
-#' chi-sim-2019\tab Chinese 2019\cr
-#' chi-sim-2012\tab Chinese 2012\cr
-#' chi-sim-2009\tab Chinese 2009\cr
-#' eng-2019\tab English 2019\cr
-#' eng-2012\tab English 2012\cr
-#' eng-2009\tab English 2009\cr
-#' eng-fiction-2019\tab English Fiction 2019\cr
-#' eng-fiction-2012\tab English Fiction 2012\cr
-#' eng-fiction-2009\tab English Fiction 2009\cr
-#' eng-1m-2009\tab Google One Million\cr
-#' fre-2019\tab French 2019\cr
-#' fre-2012\tab French 2012\cr
-#' fre-2009\tab French 2009\cr
-#' ger-2019\tab German 2019\cr
-#' ger-2012\tab German 2012\cr
-#' ger-2009\tab German 2009\cr
-#' heb-2019\tab Hebrew 2019\cr
-#' heb-2012\tab Hebrew 2012\cr
-#' heb-2009\tab Hebrew 2009\cr
-#' spa-2019\tab Spanish 2019\cr
-#' spa-2012\tab Spanish 2012\cr
-#' spa-2009\tab Spanish 2009\cr
-#' rus-2019\tab Russian 2019\cr
-#' rus-2012\tab Russian 2012\cr
-#' rus-2009\tab Russian 2009\cr
-#' ita-2019\tab Italian 2019\cr
-#' ita-2012\tab Italian 2012\cr
+#' en-US-2019\tab American English 2019\cr
+#' en-US-2012\tab American English 2012\cr
+#' en-US-2009\tab American English 2009\cr
+#' en-GB-2019\tab British English 2019\cr
+#' en-GB-2012\tab British English 2012\cr
+#' en-GB-2009\tab British English 2009\cr
+#' zh-Hans-2019\tab Chinese 2019\cr
+#' zh-Hans-2012\tab Chinese 2012\cr
+#' zh-Hans-2009\tab Chinese 2009\cr
+#' en-2019\tab English 2019\cr
+#' en-2012\tab English 2012\cr
+#' en-2009\tab English 2009\cr
+#' en-fiction-2019\tab English Fiction 2019\cr
+#' en-fiction-2012\tab English Fiction 2012\cr
+#' en-fiction-2009\tab English Fiction 2009\cr
+#' en-1M-2009\tab English One Million\cr
+#' fr-2019\tab French 2019\cr
+#' fr-2012\tab French 2012\cr
+#' fr-2009\tab French 2009\cr
+#' de-2019\tab German 2019\cr
+#' de-2012\tab German 2012\cr
+#' de-2009\tab German 2009\cr
+#' iw-2019\tab Hebrew 2019\cr
+#' iw-2012\tab Hebrew 2012\cr
+#' iw-2009\tab Hebrew 2009\cr
+#' es-2019\tab Spanish 2019\cr
+#' es-2012\tab Spanish 2012\cr
+#' es-2009\tab Spanish 2009\cr
+#' ru-2019\tab Russian 2019\cr
+#' ru-2012\tab Russian 2012\cr
+#' ru-2009\tab Russian 2009\cr
+#' it-2019\tab Italian 2019\cr
+#' it-2012\tab Italian 2012\cr
 #' }
 #'
 #' The Google Million is a sub-collection of Google Books. All are in
@@ -98,7 +100,6 @@ ngram <- function(phrases, corpus = "en-2019", year_start = 1800,
                       year_end = 2020, smoothing = 3, case_ins=FALSE,
                       aggregate = FALSE, count = FALSE, drop_corpus = FALSE,
                       drop_parent = FALSE, drop_all = FALSE, type = FALSE) {
-  #if (class(corpus) == "character")  corpus <- get_corpus_n(corpus, default = "en-2019")
   phrases <- ngram_check_phrases(phrases)
   # Loop over corpuses
   dfs <- lapply(corpus, function(corp) ngram_single(phrases, corpus = corp,
@@ -136,6 +137,7 @@ ngram <- function(phrases, corpus = "en-2019", year_start = 1800,
 
 ngram_single <- function(phrases, corpus, year_start, year_end,
                              smoothing, case_ins) {
+  if (!(corpus %in% corpuses$Shorthand)) {warning(paste(corpus, "not a valid corpus. Defaulting to en-2019."))}
   query <- as.list(environment())
   if (case_ins) query["case_insensitive"] <- "on"
   query$phrases <- NULL
@@ -185,37 +187,26 @@ ngram_check_warnings <- function(html) {
 ngram_fetch_data <- function(html) {
   corpus <- xml2::xml_find_first(html, "//select[@id='form-corpus']/option")
   corpus <- xml2::xml_attr(corpus, "value")
-  #corpus <- as.integer(xml2::xml_attr(corpus, "value"))
   script <- xml2::xml_find_all(html, "//div[@id='chart']/following::script")
   json <- xml2::xml_text(script[1])
   json <- stringr::str_split(json, "\n")[[1]]
   json <- stringr::str_trim(json)
-  json2 <- xml2::xml_text(script[2])
-  json2 <- stringr::str_split(json2, "\n")[[1]]
-  years <- as.integer(stringr::str_split(grep("drawD3Chart", json2, value = TRUE), ",")[[1]][2:3])
-  #print(years)
-  #print(json)
-  #json <- grep("ngrams.data =", json, value = TRUE)
-  #json <- stringr::str_match(json, "ngrams.data = (.*);")[2]
+  years <- xml2::xml_text(script[2])
+  years <- stringr::str_split(years, "\n")[[1]]
+  years <- as.integer(stringr::str_split(grep("drawD3Chart", years, value = TRUE), ",")[[1]][2:3])
   data <- rjson::fromJSON(json)
-  #print(data)
   if (length(data) == 0) return(NULL)
   data <- lapply(data,
                  function(x) tibble::add_column(tibble::as_tibble(x),
                                                 Year = seq.int(years[1], years[2])))
   data <- bind_rows(data)
-  data$ngram <- textutils::HTMLdecode(data$ngram)
-  #data <- mutate(data, Corpus = get_corpus_text(corpus))
-  #data <- mutate(data, Corpus = as.character(corpus))
-  data <- mutate(data, Corpus = corpus)
-  data <- separate(data, ngram, c("clean", "C"), ":", remove = FALSE,
-                   extra = "drop", fill = "right")
-  data <- mutate(data, n = get_corpus_n(.data$C),
-                 Corpus = if_else(is.na(n), .data$Corpus, .data$C), C = NULL, n = NULL)
-  data <- dplyr::relocate(data, .data$Year, .data$ngram, .data$timeseries, .data$Corpus)
-  data <- dplyr::rename(data, Phrase = .data$ngram, 
-                        Frequency = .data$timeseries,
-                        Parent = .data$parent)
+  data <- data |> mutate(ngram = textutils::HTMLdecode(data$ngram), Corpus = corpus) |>
+            separate(ngram, c("clean", "C"), ":", remove = FALSE, extra = "drop", fill = "right") |>
+            left_join(select(corpuses, Shorthand, Shorthand.Old), by = c("C" = "Shorthand.Old")) |>
+            mutate(Corpus = if_else(is.na(.data$Shorthand), .data$Corpus, .data$Shorthand)) |> 
+            select(-C, -Shorthand) |>
+            relocate(.data$Year, .data$ngram, .data$timeseries, .data$Corpus) |>
+            rename(Phrase = .data$ngram,  Frequency = .data$timeseries, Parent = .data$parent)
   return(data)
 }
 
@@ -238,20 +229,6 @@ ngram_url <- function(phrases, query=character()) {
   url <- gsub("%29", ")", url)
   url <- gsub("%20", "+", url)
   return(url)
-}
-
-get_corpus <- function(corpus, text = TRUE) {
-  corpora <- c("eng-us-2012" = 17, "eng-us-2009" = 5, "eng-gb-2012" = 18,
-               "eng-gb-2009" = 6, "chi-sim-2012" = 23, "chi-sim-2009" = 11,
-               "eng-2012" = 15, "eng-2009" = 0, "eng-fiction-2012" = 16,
-               "eng-fiction-2009" = 4, "eng-1m-2009" = 1, "fre-2012" = 19,
-               "fre-2009" = 7, "ger-2012" = 20, "ger-2009" = 8, "heb-2012" = 24,
-               "heb-2009" = 9, "spa-2012" = 21, "spa-2009" = 10, "rus-2012" = 25,
-               "rus-2009" = 12, "ita-2012" = 22, "eng-2019" = 26,
-               "eng-us-2019" = 28, "eng-gb-2019" = 29, "eng-fiction-2019" = 27,
-               "chi-sim-2019" = 34, "fre-2019" = 30, "ger-2019" = 31, "heb-2019" = 35,
-               "ita-2019" = 33, "rus-2019" = 36, "spa-2019" = 32)
-  if (text) return(unname(corpora[corpus])) else return(names(which(corpora  == corpus)))
 }
 
 check_balanced <- function(x) {

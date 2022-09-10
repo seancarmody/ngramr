@@ -6,7 +6,7 @@
 \usage{
 ngram(
   phrases,
-  corpus = "eng_2019",
+  corpus = "en-2019",
   year_start = 1800,
   year_end = 2020,
   smoothing = 3,
@@ -39,7 +39,7 @@ or case insensitive searches. Default is \code{FALSE}.}
 \item{count}{Default is \code{FALSE}.}
 
 \item{drop_corpus}{When a corpus is specified directly with the ngram
-(e.g \code{dog:eng_fiction_2012}) should the corpus be used retained in
+(e.g \code{dog:en-fiction-2012}) specifies whether the corpus be used retained in
 the phrase column of the results. Default is \code{FALSE}.}
 
 \item{drop_parent}{Drop the parent phrase associated with a wildcard
@@ -73,42 +73,43 @@ collection.The search across the corpus is case-sensitive.
 Note that the \code{tag} option is no longer available. Tags should be
 specified directly in the ngram string (see examples).
 
-Below is a list of available corpora.
+Below is a list of available corpora. Note that the data for the 2012
+corpuses only extends to 2009.
 \tabular{ll}{
 \bold{Corpus} \tab \bold{Corpus Name}\cr
-eng_us_2019\tab American English 2019\cr
-eng_us_2012\tab American English 2012\cr
-eng_us_2009\tab American English 2009\cr
-eng_gb_2019\tab British English 2019\cr
-eng_gb_2012\tab British English 2012\cr
-eng_gb_2009\tab British English 2009\cr
-chi_sim_2019\tab Chinese 2019\cr
-chi_sim_2012\tab Chinese 2012\cr
-chi_sim_2009\tab Chinese 2009\cr
-eng_2019\tab English 2019\cr
-eng_2012\tab English 2012\cr
-eng_2009\tab English 2009\cr
-eng_fiction_2019\tab English Fiction 2019\cr
-eng_fiction_2012\tab English Fiction 2012\cr
-eng_fiction_2009\tab English Fiction 2009\cr
-eng_1m_2009\tab Google One Million\cr
-fre_2019\tab French 2019\cr
-fre_2012\tab French 2012\cr
-fre_2009\tab French 2009\cr
-ger_2019\tab German 2019\cr
-ger_2012\tab German 2012\cr
-ger_2009\tab German 2009\cr
-heb_2019\tab Hebrew 2019\cr
-heb_2012\tab Hebrew 2012\cr
-heb_2009\tab Hebrew 2009\cr
-spa_2019\tab Spanish 2019\cr
-spa_2012\tab Spanish 2012\cr
-spa_2009\tab Spanish 2009\cr
-rus_2019\tab Russian 2019\cr
-rus_2012\tab Russian 2012\cr
-rus_2009\tab Russian 2009\cr
-ita_2019\tab Italian 2019\cr
-ita_2012\tab Italian 2012\cr
+en-US-2019\tab American English 2019\cr
+en-US-2012\tab American English 2012\cr
+en-US-2009\tab American English 2009\cr
+en-GB-2019\tab British English 2019\cr
+en-GB-2012\tab British English 2012\cr
+en-GB-2009\tab British English 2009\cr
+zh-Hans-2019\tab Chinese 2019\cr
+zh-Hans-2012\tab Chinese 2012\cr
+zh-Hans-2009\tab Chinese 2009\cr
+en-2019\tab English 2019\cr
+en-2012\tab English 2012\cr
+en-2009\tab English 2009\cr
+en-fiction-2019\tab English Fiction 2019\cr
+en-fiction-2012\tab English Fiction 2012\cr
+en-fiction-2009\tab English Fiction 2009\cr
+en-1M-2009\tab English One Million\cr
+fr-2019\tab French 2019\cr
+fr-2012\tab French 2012\cr
+fr-2009\tab French 2009\cr
+de-2019\tab German 2019\cr
+de-2012\tab German 2012\cr
+de-2009\tab German 2009\cr
+iw-2019\tab Hebrew 2019\cr
+iw-2012\tab Hebrew 2012\cr
+iw-2009\tab Hebrew 2009\cr
+es-2019\tab Spanish 2019\cr
+es-2012\tab Spanish 2012\cr
+es-2009\tab Spanish 2009\cr
+ru-2019\tab Russian 2019\cr
+ru-2012\tab Russian 2012\cr
+ru-2009\tab Russian 2009\cr
+it-2019\tab Italian 2019\cr
+it-2012\tab Italian 2012\cr
 }
 
 The Google Million is a sub-collection of Google Books. All are in

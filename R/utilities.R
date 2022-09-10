@@ -1,7 +1,7 @@
 #' Chunk a vector or list
 #'
 #' \code{chunk} takes a vector (or list) and returns a list of chunks
-#' of (approximately) equal to a specified length.
+#' which all have lengths (approximately) equal to a specified value.
 #'
 #' @param x vector of list
 #' @param len target length of chunks
@@ -20,7 +20,8 @@
 #' @export
 
 chunk <- function(x, len = NULL, n = NULL) {
-  if (is.null(len)) len <- length(x)
+  if (is.null(len) & is.null(len)) return(x)
+  if (is.null(len)) len <- ceiling(length(x) / n)
   if (is.null(n)) n <- ceiling(length(x) / len)
   if (len >= length(x)) {
     return(x)

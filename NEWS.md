@@ -1,6 +1,7 @@
 # ngramr 1.7.7
 
 * Update for changes in ngram viewer website
+* New corpus names (e.g. eng_2019 changed to en_2019)
 
 # ngramr 1.7.6
 
@@ -125,7 +126,7 @@ release fixes this major problem.
 
 # ngramr 1.2.0
 
-* First semi-offical release. All future development moved to the 'develop' branch.
+* First semi-official release. All future development moved to the 'develop' branch.
 * Allow case insensitive plotting with ggram
 * Avoid reshape/reshape2 conflicts (thanks to Francois Briatte)
 * Pass arbitrary geoms to `ggram`
