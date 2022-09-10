@@ -2,10 +2,10 @@
 * local MacOS install, R 4.2.1
 * rhub
 * win-builder (devel and release)
+* Travis CI
 
 ## R CMD check results
 * There were no ERRORs or WARNINGs
-* Local build generated no NOTES. 
 * Local and Travis CI builds generated no NOTES. 
 * Addressed CRAN submission requirements as follows:
   * Fixed multiple errors that arose after changes to the Google ngram viewer website

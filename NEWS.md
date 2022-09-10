@@ -1,3 +1,8 @@
+# ngramr 1.8.0
+
+* Incremented version to reflect that 1.7.7 was a major release
+* Rolled back use of |> for compatibility with earlier versions of R
+
 # ngramr 1.7.7
 
 * Update for changes in ngram viewer website
