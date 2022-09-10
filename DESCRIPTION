@@ -10,7 +10,7 @@ Maintainer: Sean Carmody <seancarmody@gmail.com>
 Description: Retrieve and plot word frequencies through time from the "Google
     Ngram Viewer" <https://books.google.com/ngrams>.
 Depends:
-    R (>= 4.0.1)
+    R (>= 4.0.0)
 Imports:
     httr,
     rlang,
