@@ -52,14 +52,14 @@ library(ggplot2)
 # Changing the geom.
 ggram(c("cancer", "fumer", "cigarette"),
       year_start = 1900,
-      corpus = "fre_2012",
+      corpus = "fr-2012",
       smoothing = 0,
       geom = "step")
 
 # Passing more options.
 ggram(c("cancer", "smoking", "tobacco"),
       year_start = 1900,
-      corpus = "eng_fiction_2012",
+      corpus = "en-fiction-2012",
       geom = "point",
       smoothing = 0,
       geom_options = list(alpha = .5)) +
@@ -68,7 +68,7 @@ ggram(c("cancer", "smoking", "tobacco"),
 # Setting the layers manually.
 ggram(c("cancer", "smoking", "tobacco"),
       year_start = 1900,
-      corpus = "eng_fiction_2012",
+      corpus = "en-fiction-2012",
       smoothing = 0,
       geom = NULL) +
   stat_smooth(method="loess", se=FALSE, span = 0.3, formula = y ~ x)
