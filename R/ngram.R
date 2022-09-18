@@ -100,6 +100,7 @@ ngram <- function(phrases, corpus = "en-2019", year_start = 1800,
                       year_end = 2020, smoothing = 3, case_ins=FALSE,
                       aggregate = FALSE, count = FALSE, drop_corpus = FALSE,
                       drop_parent = FALSE, drop_all = FALSE, type = FALSE) {
+  if (!curl::has_internet()) {stop("Unable to access internet.")}
   phrases <- ngram_check_phrases(phrases)
   # Loop over corpuses
   dfs <- lapply(corpus, function(corp) ngram_single(phrases, corpus = corp,
@@ -220,7 +221,7 @@ ngram_url <- function(phrases, query=character()) {
       phrases[i] <- iconv(p, Encoding(p), "UTF-8")
     }
   }
-  phrases <- paste(RCurl::curlEscape(stringr::str_trim(phrases)),
+  phrases <- paste(curl::curl_escape(stringr::str_trim(phrases)),
                    collapse = "%2c")
   if (phrases == "") stop("No valid phrases provided.")
   url <- paste0(url, "?content=", phrases)

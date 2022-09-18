@@ -14,7 +14,7 @@ Depends:
 Imports:
     httr,
     rlang,
-    RCurl,
+    curl,
     dplyr (>= 1.0.3),
     cli,
     tibble,
