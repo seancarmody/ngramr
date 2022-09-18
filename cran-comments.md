@@ -8,5 +8,8 @@
 * There were no ERRORs or WARNINGs
 * Local and Travis CI builds generated no NOTES. 
 
+## CRAN requirements
+* Skipped tests that require an internet connection if offline
+
 ## Downstream dependencies
 Reverse dependencies checked with devtools::revdep(). No dependencies or issues found.
