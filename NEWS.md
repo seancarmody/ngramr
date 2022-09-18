@@ -1,3 +1,8 @@
+# ngramr 1.8.1
+
+* Handle offline state
+* Skip testing if offline
+
 # ngramr 1.8.0
 
 * Incremented version to reflect that 1.7.7 was a major release
