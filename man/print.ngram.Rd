@@ -17,6 +17,7 @@
 Print n-gram contents
 }
 \examples{
-x <- ngram(c("hacker", "programmer"), year_start = 1950)
+\donttest{x <- ngram(c("hacker", "programmer"), year_start = 1950)
 print(x)
+}
 }

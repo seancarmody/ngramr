@@ -46,8 +46,8 @@ books collection. One was generated in July 2009, the second in July 2012.
 Google will update these datasets as book scanning continues.
 }
 \examples{
-library(ggplot2)
-\donttest{ggram(c("hacker", "programmer"), year_start = 1950)
+\donttest{library(ggplot2)
+ggram(c("hacker", "programmer"), year_start = 1950)
 
 # Changing the geom.
 ggram(c("cancer", "fumer", "cigarette"),
@@ -79,7 +79,8 @@ p <- c("((The United States is + The United States has) / The United States)",
       "((The United States are + The United States have) / The United States)")
 ggram(p, year_start = 1800, google_theme = TRUE) +
       theme(legend.direction="vertical")
-}
+
 # Pass ngram data rather than phrases
 ggram(hacker) + facet_wrap(~ Corpus)
+}
 }

@@ -1,3 +1,7 @@
+# ngramr 1.8.2
+
+* Suppress testing of all examples that make internet calls
+
 # ngramr 1.8.1
 
 * Handle offline state
