@@ -9,7 +9,7 @@
 * Local and Travis CI builds generated no NOTES. 
 
 ## CRAN requirements
-* Skipped tests that require an internet connection if offline
+* Wrapped a stray example not wrapped in \donttest which accesses the internet
 
 ## Downstream dependencies
 Reverse dependencies checked with devtools::revdep(). No dependencies or issues found.
