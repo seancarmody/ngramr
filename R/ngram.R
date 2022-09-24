@@ -237,7 +237,7 @@ ngram_fetch_data <- function(html) {
       #return(NA)
     },
     warning=function(cond) {
-      messagep("Warning generated when parsing ngram data.")
+      message("Warning generated when parsing ngram data.")
       message("Here's the original warning message:")
       message(cond)
       return(NULL)
