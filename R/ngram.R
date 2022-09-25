@@ -100,7 +100,7 @@ ngram <- function(phrases, corpus = "en-2019", year_start = 1800,
                       year_end = 2020, smoothing = 3, case_ins=FALSE,
                       aggregate = FALSE, count = FALSE, drop_corpus = FALSE,
                       drop_parent = FALSE, drop_all = FALSE, type = FALSE) {
-  if (!curl::has_internet()) {stop("Unable to access internet.")}
+  #if (!curl::has_internet()) {stop("Unable to access internet.")}
   phrases <- ngram_check_phrases(phrases)
   # Loop over corpuses
   dfs <- lapply(corpus, function(corp) ngram_single(phrases, corpus = corp,
@@ -145,9 +145,13 @@ ngram_single <- function(phrases, corpus, year_start, year_end,
   query$case_ins <- NULL
   ng_url <- ngram_url(phrases, query)
   html <- ngram_fetch_xml(ng_url)
-  ng <- ngram_fetch_data(html)
-  warnings <- ngram_check_warnings(html)
-  show_warnings(warnings)
+  if (is.null(html)){
+    ng <- NULL
+  } else {
+    ng <- ngram_fetch_data(html)
+    warnings <- ngram_check_warnings(html)
+    show_warnings(warnings)
+  }
   return(ng)
 }
 
@@ -164,25 +168,38 @@ ngram_check_phrases <- function(phrases){
 }
 
 ngram_fetch_xml <- function(url) {
-  html <- tryCatch(
-    {
-      xml2::read_html(url(url))
-    },
-    error = function(cond){
-      message("Connection error message:")
-      message(paste0("  ", cond), appendLF = FALSE)
-      message("Please check Google's Ngram Viewer site is up.")
-      stop("unable to retrieve ngram data from Google Ngram Viewer site.", call. = FALSE)
-      return(NA)
-    },
-    warning=function(cond) {
-      message(paste("Ngram URL caused a warning:", url))
-      message("Here's the original warning message:")
-      return(NULL)
-    },
-    finally={}
-  )    
-  return(html)
+  # retrieve data from Google Ngram Viewer site
+  # no errors or warnings generated on fail, only messages
+  try_get <- function(x, ...) {
+    tryCatch(
+      httr::GET(url = x, httr::timeout(1), ...),
+      error = function(e) conditionMessage(e),
+      warning = function(w) conditionMessage(w)
+    )
+  }
+  is_response <- function(x) {
+    class(x) == "response"
+  }
+  
+  # first check internet connection
+  if (!curl::has_internet()) {
+    message("No internet connection.")
+    return(invisible(NULL))
+  }
+  # then try for timeout problems
+  resp <- try_get(url)
+  if (!is_response(resp)) {
+    message("Please check Google's Ngram Viewer site is up.")
+    message(resp)
+    return(invisible(NULL))
+  }
+  # then stop if status > 400
+  if (httr::http_error(resp)) { 
+    message("Please check Google's Ngram Viewer site is up.")
+    message_for_status(resp)
+    return(invisible(NULL))
+  }
+  return(xml2::read_html(resp))
 }
 
 ngram_check_warnings <- function(html) {
@@ -203,29 +220,33 @@ ngram_check_warnings <- function(html) {
 ngram_fetch_data <- function(html) {
   data <- tryCatch(
     {
-      corpus <- xml2::xml_find_first(html, "//select[@id='form-corpus']/option")
-      corpus <- xml2::xml_attr(corpus, "value")
-      script <- xml2::xml_find_all(html, "//div[@id='chart']/following::script")
-      json <- xml2::xml_text(script[1])
-      json <- stringr::str_split(json, "\n")[[1]]
-      json <- stringr::str_trim(json)
-      years <- xml2::xml_text(script[2])
-      years <- stringr::str_split(years, "\n")[[1]]
-      years <- as.integer(stringr::str_split(grep("drawD3Chart", years, value = TRUE), ",")[[1]][2:3])
-      data <- rjson::fromJSON(json)
-      if (length(data) == 0) return(NULL)
-      data <- lapply(data,
-                     function(x) tibble::add_column(tibble::as_tibble(x),
-                                                    Year = seq.int(years[1], years[2])))
-      data <- bind_rows(data)
-      data <- mutate(data, ngram = textutils::HTMLdecode(data$ngram), Corpus = corpus)
-      data <- separate(data, ngram, c("clean", "C"), ":", remove = FALSE, extra = "drop", fill = "right")
-      data <- left_join(data, select(corpuses, .data$Shorthand, .data$Shorthand.Old), by = c("C" = "Shorthand.Old"))
-      data <- mutate(data, Corpus = if_else(is.na(.data$Shorthand), .data$Corpus, .data$Shorthand)) 
-      data <- select(data, -.data$C, -.data$Shorthand) 
-      data <- relocate(data, .data$Year, .data$ngram, .data$timeseries, .data$Corpus)
-      data <- rename(data, Phrase = .data$ngram,  Frequency = .data$timeseries, Parent = .data$parent)
-      data
+      if (is.null(html)) {
+        NULL
+      } else {
+        corpus <- xml2::xml_find_first(html, "//select[@id='form-corpus']/option")
+        corpus <- xml2::xml_attr(corpus, "value")
+        script <- xml2::xml_find_all(html, "//div[@id='chart']/following::script")
+        json <- xml2::xml_text(script[1])
+        json <- stringr::str_split(json, "\n")[[1]]
+        json <- stringr::str_trim(json)
+        years <- xml2::xml_text(script[2])
+        years <- stringr::str_split(years, "\n")[[1]]
+        years <- as.integer(stringr::str_split(grep("drawD3Chart", years, value = TRUE), ",")[[1]][2:3])
+        data <- rjson::fromJSON(json)
+        if (length(data) == 0) return(NULL)
+        data <- lapply(data,
+                       function(x) tibble::add_column(tibble::as_tibble(x),
+                                                      Year = seq.int(years[1], years[2])))
+        data <- bind_rows(data)
+        data <- mutate(data, ngram = textutils::HTMLdecode(data$ngram), Corpus = corpus)
+        data <- separate(data, ngram, c("clean", "C"), ":", remove = FALSE, extra = "drop", fill = "right")
+        data <- left_join(data, select(corpuses, .data$Shorthand, .data$Shorthand.Old), by = c("C" = "Shorthand.Old"))
+        data <- mutate(data, Corpus = if_else(is.na(.data$Shorthand), .data$Corpus, .data$Shorthand)) 
+        data <- select(data, -.data$C, -.data$Shorthand) 
+        data <- relocate(data, .data$Year, .data$ngram, .data$timeseries, .data$Corpus)
+        data <- rename(data, Phrase = .data$ngram,  Frequency = .data$timeseries, Parent = .data$parent)
+        data
+      }
     },
     error=function(cond) {
       message("Error parsing ngram data, please contact package maintainer.")
@@ -233,8 +254,7 @@ ngram_fetch_data <- function(html) {
       message(cond)
       message("\nError occurred in the following code:")
       message(conditionCall(cond))
-      stop("unable to parse ngram data.", call. = FALSE)
-      #return(NA)
+      return(NULL)
     },
     warning=function(cond) {
       message("Warning generated when parsing ngram data.")
