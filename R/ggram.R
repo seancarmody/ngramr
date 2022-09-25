@@ -72,6 +72,10 @@ ggram <- function(phrases, ignore_case = FALSE, code_corpus = FALSE,
       ng <- ngram(phrases, ...)
     }
   }
+  if (is.null(ng)) {
+    message("Unable to plot: no data returned")
+    return(invisible(NULL))
+  }
   if (is.character(geom) &&
       !(geom %in% c("area", "line")) && attr(ng, "smoothing") > 0) {
     warning("ngram data is smoothed. Consider setting smoothing = 0.")
