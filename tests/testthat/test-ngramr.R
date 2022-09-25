@@ -15,6 +15,7 @@ test_that("utility functions", {
 context("Google")
 test_that("google calls", {
   skip_if_offline()
+  skip_if(is.null(ngram("dog")), "Google Ngram calls not succeeding.")
   expect_equal(dim( ngrami("dog", year_start = 1950, year_end = 2020)), c(70, 4))
   expect_equal(dim(ngram(c("hacker", "programmer"), corpus = c("en-2012", "en-US-2012"), 
                          year_start = 1950, year_end = 2008)), dim(hacker))
