@@ -71,8 +71,11 @@ This function provides the annual frequency of words or phrases, known
 as n-grams, in a sub-collection or "corpus" taken from the Google Books
 collection.The search across the corpus is case-sensitive.
 
-Note that the \code{tag} option is no longer available. Tags should be
-specified directly in the ngram string (see examples).
+If the function is unable to retrieve data from the Google Ngram Viewer
+site (either because of access issues or if the format of Google's site
+has changed) a NULL result is returned and messages are printed to the
+console but no errors or warnings are raised (this is to align with
+CRAN package policies).
 
 Below is a list of available corpora. Note that the data for the 2012
 corpuses only extends to 2009.

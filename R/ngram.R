@@ -199,7 +199,7 @@ ngram_fetch_xml <- function(url) {
   # then stop if status > 400
   if (httr::http_error(resp)) { 
     message("Please check Google's Ngram Viewer site is up.")
-    message_for_status(resp)
+    httr::message_for_status(resp)
     return(invisible(NULL))
   }
   return(xml2::read_html(resp))
