@@ -12,6 +12,7 @@ ngramw <- function(phrases, ignore_case=FALSE, ...) {
   } else {
     ng <- if (ignore_case) ngrami(phrases, ...) else ngram(phrases, ...)
   }
+  if (is.null(ng)) return(NULL)
   ng <- pivot_wider(ng, names_from = "Phrase", values_from = "Frequency")
   return(ng)
 }
