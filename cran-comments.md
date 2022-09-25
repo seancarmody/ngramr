@@ -9,7 +9,7 @@
 * Local and Travis CI builds generated no NOTES. 
 
 ## CRAN requirements
-* Wrapped a stray example not wrapped in \donttest which accesses the internet
+* Fail gracefully when unable to retrieve internet assets
 
 ## Downstream dependencies
 Reverse dependencies checked with devtools::revdep(). No dependencies or issues found.
