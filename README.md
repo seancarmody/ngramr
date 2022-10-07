@@ -22,7 +22,7 @@ Early versions of code was adapted from a handy Python script available from
 comprehensively redeveloped since then.
 
 Note that in September 2022 the format of the corpus codes changed 
-(e.g. "eng_2019" became "en_GB_2019"). The old codes are available in the
+(e.g. "eng_2019" became "en-GB-2019"). The old codes are available in the
 the `corpuses` dataset.
 
 ## Installing
@@ -58,7 +58,7 @@ although it may not always work.
 If the latest release has broken some of your old code, you can install an
 older version, for example:
 
-    install_github("seancarmody/ngramr", "v1.9.0")
+    install_github("seancarmody/ngramr", "v1.6.5")
 
 Note though that many releases fix problems that arise when Google changes the
 format of the Ngram Viewer website so older versions generally no longer work.
