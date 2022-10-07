@@ -235,8 +235,6 @@ ngram_fetch_data <- function(html) {
         json <- stringr::str_split(json, "\n")[[1]]
         json <- json[json != '']
         json <- stringr::str_squish(json)
-        # years <- xml2::xml_text(script[1])
-        # years <- stringr::str_split(years, "\n")[[1]]
         years <-  grep('drawD3Chart', json, value = TRUE)
         years <- as.integer(stringr::str_split(grep("drawD3Chart", years, value = TRUE), ",")[[1]][2:3])
         data <- grep('ngrams.data =', json, value = TRUE)
