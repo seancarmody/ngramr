@@ -9,7 +9,7 @@
 * Local and Travis CI builds generated no NOTES. 
 
 ## CRAN requirements
-* Fail gracefully when unable to retrieve internet assets
+* None outstanding
 
 ## Downstream dependencies
 Reverse dependencies checked with devtools::revdep(). No dependencies or issues found.
