@@ -133,7 +133,7 @@ release fixes this major problem.
 
 # ngramr 1.2.3
 
-* Prevent use of complex operators in case insensitive searchs
+* Prevent use of complex operators in case insensitive searches
 * Warn about character substitution
 
 # ngramr 1.2.2
