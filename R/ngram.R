@@ -142,8 +142,9 @@ ngram <- function(phrases, corpus = "en-2019", year_start = 1800,
 ngram_single <- function(phrases, corpus, year_start, year_end,
                              smoothing, case_ins) {
   if (!(corpus %in% corpuses$Shorthand)) {warning(paste(corpus, "not a valid corpus. Defaulting to en-2019."))}
+  corpus <- get_corpus_n(corpus)
   query <- as.list(environment())
-  if (case_ins) query["case_insensitive"] <- "on"
+  if (case_ins) query["case_insensitive"] <- "true"
   query$phrases <- NULL
   query$case_ins <- NULL
   ng_url <- ngram_url(phrases, query)
@@ -175,7 +176,7 @@ ngram_fetch_xml <- function(url) {
   # no errors or warnings generated on fail, only messages
   try_get <- function(x, ...) {
     tryCatch(
-      httr::GET(url = x, httr::timeout(1), ...),
+      httr::GET(url = x, httr::timeout(2), ...),
       error = function(e) conditionMessage(e),
       warning = function(w) conditionMessage(w)
     )
@@ -228,14 +229,20 @@ ngram_fetch_data <- function(html) {
       } else {
         corpus <- xml2::xml_find_first(html, "//select[@id='form-corpus']/option")
         corpus <- xml2::xml_attr(corpus, "value")
-        script <- xml2::xml_find_all(html, "//div[@id='chart']/following::script")
-        json <- xml2::xml_text(script[1])
+        corpus <- get_corpus_text(as.numeric(corpus))
+        script <- xml2::xml_find_all(html, "//div[@id='chart']/following::script")[1]
+        json <- xml2::xml_text(script)
         json <- stringr::str_split(json, "\n")[[1]]
-        json <- stringr::str_trim(json)
-        years <- xml2::xml_text(script[2])
-        years <- stringr::str_split(years, "\n")[[1]]
+        json <- json[json != '']
+        json <- stringr::str_squish(json)
+        # years <- xml2::xml_text(script[1])
+        # years <- stringr::str_split(years, "\n")[[1]]
+        years <-  grep('drawD3Chart', json, value = TRUE)
         years <- as.integer(stringr::str_split(grep("drawD3Chart", years, value = TRUE), ",")[[1]][2:3])
-        data <- rjson::fromJSON(json)
+        data <- grep('ngrams.data =', json, value = TRUE)
+        data <- gsub('.*= ', '', data)
+        data <- gsub('; *$', '', data)
+        data <- rjson::fromJSON(data[[1]])
         if (length(data) == 0) return(NULL)
         data <- lapply(data,
                        function(x) tibble::add_column(tibble::as_tibble(x),
@@ -309,7 +316,7 @@ show_warnings <- function(warnings){
   }
 }
 
-get_corpus_n <- function(corpus, default = NA){
+get_corpus_n <- function(corpus, default = "en-2019"){
   stopifnot(is.character(corpus))
   n <-  corpuses[corpus, "Number"]
   if (any(is.na(n)) && !is.na(default)) {

@@ -2,7 +2,7 @@ context("Package")
 test_that("package data", {
   expect_equal(dim(hacker), c(236, 4))
   expect_equal(class(hacker)[1], "ngram")
-  expect_equal(dim(corpuses), c(33, 7))
+  expect_equal(dim(corpuses), c(33, 8))
   expect_equal(dim(corpus_totals), c(12945, 5))
   expect_equal(unlist(corpus_totals[12945,], use.names = FALSE),
                c("es-2019", 2019, 1658430069, 10286019, 24720))

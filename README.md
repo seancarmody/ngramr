@@ -58,7 +58,7 @@ although it may not always work.
 If the latest release has broken some of your old code, you can install an
 older version, for example:
 
-    install_github("seancarmody/ngramr", "v1.8.1")
+    install_github("seancarmody/ngramr", "v1.9.0")
 
 Note though that many releases fix problems that arise when Google changes the
 format of the Ngram Viewer website so older versions generally no longer work.
