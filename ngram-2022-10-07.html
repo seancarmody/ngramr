@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebApplication"
+      xmlns="http://www.w3.org/1999/xhtml" lang="en">
+
+  <head>
+    <title>Google Ngram Viewer</title>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta content="width=device-width,initial-scale=1.0,minimum-scale=1.0,user-scalable=0" name="viewport">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons|Roboto+Mono:400|Roboto:400,500,700|Product+Sans:400|Google+Sans:400,500" rel="stylesheet">
+    <link rel="stylesheet" href="https://www.google.com/css/google.css">
+    <link rel="stylesheet" href="/ngrams/style-responsive.css">
+
+    <script>CLOSURE_NO_DEPS = true;</script>
+    <script src="/ngrams/ngram-viewer-js.js"></script>
+
+    <meta name="description" content="Google Books Ngram Viewer">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@google">
+    <meta name="twitter:title" content="Google Books Ngram Viewer – Google Product">
+    <meta name="twitter:description" content="Google Books Ngram Viewer.">
+
+    <meta property="og:title" content="Google Books Ngram Viewer">
+    <meta property="og:description" content="Google Books Ngram Viewer">
+
+     <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-18010-10"></script>
+    <script>
+      var ngrams = ngrams || {};
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-18010-10');  // BookSearch Account
+      gtag('config', 'UA-45098938-1');  // NGrams Account
+    </script>
+  </head>
+
+  <body id="container">
+    
+    <div id="main-content">
+    <div id='header-container'>
+      <header id="logo" class="header" title="Google Books Ngram Viewer">
+        <a href="/ngrams" aria-label="Google Books Ngram Viewer">
+          <span class="google-logo" aria-hidden="true"></span>
+          <span class="ngrams-logo" aria-hidden="true">Books Ngram Viewer</span>
+        </a>
+         
+      </header>
+      
+      <span id="overflow-container">
+        <mwc-icon-button id="overflow-menu-button" label="ngrams options"
+                         icon="more_vert">
+        </mwc-icon-button>
+
+        <mwc-menu id="overflow-menu" activatable quick defaultFocus="FIRST_ITEM">
+          <mwc-list-item class="overflow-item" aria-label="Sharing">
+            Share
+          </mwc-list-item>
+          <mwc-list-item class="overflow-item" aria-label="Download raw data">
+            Download raw data
+          </mwc-list-item>
+        </mwc-menu>
+      </span>
+      
+    </div>
+    
+  
+
+
+  <script>
+  ngrams.loadForm();
+
+  function gtag_event(action, category, label) {
+    gtag('event', action, { event_category: category, event_label: label });
+  }
+</script>
+
+  <input id="share-ngrams-url" type="hidden" value="https://books.google.com/ngrams">
+  <input id="share-text" type="hidden" value="Google Ngram Viewer">
+  <dialog id="share-modal" class="share-container modal bubble-hide"
+       aria-modal="true" role="dialog" aria-labelledby="share-title"
+       aria-hidden=true>
+    <div class="modal-header">
+    <span id="share-title" class="modal-header-title">Share</span>
+    <mwc-icon-button
+      id="close-share"
+      class="close-share-container"
+      label="close share modal" icon="close" tabindex="0">
+    </mwc-icon-button>
+    </div>
+    <div>
+      <a id="embed-chart" class="share-item" tabindex="0" href="#">
+        <div class="share-icon-container">
+          <mwc-icon class="share-icon" aria-hidden="true">code</mwc-icon>
+        </div>
+        Embed chart</a>
+      <a id="share-facebook" class="share-item" tabindex="0" href="#">
+        <div class="share-icon-container">
+          <img class="share-icon"
+            src="https://www.gstatic.com/kpui/social/fb_32x32.png"
+            alt="Facebook" aria-hidden="true">
+        </div>
+        Facebook
+      </a>
+      <a id="share-twitter" class="share-item" tabindex="0" href="#">
+        <div class="share-icon-container">
+          <img class="share-icon"
+            src="https://www.gstatic.com/kpui/social/twitter_32x32.png"
+            alt="Twitter" aria-hidden="true">
+        </div>
+        Twitter
+     </a>
+    </div>
+  </dialog>
+
+  <dialog id="embed-modal" class="share-container modal bubble-hide"
+       aria-modal="true" role="dialog" 
+       aria-hidden="true">
+    <div id="embed-header" class="modal-header">
+      <span id="embed-title "class="modal-header-title">Embed Chart</span>
+        <mwc-icon-button id="close-embed" class="close-share-container toggle"
+          label="close embed modal"
+          icon="close"
+          tabindex="0">
+        </mwc-icon-button>
+    </div>
+    <div id="embed-url">
+      <textarea id="share-url-text" autocomplete="off" autocapitalize="none"
+        tabindex="0" readonly>
+&lt;iframe name=&quot;ngram_chart&quot; src=&quot;&quot; width=900 height=500 marginwidth=0 marginheight=0 hspace=0 vspace=0 frameborder=0 scrolling=no&gt;&lt;/iframe&gt;
+</textarea>
+    </div>
+    <div id="embed-copy-button">
+      <button id="embed-copy" class="pill white-pill" tabindex=0 role="button"
+        aria-disabled="false" aria-label="Copy">
+        <mwc-icon id="embed-copy-icon">content_copy</mwc-icon>
+        Copy
+      </button>
+    </div>
+  </dialog>
+
+
+    <div id="overlay"></div>
+    <input id="default-start-year" type="hidden" value="1800">
+    <input id="default-end-year" type="hidden" value="2019">
+    <form id="query" action="/ngrams/graph" method="get" name="query"
+          onsubmit="gtag_event('search ngram', 'search', 'search submission')">
+      <div class="row-column-flex">
+        <div id="input-flex" class="field-wrap">
+
+      <div id="search-field">
+        <mwc-icon-button icon="search" label="search ngrams" id="search-button"
+          class="search-buttons focus-pill">
+        </mwc-icon-button>
+        <input id="ngram-query" type="text"
+               name="content"
+               label="search"
+               size="15"
+               autocomplete="off"
+               value="Albert Einstein,Sherlock Holmes,Frankenstein"
+               placeholder="Search Ngrams"
+               maxlength=120
+               aria-label="ngrams search box"
+               autofocus />
+        <mwc-icon-button icon="close" label="clear search" id="close-button" class="search-buttons focus-pill">
+        </mwc-icon-button>
+        <mwc-icon-button id="help-button" label="ngrams help"
+                         class="search-buttons focus-pill" icon="help_outline"
+                         aria-controls="samples">
+        </mwc-icon-button>
+        <div class="options">
+          <dialog id="samples" class="form-bubble bubble-hide modal"
+               aria-modal="true" role="dialog" aria-label="ngrams help"
+               aria-hidden="true">
+              <span class="sample-name">Part-of-speech tags</span><br/>
+              <span class="sample-example">cook_VERB, _DET_ President</span>
+              <hr>
+              <span class="sample-name">Wildcards</span><br/>
+              <span class="sample-example">King of *, best *_NOUN</span>
+              <hr>
+              <span class="sample-name">Inflections</span><br/>
+              <span class="sample-example">shook_INF drive_VERB_INF</span>
+              <hr>
+              <span class="sample-name">Arithmetic compositions</span><br/>
+              <span class="sample-example">(color /(color + colour))</span>
+              <hr>
+              <span class="sample-name">Corpus selection</span><br/>
+              <span class="sample-example">I want:eng_2019</span>
+           <div class="sample-links">
+            <a href="#" id="help-cancel">
+              Close
+            </a>
+            <a href="/ngrams/info" target="_blank">View All options</a></div>
+           </dialog>
+      </div>
+      </div>
+    </div>
+
+    
+      <input type="hidden" name="share" value="" >
+    
+
+</div>
+<div id="form-nav">
+  <span id="year-button" class="button-container blue-container">
+  <button id="year-pill"
+          class="blue-pill pill focus-pill noselect drop-down-toggle"
+          role="button" type="button" aria-controls="year-select">
+    <span id="year-start" class="pill-label drop-down-toggle">
+      1800
+    </span>
+    <span class="drop-down-toggle" aria-label="through">-</span>
+    <span id="year-end" class="pill-label drop-down-toggle">
+      2019
+    </span>
+    <span class="drop-align drop-down-toggle">
+      <mwc-icon class="dropdown-icon drop-down-toggle" aria-hidden="true">
+        arrow_drop_down
+      </mwc-icon>
+    </span>
+  </button>
+  <dialog id="year-select" class="form-bubble modal bubble-hide"
+       aria-modal="true" role="dialog" aria-labelledby="year-select-title"
+       aria-hidden="true">
+    <p id="year-select-title" class='bubble-header'>Choose years</p>
+    <div class="bubble-body">
+      <input id="year-start-input"
+             class="bubble-input query"
+             inputmode="numeric"
+             pattern="[0-9]*"
+             type="text"
+             name="year_start"
+             size="2"
+             placeholder="1800"
+             value="1800"
+             maxlength=4
+             aria-label="start year"
+             onclick="gtag_event('start year input clicked', 'search', 'Start Year')"/>
+      <span class="year-space">to</span>
+      <input id="year-end-input"
+             class="bubble-input query"
+             type="text"
+             inputmode="numeric"
+             pattern="[0-9]*"
+             name="year_end"
+             size="2"
+             placeholder="2019"
+             value="2019"
+             maxlength=4
+             aria-label="end year"
+             onclick="gtag_event('end year input clicked', 'search', 'End Year')"/>
+      </div>
+      <div id="year-feedback">
+        <span id="year-feedback-message" aria-live="assertive"></span>
+      </div>
+   <div class="bubble-operations">
+      <a href="#" id="cancel-years" class="bubble-control"
+        aria-label="cancel year selection">
+        Cancel
+      </a>
+      <a href="#" id="apply-years" class="bubble-control"
+        aria-label="apply year selection">
+        Apply
+      </a>
+   </div>
+  </dialog>
+  </span>
+ <span id="corpus-button" class="button-container blue-container">
+  <button id="corpus-pill" 
+          class="blue-pill pill focus-pill noselect drop-down-toggle"
+          role="button" type="button" aria-controls="corpus-select"
+   onclick="gtag_event('corpus pulldown clicked', 'search', 'corpus pulldown')" >
+  <span id="current-corpus" class="pill-label drop-down-toggle">
+    English (2019)
+    </span>
+    <span class="drop-align drop-down-toggle">
+      <mwc-icon class="dropdown-icon drop-down-toggle" aria-hidden="true">
+        arrow_drop_down
+      </mwc-icon>
+    </span>
+  </button>
+  <dialog id="corpus-select" class="form-bubble modal bubble-hide"
+       aria-modal="true" role="dialog" aria-labelledby="corpus-select-title"
+       aria-hidden="true" aria-hidden="true">
+    <p id="corpus-select-title" class='bubble-header'>Choose corpus</p>
+    <div class="bubble-body bubble-corpus">
+      <mwc-list id="corpus-list" activatable rootTabbable wrapFocus>
+        <mwc-list-item twoline
+                           selected
+                           activated
+                           hasMeta
+                           value="26" ><mwc-icon id="first-checked-lang" slot="meta" aria-hidden="true">check</mwc-icon><span>English</span><span slot="secondary">2019</span></mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item twoline hasMeta value="28"><mwc-icon class="mobile-check-lang" slot="meta" aria-hidden="true">check</mwc-icon><span>American English</span><span slot="secondary">2019</span></mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item twoline hasMeta value="29"><mwc-icon class="mobile-check-lang" slot="meta" aria-hidden="true">check</mwc-icon><span>British English</span><span slot="secondary">2019</span></mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item twoline hasMeta value="27"><mwc-icon class="mobile-check-lang" slot="meta" aria-hidden="true">check</mwc-icon><span>English Fiction</span><span slot="secondary">2019</span></mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item twoline hasMeta value="34"><mwc-icon class="mobile-check-lang" slot="meta" aria-hidden="true">check</mwc-icon><span>Chinese (simplified)</span><span slot="secondary">2019</span></mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item twoline hasMeta value="30"><mwc-icon class="mobile-check-lang" slot="meta" aria-hidden="true">check</mwc-icon><span>French</span><span slot="secondary">2019</span></mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item twoline hasMeta value="31"><mwc-icon class="mobile-check-lang" slot="meta" aria-hidden="true">check</mwc-icon><span>German</span><span slot="secondary">2019</span></mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item twoline hasMeta value="35"><mwc-icon class="mobile-check-lang" slot="meta" aria-hidden="true">check</mwc-icon><span>Hebrew</span><span slot="secondary">2019</span></mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item twoline hasMeta value="33"><mwc-icon class="mobile-check-lang" slot="meta" aria-hidden="true">check</mwc-icon><span>Italian</span><span slot="secondary">2019</span></mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item twoline hasMeta value="36"><mwc-icon class="mobile-check-lang" slot="meta" aria-hidden="true">check</mwc-icon><span>Russian</span><span slot="secondary">2019</span></mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item twoline hasMeta value="32"><mwc-icon class="mobile-check-lang" slot="meta" aria-hidden="true">check</mwc-icon><span>Spanish</span><span slot="secondary">2019</span></mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item twoline hasMeta value="17"><mwc-icon class="mobile-check-lang" slot="meta" aria-hidden="true">check</mwc-icon><span>American English</span><span slot="secondary">2012</span></mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item twoline hasMeta value="18"><mwc-icon class="mobile-check-lang" slot="meta" aria-hidden="true">check</mwc-icon><span>British English</span><span slot="secondary">2012</span></mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item twoline hasMeta value="23"><mwc-icon class="mobile-check-lang" slot="meta" aria-hidden="true">check</mwc-icon><span>Chinese (simplified)</span><span slot="secondary">2012</span></mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item twoline hasMeta value="15"><mwc-icon class="mobile-check-lang" slot="meta" aria-hidden="true">check</mwc-icon><span>English</span><span slot="secondary">2012</span></mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item twoline hasMeta value="16"><mwc-icon class="mobile-check-lang" slot="meta" aria-hidden="true">check</mwc-icon><span>English Fiction</span><span slot="secondary">2012</span></mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item twoline hasMeta value="19"><mwc-icon class="mobile-check-lang" slot="meta" aria-hidden="true">check</mwc-icon><span>French</span><span slot="secondary">2012</span></mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item twoline hasMeta value="20"><mwc-icon class="mobile-check-lang" slot="meta" aria-hidden="true">check</mwc-icon><span>German</span><span slot="secondary">2012</span></mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item twoline hasMeta value="24"><mwc-icon class="mobile-check-lang" slot="meta" aria-hidden="true">check</mwc-icon><span>Hebrew</span><span slot="secondary">2012</span></mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item twoline hasMeta value="22"><mwc-icon class="mobile-check-lang" slot="meta" aria-hidden="true">check</mwc-icon><span>Italian</span><span slot="secondary">2012</span></mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item twoline hasMeta value="25"><mwc-icon class="mobile-check-lang" slot="meta" aria-hidden="true">check</mwc-icon><span>Russian</span><span slot="secondary">2012</span></mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item twoline hasMeta value="21"><mwc-icon class="mobile-check-lang" slot="meta" aria-hidden="true">check</mwc-icon><span>Spanish</span><span slot="secondary">2012</span></mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item twoline hasMeta value="5"><mwc-icon class="mobile-check-lang" slot="meta" aria-hidden="true">check</mwc-icon><span>American English</span><span slot="secondary">2009</span></mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item twoline hasMeta value="6"><mwc-icon class="mobile-check-lang" slot="meta" aria-hidden="true">check</mwc-icon><span>British English</span><span slot="secondary">2009</span></mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item twoline hasMeta value="11"><mwc-icon class="mobile-check-lang" slot="meta" aria-hidden="true">check</mwc-icon><span>Chinese (simplified)</span><span slot="secondary">2009</span></mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item twoline hasMeta value="0"><mwc-icon class="mobile-check-lang" slot="meta" aria-hidden="true">check</mwc-icon><span>English</span><span slot="secondary">2009</span></mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item twoline hasMeta value="4"><mwc-icon class="mobile-check-lang" slot="meta" aria-hidden="true">check</mwc-icon><span>English Fiction</span><span slot="secondary">2009</span></mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item twoline hasMeta value="1"><mwc-icon class="mobile-check-lang" slot="meta" aria-hidden="true">check</mwc-icon><span>English One Million</span><span slot="secondary">2009</span></mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item twoline hasMeta value="7"><mwc-icon class="mobile-check-lang" slot="meta" aria-hidden="true">check</mwc-icon><span>French</span><span slot="secondary">2009</span></mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item twoline hasMeta value="8"><mwc-icon class="mobile-check-lang" slot="meta" aria-hidden="true">check</mwc-icon><span>German</span><span slot="secondary">2009</span></mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item twoline hasMeta value="9"><mwc-icon class="mobile-check-lang" slot="meta" aria-hidden="true">check</mwc-icon><span>Hebrew</span><span slot="secondary">2009</span></mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item twoline hasMeta value="12"><mwc-icon class="mobile-check-lang" slot="meta" aria-hidden="true">check</mwc-icon><span>Russian</span><span slot="secondary">2009</span></mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item twoline hasMeta value="10"><mwc-icon class="mobile-check-lang" slot="meta" aria-hidden="true">check</mwc-icon><span>Spanish</span><span slot="secondary">2009</span></mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li>
+      </mwc-list>
+    </div>
+  </dialog>
+ </span>
+ <span id="case-button" class="button-container white-container">
+ <button id="case-pill"
+         class="pill focus-pill noselect
+         white-pill "
+         role="button" type="button" aria-label="case sensitivity">
+  Case-Insensitive
+ </button>
+ </span>
+
+ <input id="case" type="checkbox" class="check-hidden" name="case_insensitive" aria-hidden="true"
+   >
+
+ <span id="smoothing-button" class="button-container white-container">
+ <button id="smoothing-pill"
+         class="pill focus-pill white-pill noselect drop-down-toggle"
+         role="button" type="button" aria-controls="smoothing-select"
+   onclick="gtag_event('smoothing pulldown clicked', 'search', 'smoothing pulldown')">
+  <span id="current-smoothing" class="pill-label drop-down-toggle">
+    
+      Smoothing
+    
+  </span>
+  <span class="drop-align drop-down-toggle">
+      <mwc-icon class="dropdown-icon drop-down-toggle" aria-hidden="true">
+        arrow_drop_down
+      </mwc-icon>
+  </span>
+  </button>
+  <dialog id="smoothing-select" class="form-bubble modal bubble-hide"
+       aria-modal="true" role="dialog" aria-labelledby="smoothing-select-title">
+    <p id="smoothing-select-title" class='bubble-header'>Choose Smoothing</p>
+    <div class="bubble-body bubble-corpus">
+      <mwc-list id="smoothing-list" activatable rootTabbable wrapFocus><mwc-list-item hasMeta value="0"><mwc-icon class="mobile-check-smoothing" slot="meta" aria-hidden="true">check</mwc-icon>
+          0
+            </mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item hasMeta value="1"><mwc-icon class="mobile-check-smoothing" slot="meta" aria-hidden="true">check</mwc-icon>
+          1
+            </mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item hasMeta value="2"><mwc-icon class="mobile-check-smoothing" slot="meta" aria-hidden="true">check</mwc-icon>
+          2
+            </mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item selected
+                           activated
+                           hasMeta
+                           value="3"><mwc-icon id="first-checked-smoothing" slot="meta" aria-hidden="true">check</mwc-icon>
+          3
+            </mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item hasMeta value="4"><mwc-icon class="mobile-check-smoothing" slot="meta" aria-hidden="true">check</mwc-icon>
+          4
+            </mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item hasMeta value="5"><mwc-icon class="mobile-check-smoothing" slot="meta" aria-hidden="true">check</mwc-icon>
+          5
+            </mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item hasMeta value="6"><mwc-icon class="mobile-check-smoothing" slot="meta" aria-hidden="true">check</mwc-icon>
+          6
+            </mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item hasMeta value="7"><mwc-icon class="mobile-check-smoothing" slot="meta" aria-hidden="true">check</mwc-icon>
+          7
+            </mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item hasMeta value="8"><mwc-icon class="mobile-check-smoothing" slot="meta" aria-hidden="true">check</mwc-icon>
+          8
+            </mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item hasMeta value="9"><mwc-icon class="mobile-check-smoothing" slot="meta" aria-hidden="true">check</mwc-icon>
+          9
+            </mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item hasMeta value="10"><mwc-icon class="mobile-check-smoothing" slot="meta" aria-hidden="true">check</mwc-icon>
+          10
+            </mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item hasMeta value="20"><mwc-icon class="mobile-check-smoothing" slot="meta" aria-hidden="true">check</mwc-icon>
+          20
+            </mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item hasMeta value="30"><mwc-icon class="mobile-check-smoothing" slot="meta" aria-hidden="true">check</mwc-icon>
+          30
+            </mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item hasMeta value="40"><mwc-icon class="mobile-check-smoothing" slot="meta" aria-hidden="true">check</mwc-icon>
+          40
+            </mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li><mwc-list-item hasMeta value="50"><mwc-icon class="mobile-check-smoothing" slot="meta" aria-hidden="true">check</mwc-icon>
+          50
+            </mwc-list-item><li divider role="separator" class="mobile-only" aria-hidden="true"></li></mwc-list>
+    </div>
+  </dialog>
+ </span>
+</div>
+    <select id="form-corpus" name="corpus" class="hidden-form-field">
+       <option value="26" selected ></option>
+    </select>
+    <select id="form-smoothing" name="smoothing" class="hidden-form-field">
+      <option value="3" selected> </option>
+    </select>
+    <input type="submit" id="hidden-submit" tabindex="-1">
+</form>
+<hr id="divider" role="separator" aria-hidden="true">
+<mwc-linear-progress id="linear-progress" indeterminate></mwc-linear-progress>
+<div style="clear:both"></div>
+<div id="ngrams-warnings" class="ngrams_chart_section">
+</div> 
+<div id="chart"></div>
+<script>
+  var ngrams = ngrams || {};
+  ngrams.data = [{"ngram": "Albert Einstein", "parent": "", "type": "NGRAM", "timeseries": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 9.077474010561153e-10, 9.077474010561153e-10, 9.077474010561153e-10, 9.077474010561153e-10, 9.077474010561153e-10, 9.077474010561153e-10, 9.077474010561153e-10, 1.0736312156771938e-09, 1.0736312156771938e-09, 1.0736312156771938e-09, 1.0736312156771938e-09, 1.0736312156771938e-09, 1.0736312156771938e-09, 2.0823696417997847e-09, 1.0087384261225907e-09, 1.0087384261225907e-09, 1.4971847571233964e-09, 1.4971847571233964e-09, 1.4971847571233964e-09, 1.8176391185826495e-09, 8.089006924600589e-10, 8.089006924600589e-10, 8.089006924600589e-10, 3.204543614592532e-10, 3.204543614592532e-10, 1.1232863211014482e-09, 1.4417948739670854e-09, 1.4417948739670854e-09, 1.4417948739670854e-09, 1.4417948739670854e-09, 1.4417948739670854e-09, 1.4417948739670854e-09, 6.389629143248904e-10, 0.0, 0.0, 3.102558527550465e-10, 4.5515806996425974e-10, 5.472706018519854e-10, 5.472706018519854e-10, 6.474443283087185e-10, 6.474443283087185e-10, 6.474443283087185e-10, 3.3718847555367203e-10, 2.503630794744741e-10, 1.5825054758674843e-10, 1.5825054758674843e-10, 3.237848957203328e-10, 3.237848957203328e-10, 3.237848957203328e-10, 4.0810336062894036e-10, 4.1023920689069774e-09, 4.1023920689069774e-09, 4.7856786390885836e-09, 4.519970564498266e-09, 4.841900729563824e-09, 4.841900729563824e-09, 4.7966040663181636e-09, 1.0442385369101105e-09, 4.942828178501811e-09, 4.526884200828363e-09, 5.950287944906612e-09, 5.628357779841053e-09, 5.8010558579013605e-09, 5.894911598541037e-09, 8.398406153060328e-09, 4.680015858975801e-09, 4.8136356091608795e-09, 3.573596490153668e-09, 3.573596490153668e-09, 3.4285014311701597e-09, 3.898969135646928e-09, 1.5795545546140995e-09, 2.4006370581895554e-09, 2.3480791319244585e-09, 2.7421401696933347e-09, 3.3995130559778222e-09, 3.564149150417758e-09, 3.0265658788687843e-09, 2.9054593255116247e-09, 1.9444199464821057e-09, 1.6512943274664999e-09, 2.362145705227446e-09, 1.807553999334997e-09, 1.6844957769926845e-09, 2.1507921356610028e-09, 2.250597601140468e-09, 2.668168471878626e-09, 3.3844658742232525e-09, 2.1413457951258152e-09, 2.1832792994138016e-09, 2.3203507409126037e-09, 1.927417610435102e-09, 1.8037345545745304e-09, 1.659875471198597e-09, 1.4637042014939032e-09, 1.6971865738188034e-09, 2.4422160405102034e-09, 2.738292775068223e-09, 2.932453034367098e-09, 3.877768741032485e-09, 5.709545947141237e-09, 1.5831496907076873e-08, 2.9391477220284756e-08, 3.6600772222529695e-08, 4.587731090260101e-08, 5.226822327334243e-08, 5.834468704993664e-08, 6.331242628578235e-08, 5.971172001295599e-08, 5.303773877228325e-08, 6.014997921965914e-08, 7.472497186102243e-08, 1.0241691837466402e-07, 1.2028300488964305e-07, 1.4697021250802728e-07, 1.655177465563286e-07, 1.7783039193578327e-07, 1.8412060447709727e-07, 1.769887611707028e-07, 1.6915568526850881e-07, 1.7056832746220607e-07, 1.623878976683305e-07, 1.588315663119439e-07, 1.608387561548495e-07, 1.5912484181106785e-07, 1.6712897377146874e-07, 1.7083141910591492e-07, 1.8996850721058373e-07, 2.0792314866672053e-07, 2.2505198111438013e-07, 2.516976828863855e-07, 2.7989258910565695e-07, 2.9602817619434063e-07, 3.011688980742682e-07, 2.9755637293809354e-07, 3.0611553825110605e-07, 3.3320862615125536e-07, 3.553307042888524e-07, 3.6508562370077667e-07, 3.9035463065114785e-07, 4.3209967819685904e-07, 4.716872419001967e-07, 4.902604473500105e-07, 5.057753794192519e-07, 5.197657872356234e-07, 5.483426304765869e-07, 5.768202494696847e-07, 5.886731498451679e-07, 6.059415389764971e-07, 6.240688727692551e-07, 6.461797040304061e-07, 6.54196989151907e-07, 6.583699376148746e-07, 6.492126090051897e-07, 6.455668101677605e-07, 6.330242691936811e-07, 6.238990408746758e-07, 6.032365230826794e-07, 5.959754990466795e-07, 5.923224729745666e-07, 6.152475212469913e-07, 6.316199444102364e-07, 6.420608623817056e-07, 6.678256129686945e-07, 6.787265728494926e-07, 6.897450118360991e-07, 7.014094681575703e-07, 6.925380863062205e-07, 6.961477164882776e-07, 6.912938569517532e-07, 6.805962178597318e-07, 6.803176039024297e-07, 6.761253611590032e-07, 6.696242118258462e-07, 6.63420288609424e-07, 6.622502723985235e-07, 6.701833236937611e-07, 6.741872198290366e-07, 6.854891694274556e-07, 6.986753809152495e-07, 7.093224131235079e-07, 7.276757238677029e-07, 7.387447210151419e-07, 7.572722162357033e-07, 7.726116320684793e-07, 7.754200786231584e-07, 7.960886136970657e-07, 8.225461475116649e-07, 8.354368950287088e-07, 8.464167535748857e-07, 8.61932716946155e-07, 8.725072413134123e-07, 9.030839009938063e-07, 9.278126315491266e-07, 9.321095879905832e-07, 9.317690147067228e-07, 9.300464561030302e-07, 9.258181746320458e-07, 9.121617381424585e-07, 8.841915116266006e-07, 8.53926297038145e-07, 8.406151816113076e-07, 8.34152251627529e-07, 8.247860563415088e-07]}, {"ngram": "Sherlock Holmes", "parent": "", "type": "NGRAM", "timeseries": [4.731798064483428e-09, 3.785438451586742e-09, 3.154532042988952e-09, 2.7038846082762446e-09, 0.0, 2.47730296593878e-10, 2.47730296593878e-10, 4.4757301039969176e-10, 4.4757301039969176e-10, 4.4757301039969176e-10, 4.4757301039969176e-10, 4.4757301039969176e-10, 1.9984271380581375e-10, 1.9984271380581375e-10, 0.0, 0.0, 0.0, 0.0, 1.708525384661438e-10, 1.708525384661438e-10, 1.708525384661438e-10, 1.708525384661438e-10, 1.708525384661438e-10, 1.708525384661438e-10, 1.708525384661438e-10, 0.0, 0.0, 0.0, 0.0, 4.707446178896037e-10, 6.529981000369389e-10, 6.529981000369389e-10, 1.060036693343948e-09, 1.060036693343948e-09, 1.060036693343948e-09, 1.060036693343948e-09, 5.892920754543443e-10, 4.070385933070091e-10, 4.070385933070091e-10, 7.245122755707354e-11, 7.245122755707354e-11, 1.3935389350397794e-10, 1.3935389350397794e-10, 2.6471483735183e-10, 2.6471483735183e-10, 3.285194576691757e-10, 2.5606823011210215e-10, 6.612150351058079e-10, 6.465437193562248e-10, 8.519047967059379e-10, 1.0438863226206303e-09, 1.0438863226206303e-09, 1.0766831830861484e-09, 1.1227394490300112e-09, 7.657705779008848e-10, 7.6362609093193e-10, 7.477841124092777e-10, 4.763166250310036e-10, 1.5203425066509117e-09, 1.6560483103881092e-09, 1.7845822280244355e-09, 1.7364042941598561e-09, 1.7926006591815836e-09, 1.8307099685405908e-09, 1.964410388323655e-09, 1.0890214365209617e-09, 1.0675212063533073e-09, 9.341189766143287e-10, 1.10494061915973e-09, 1.149407549297773e-09, 1.4449156593432377e-09, 1.4585675802068566e-09, 1.5240614603673208e-09, 1.3875697218208266e-09, 1.7248856311523143e-09, 1.7450229832555969e-09, 2.397218534788692e-09, 2.140193117965745e-09, 2.1196638729950988e-09, 2.118068767994633e-09, 2.231515543777667e-09, 2.0632442579834478e-09, 2.2732476060279996e-09, 1.7453488337133243e-09, 1.769432235652703e-09, 1.8175583102067856e-09, 3.02780475295147e-09, 1.638306942489517e-08, 2.503033063356546e-08, 6.35511169086048e-08, 9.549161068227769e-08, 1.408523090226258e-07, 1.7461508937190372e-07, 2.0105538465843763e-07, 2.1786554579453617e-07, 2.309200774724169e-07, 2.2188573365968166e-07, 2.329068889496609e-07, 2.300643566448863e-07, 2.6896281773198485e-07, 3.104532839058395e-07, 3.382772685459453e-07, 3.786278577016284e-07, 3.918276872484837e-07, 3.924233494347261e-07, 3.9245053276967414e-07, 3.5857962237579546e-07, 3.2725681973845765e-07, 3.0900952197043807e-07, 2.8659293401947903e-07, 2.8854421023944657e-07, 2.8479610948904467e-07, 2.871595695199046e-07, 2.861760809277517e-07, 2.8686977771030797e-07, 2.827119049340711e-07, 2.79743846119475e-07, 2.7420326529993743e-07, 2.701977775489338e-07, 2.736604999751892e-07, 2.807169404864648e-07, 2.8362517160270985e-07, 2.857251380256847e-07, 2.87236592352461e-07, 3.0657591716070396e-07, 3.202127467310285e-07, 3.217982964542898e-07, 3.776272551801542e-07, 3.8725247821145915e-07, 4.005792391126306e-07, 4.327134977951833e-07, 4.365287996474113e-07, 4.315413134138778e-07, 4.2850048284240725e-07, 3.6807089795079915e-07, 3.637726178697319e-07, 3.476469438672731e-07, 3.284916455673478e-07, 3.0894035977066127e-07, 3.1413762258125644e-07, 3.1373970646849815e-07, 3.464435240273035e-07, 3.5700164906821943e-07, 4.06904112943656e-07, 4.0858734808222964e-07, 4.3000270011361863e-07, 4.1927060984952344e-07, 4.102120791620629e-07, 3.859925235311883e-07, 3.7898284891265834e-07, 3.619099483590357e-07, 3.585532713909093e-07, 3.347291104611421e-07, 3.44607989128625e-07, 3.5549930186919353e-07, 3.565528580955808e-07, 3.5648983904528517e-07, 3.472242237226705e-07, 3.3742878307358684e-07, 3.4634919643394824e-07, 3.4132212687966656e-07, 3.2720865712170575e-07, 3.2029137336004556e-07, 3.209598600863371e-07, 3.766501817738442e-07, 3.811008712416099e-07, 3.757710983011618e-07, 3.730072778905326e-07, 3.871883913169378e-07, 3.9117497863117023e-07, 3.907426925512222e-07, 3.460783497238091e-07, 3.748889046814189e-07, 4.026819827426412e-07, 4.3145774546766394e-07, 4.517935597700021e-07, 4.649085342732308e-07, 5.094979737155622e-07, 5.096055295845352e-07, 5.010326041039142e-07, 5.082584745455929e-07, 4.971399870815471e-07, 4.923935169439833e-07, 5.181767741240557e-07, 5.072359670066362e-07, 5.398773258288461e-07, 5.551579858677412e-07, 5.517777026398107e-07, 5.763027429241317e-07, 5.938172518783955e-07, 6.308857142097882e-07, 7.177643429453642e-07, 7.018172709649662e-07, 7.161736529529403e-07, 7.220369298011065e-07, 7.224668040959971e-07, 7.297934335578507e-07, 7.031170119781953e-07, 6.319827921938018e-07, 6.335983146397796e-07, 6.344361947542763e-07, 6.505712235593819e-07, 6.657915686706215e-07, 6.66793052265088e-07, 6.660590169563616e-07, 6.766406548714648e-07, 7.349644956125953e-07, 7.820942512028393e-07, 8.367290677467411e-07, 8.81507519677273e-07, 9.363138246953895e-07, 1.0282988114340696e-06, 1.1169460581835925e-06, 1.1932148221863566e-06, 1.3127368317457564e-06, 1.374117248685382e-06, 1.4100979797149193e-06, 1.4760092123348538e-06, 1.5085264976733015e-06, 1.5368425749784365e-06]}, {"ngram": "Frankenstein", "parent": "", "type": "NGRAM", "timeseries": [4.0888719521348094e-08, 4.506243094226647e-08, 4.1097394524551113e-08, 3.59283380824138e-08, 4.023528475473524e-08, 4.441259569633514e-08, 4.330226786665646e-08, 4.4659274056613185e-08, 3.842580114416754e-08, 3.737708663211135e-08, 3.863652559792692e-08, 2.4201099537078463e-08, 2.701878416238352e-08, 2.8053786341583224e-08, 3.159660266760511e-08, 1.5648047657634834e-07, 1.6742204943044824e-07, 1.8345210480877734e-07, 1.9006000836644228e-07, 1.8796466402396357e-07, 2.5874579025396217e-07, 2.706822200033392e-07, 1.6030269074056897e-07, 1.830484893819825e-07, 1.8785739795492062e-07, 1.9131410208420414e-07, 2.002155850634933e-07, 1.4875282212350222e-07, 1.666737858840861e-07, 1.7501973559319595e-07, 1.9175968800157405e-07, 2.0351610073378522e-07, 2.427933765147827e-07, 2.5694713810610536e-07, 2.6495351132130705e-07, 2.451347528774152e-07, 2.3913630846956427e-07, 1.9972896885584695e-07, 1.8936741241759592e-07, 1.555661088202344e-07, 1.40413779904845e-07, 1.4316092895277116e-07, 1.454006408607711e-07, 1.3986159481354272e-07, 1.5142752930939552e-07, 1.4478456579679134e-07, 1.5435797605180467e-07, 1.5796786913467387e-07, 1.5351363304359567e-07, 1.5052779035938458e-07, 1.5670576252497475e-07, 1.4749753570900532e-07, 1.483496510396825e-07, 1.4164333756688003e-07, 1.467026271890453e-07, 1.3954791658729197e-07, 1.4497431115907083e-07, 1.4612173211097407e-07, 1.569058635400974e-07, 1.6671175931800723e-07, 1.6438079748175888e-07, 1.579358338079016e-07, 1.592652958087066e-07, 1.5017987310881965e-07, 1.5339504853630258e-07, 1.4714500094571902e-07, 1.4782316526407158e-07, 1.5165702446243552e-07, 1.5394313481108058e-07, 1.474198206048121e-07, 1.4794403974909593e-07, 1.4297818243643894e-07, 1.4809773014284084e-07, 1.384015644946755e-07, 1.3502398944962935e-07, 1.3493248372599608e-07, 1.41491532141507e-07, 1.4418150889079178e-07, 1.4448051948485435e-07, 1.396042940931303e-07, 1.4090039306730822e-07, 1.413416989797562e-07, 1.4342287053230913e-07, 1.5229744170548137e-07, 1.5891947871945637e-07, 1.7281095868578893e-07, 1.85606495506363e-07, 1.9631684113262183e-07, 2.0319145375781643e-07, 2.0552063517698116e-07, 1.9553619016018535e-07, 1.9306044610597643e-07, 1.8359533880486977e-07, 1.7224025482067062e-07, 1.6346465413010135e-07, 1.6384176352143447e-07, 1.645472959158464e-07, 1.6872851509625824e-07, 1.6419510424319534e-07, 1.6155847504251142e-07, 1.635187487636358e-07, 1.6253359547135915e-07, 1.5769321188534896e-07, 1.531405717157343e-07, 1.4563781901090677e-07, 1.4377359645680242e-07, 1.4209854474042265e-07, 1.4443940342191907e-07, 1.4188625690232065e-07, 1.4289543668967652e-07, 1.46776516528137e-07, 1.4849533970716167e-07, 1.5342554807570456e-07, 1.5665507037608351e-07, 1.5532391728356743e-07, 1.6082531268628892e-07, 1.5930977781408728e-07, 1.6295365818613e-07, 1.6807180307815933e-07, 1.7180793625876894e-07, 1.7351397169867206e-07, 1.7338725553729872e-07, 1.7131680911981156e-07, 1.779372870000121e-07, 1.8015617188536582e-07, 1.809694306790074e-07, 1.7975554555960116e-07, 1.8014663640185192e-07, 1.8799307050747821e-07, 2.1860044390515603e-07, 2.333132524004863e-07, 2.46938242298711e-07, 2.6899188502024375e-07, 2.911524867548516e-07, 3.0114278258354587e-07, 3.152675926035694e-07, 3.0970489157360656e-07, 3.1257192745215434e-07, 3.130216238592506e-07, 3.0557307744467313e-07, 2.9767522034619886e-07, 3.0402897063400556e-07, 3.068968551035921e-07, 3.010485727372725e-07, 2.959960982350042e-07, 2.968996812212156e-07, 2.985549087952677e-07, 3.0264721268784864e-07, 3.0308390413275834e-07, 2.989501492070953e-07, 3.030034503938493e-07, 3.051471091047071e-07, 2.946578945284273e-07, 2.934854056288064e-07, 2.9561591726893053e-07, 3.075804134563701e-07, 3.0287700626883763e-07, 2.952750719487085e-07, 2.9628535003212164e-07, 3.0243066362345417e-07, 3.006667514325402e-07, 3.0634924996775226e-07, 2.8801168891082594e-07, 2.893353934853492e-07, 2.9747154631617636e-07, 3.0273810937485125e-07, 3.102180455373725e-07, 3.3471464787128623e-07, 3.353577783725216e-07, 3.716560529807923e-07, 4.1493054985559344e-07, 4.5293349769183676e-07, 4.869748287157043e-07, 5.117525176956406e-07, 5.32305473858027e-07, 5.527642201741401e-07, 5.760892025006927e-07, 5.852660284030467e-07, 5.825015380521239e-07, 5.998182603304616e-07, 6.252080717266446e-07, 6.695947182119458e-07, 6.89407621783695e-07, 6.928426371035e-07, 7.121298202556707e-07, 7.298406054750168e-07, 7.376787038992916e-07, 7.583499674573042e-07, 7.554379765549259e-07, 7.742137232266291e-07, 8.288788860357142e-07, 8.744736906659714e-07, 9.477361605344672e-07, 1.018869844366626e-06, 1.0778302177121596e-06, 1.0929007154507936e-06, 1.1482798072393052e-06, 1.1981340354135942e-06, 1.2063187893675474e-06, 1.2371729261368664e-06, 1.228093278119299e-06, 1.215642523025703e-06, 1.2514055275200268e-06, 1.2639388030168317e-06, 1.262482377179757e-06, 1.305286754619114e-06, 1.3047160142117979e-06, 1.3142005172994686e-06, 1.3496012505649041e-06, 1.355427165045902e-06, 1.3894848507334245e-06, 1.404966123378212e-06, 1.4488366234997687e-06, 1.5038079287218612e-06, 1.528505890746601e-06, 1.586407928958319e-06, 1.6069188209907485e-06, 1.6262943821251004e-06, 1.6474353969897493e-06, 1.6148859458553488e-06]}];
+  if (ngrams.data.length > 0) {
+    ngrams.drawD3Chart(ngrams.data, 1800, 2019, 1.0, "main", "#chart");
+    ngrams.resizeHandler(ngrams.data, 1800, 2019, 1.0, "main");
+  };
+
+</script>
+    <br>
+    </div>
+    <footer id="about">
+      <span class="footer-left">
+        <a href="/ngrams/info">About Ngram Viewer</a>
+        <a href="http://www.google.com/intl/en/googlebooks/about.html">
+          About Google Books
+        </a>
+      </span>
+      <span class="footer-right">
+      <a href="http://www.google.com/about.html">About Google</a>
+        <a href="http://www.google.com/intl/en/policies/">Privacy &amp; Terms</a>
+      </span>
+    </div>
+    </footer>
+    
+    <script src="//www.google.com/js/gweb/analytics/autotrack.js"></script>
+    <script>
+        new gweb.analytics.AutoTrack({
+          profile: 'UA-18010-10',
+          trackQueryParams: true
+        });
+
+        new gweb.analytics.AutoTrack({
+          profile: 'UA-45098938-1',
+          trackQueryParams: true,
+          tracker: 'second'
+        });
+    </script>
+  </body>
+</html>
