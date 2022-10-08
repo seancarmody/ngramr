@@ -8,3 +8,4 @@ cran-comments.md
 ^google$
 ^CRAN-RELEASE$
 ^CRAN-SUBMISSION$
+ngram.*\.html
