@@ -235,12 +235,12 @@ ngram_fetch_data <- function(html) {
         json <- stringr::str_split(json, "\n")[[1]]
         json <- json[json != '']
         json <- stringr::str_squish(json)
-        years <-  grep('drawD3Chart', json, value = TRUE)
+        years <- xml2::xml_find_all(html, "//div[@id='chart']/following::script")[2]
+        years <- xml2::xml_text(years)
+        years <-  stringr::str_split(years, "\n")[[1]]
+        years <-  grep('drawD3Chart', years, value = TRUE)
         years <- as.integer(stringr::str_split(grep("drawD3Chart", years, value = TRUE), ",")[[1]][2:3])
-        data <- grep('ngrams.data =', json, value = TRUE)
-        data <- gsub('.*= ', '', data)
-        data <- gsub('; *$', '', data)
-        data <- rjson::fromJSON(data[[1]])
+        data <- rjson::fromJSON(json)
         if (length(data) == 0) return(NULL)
         data <- lapply(data,
                        function(x) tibble::add_column(tibble::as_tibble(x),

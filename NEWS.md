@@ -1,3 +1,7 @@
+# ngramr 1.9.1
+
+* Fix package after more changes to the Google Ngram Viewer website
+
 # ngramr 1.9.0
 
 * Fix package after latest changes to the Google Ngram Viewer website
