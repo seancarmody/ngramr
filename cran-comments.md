@@ -1,5 +1,5 @@
 ## Test environments
-* local MacOS install, R 4.2.1
+* local MacOS install, R 4.2.2
 * rhub
 * win-builder (devel and release)
 
