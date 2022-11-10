@@ -2,7 +2,7 @@ Package: ngramr
 Type: Package
 Title: Retrieve and Plot Google n-Gram Data
 Version: 1.9.1
-Date: 2022-09-10
+Date: 2022-11-09
 Authors@R: c(
     person("Sean", "Carmody", email = "seancarmody@gmail.com", role = c("aut", "cre", "cph"))
     )
