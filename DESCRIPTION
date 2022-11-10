@@ -27,7 +27,7 @@ Imports:
     textutils
 URL: https://github.com/seancarmody/ngramr
 BugReports: https://github.com/seancarmody/ngramr/issues
-License: GPL (>=2)
+License: MIT
 RoxygenNote: 7.2.1
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
