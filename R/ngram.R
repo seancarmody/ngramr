@@ -120,7 +120,7 @@ ngram <- function(phrases, corpus = "en-2019", year_start = 1800,
     } else {
     ng <- filter(ng, .data$type %in% c("NGRAM", "EXPANSION"))
   }
-  if (drop_corpus) ng <- mutate(ng, Phrase = .data$clean)
+  if (drop_corpus) ng <- mutate(ng, Phrase = "clean")
   if (drop_parent || all(ng$Parent == "")) ng$Parent <- NULL
   if (drop_all) {
     ng <- mutate(ng, 
@@ -128,7 +128,7 @@ ngram <- function(phrases, corpus = "en-2019", year_start = 1800,
                                   stringr::str_replace(.data$Phrase, "\\s*\\(All\\)\\z", ""), 
                                   .data$Phrase))
   }
-  ng <- select(ng, -.data$clean)
+  ng <- select(ng, -"clean")
   attr(ng, "smoothing") <- smoothing
   attr(ng, "case_sensitive") <- !case_ins
   ng$Corpus <- as.factor(ng$Corpus)
@@ -248,11 +248,11 @@ ngram_fetch_data <- function(html) {
         data <- bind_rows(data)
         data <- mutate(data, ngram = textutils::HTMLdecode(data$ngram), Corpus = corpus)
         data <- separate(data, ngram, c("clean", "C"), ":", remove = FALSE, extra = "drop", fill = "right")
-        data <- left_join(data, select(corpuses, .data$Shorthand, .data$Shorthand.Old), by = c("C" = "Shorthand.Old"))
+        data <- left_join(data, select(corpuses, "Shorthand", "Shorthand.Old"), by = c("C" = "Shorthand.Old"))
         data <- mutate(data, Corpus = if_else(is.na(.data$Shorthand), .data$Corpus, .data$Shorthand)) 
-        data <- select(data, -.data$C, -.data$Shorthand) 
-        data <- relocate(data, .data$Year, .data$ngram, .data$timeseries, .data$Corpus)
-        data <- rename(data, Phrase = .data$ngram,  Frequency = .data$timeseries, Parent = .data$parent)
+        data <- select(data, -"C", -"Shorthand") 
+        data <- relocate(data, "Year", "ngram", "timeseries", "Corpus")
+        data <- rename(data, Phrase = "ngram",  Frequency = "timeseries", Parent = "parent")
         data
       }
     },
@@ -344,10 +344,10 @@ truncate_years <- function(ngram){
   stopifnot(class(ngram)[1] == "ngram")
   ngram$Corpus <- as.character(ngram$Corpus)
   ngram <- left_join(ngram, select(corpuses,
-                                   .data$Shorthand,
-                                   .data$Last.Year),
+                                   "Shorthand",
+                                   "Last.Year"),
                      by = c("Corpus" = "Shorthand"))
-  ngram <- filter(ngram, .data$Year <= .data$Last.Year)
+  ngram <- filter(ngram, .data$Year <= "Last.Year")
   ngram$Last.Year <- NULL
   return(ngram)
 }
