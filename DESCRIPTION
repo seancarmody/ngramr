@@ -1,8 +1,8 @@
 Package: ngramr
 Type: Package
 Title: Retrieve and Plot Google n-Gram Data
-Version: 1.9.1
-Date: 2022-11-09
+Version: 1.9.2
+Date: 2022-11-19
 Authors@R: c(
     person("Sean", "Carmody", email = "seancarmody@gmail.com", role = c("aut", "cre", "cph"))
     )
@@ -27,7 +27,7 @@ Imports:
     textutils
 URL: https://github.com/seancarmody/ngramr
 BugReports: https://github.com/seancarmody/ngramr/issues
-License: MIT
+License: MIT + file LICENSE
 RoxygenNote: 7.2.1
 Roxygen: list(markdown = TRUE)
 Encoding: UTF-8
