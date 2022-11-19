@@ -176,7 +176,7 @@ ngram_fetch_xml <- function(url) {
   # no errors or warnings generated on fail, only messages
   try_get <- function(x, ...) {
     tryCatch(
-      httr::GET(url = x, httr::timeout(2), ...),
+      httr::GET(url = x, httr::timeout(3), ...),
       error = function(e) conditionMessage(e),
       warning = function(w) conditionMessage(w)
     )
