@@ -1,0 +1,1 @@
+Rscript -e 'library(devtools); load_all(); test(reporter="minimal")'
