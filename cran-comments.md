@@ -5,7 +5,7 @@
 
 ## R CMD check results
 * There were no ERRORs or WARNINGs
-* Local and build generated no NOTES. 
+* Local and online build generated no NOTES. 
 
 ## CRAN requirements
 * None outstanding
