@@ -229,7 +229,9 @@ ngram_fetch_data <- function(html) {
       } else {
         corpus <- xml2::xml_find_first(html, "//select[@id='form-corpus']/option")
         corpus <- xml2::xml_attr(corpus, "value")
-        corpus <- get_corpus_text(as.numeric(corpus))
+        if (grepl("^[0-9]+$", corpus, perl = TRUE)) {
+          corpus <- get_corpus_text(as.numeric(corpus))
+          }
         script <- xml2::xml_find_all(html, "//div[@id='chart']/following::script")[1]
         json <- xml2::xml_text(script)
         json <- stringr::str_split(json, "\n")[[1]]

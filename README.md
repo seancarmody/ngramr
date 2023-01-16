@@ -55,13 +55,11 @@ development version:
 
 although it may not always work.
 
-If the latest release has broken some of your old code, you can install an
-older version, for example:
-
-    install_github("seancarmody/ngramr", "v1.9.0")
-
 Note though that many releases fix problems that arise when Google changes the
 format of the Ngram Viewer website so older versions generally no longer work.
+If you are seeing errors with the latest version then the package may need fixing
+after one of these Google changes. If so please report this on [GitHub][12]. 
+
 If you are behind a proxy, `install_github` may not work for you. Instead of
 fiddling around with the `RCurl` proxy settings, you can download the latest
 [ZIP archive][6] and use `install_local` instead.
