@@ -1,3 +1,10 @@
+# ngramr 1.10.0
+
+* NOTE: this is a major release and removes some functionality
+* Update for new corpuses
+* Remove the add_count option (no data provided by Google)
+* Remove drop_corpus (Google no longer supports the :corpus operator for the current corpus)
+
 # ngramr 1.9.1-1.9.3
 
 * Fix package after more changes to the Google Ngram Viewer website

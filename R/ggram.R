@@ -8,8 +8,6 @@
 #' @param ignore_case logical, indicating whether the frequencies are case
 #'  insensitive.
 #'  Default is \code{FALSE}.
-#' @param code_corpus logical, indicating whether to use abbreviated corpus
-#'  `codes or longer form descriptions. Default is \code{FALSE}.
 #' @param geom the ggplot2 geom used to plot the data; defaults to "line"
 #' @param geom_options list of additional parameters passed to the ggplot2 geom.
 #' @param lab y-axis label. Defaults to "Frequency".
@@ -60,7 +58,7 @@
 #'}
 #' @export
 
-ggram <- function(phrases, ignore_case = FALSE, code_corpus = FALSE,
+ggram <- function(phrases, ignore_case = FALSE, 
                   geom = "line", geom_options = list(), lab = NA,
                   google_theme = FALSE, ...) {
   if ("ngram" %in% class(phrases)) {
@@ -82,9 +80,6 @@ ggram <- function(phrases, ignore_case = FALSE, code_corpus = FALSE,
   }
   if (!"Year" %in% names(ng)) stop("No ngram data returned")
   ng <- within(ng, Year <- as.Date(paste(Year, 1, 1, sep = "-")))
-  if (!code_corpus) ng <- within(ng,
-                                 levels(Corpus) <- corpuses[levels(Corpus),
-                                                            "Informal.corpus.name"])
   p <- ggplot(data = ng,
              aes_string(x = "Year", y = "Frequency",
                         colour = "Phrase", fill = "Phrase",

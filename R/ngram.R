@@ -8,17 +8,11 @@
 #' @param year_start start year, default is 1800. Data available back to 1500.
 #' @param year_end end year, default is 2008
 #' @param smoothing smoothing parameter, default is 3
-#' @param count logical, denoting whether phrase counts should be returned as
-#'   well as frequencies. Default is `FALSE`.
 #' @param case_ins Logical indicating whether to force a case insensitive search.
 #'   Default is `FALSE`.
 #' @param aggregate Sum up the frequencies for ngrams associated with wildcard
 #'   or case insensitive searches. Default is `FALSE`.
 #' @param count Default is `FALSE`.
-#' @param drop_corpus When a corpus is specified directly with the ngram 
-#'   (e.g `dog:eng_fiction_2012`) specifies whether the corpus be used retained in
-#'   the phrase column of the results. Note that that this method requires that
-#'   the old corpus codes (eng_fiction_2012 not en-fiction-2012) are used. Default is `FALSE`.
 #' @param drop_parent  Drop the parent phrase associated with a wildcard
 #'   or case-insensitive search. Default is `FALSE`.
 #' @param drop_all Delete the suffix "(All)" from aggregated case-insensitive
@@ -99,9 +93,9 @@
 #' }
 #' @export
 
-ngram <- function(phrases, corpus = "en-2019", year_start = 1800, 
-                      year_end = 2020, smoothing = 3, case_ins=FALSE,
-                      aggregate = FALSE, count = FALSE, drop_corpus = FALSE,
+ngram <- function(phrases, corpus = "en", year_start = 1800, 
+                      year_end = 2022, smoothing = 3, case_ins=FALSE,
+                      aggregate = FALSE, count = FALSE, 
                       drop_parent = FALSE, drop_all = FALSE, type = FALSE) {
   #if (!curl::has_internet()) {stop("Unable to access internet.")}
   phrases <- ngram_check_phrases(phrases)
@@ -119,8 +113,8 @@ ngram <- function(phrases, corpus = "en-2019", year_start = 1800,
     ng <- filter(ng, .data$type != "EXPANSION")
     } else {
     ng <- filter(ng, .data$type %in% c("NGRAM", "EXPANSION"))
-  }
-  if (drop_corpus) ng <- mutate(ng, Phrase = "clean")
+    }
+  print(ng)
   if (drop_parent || all(ng$Parent == "")) ng$Parent <- NULL
   if (drop_all) {
     ng <- mutate(ng, 
@@ -128,21 +122,20 @@ ngram <- function(phrases, corpus = "en-2019", year_start = 1800,
                                   stringr::str_replace(.data$Phrase, "\\s*\\(All\\)\\z", ""), 
                                   .data$Phrase))
   }
-  ng <- select(ng, -"clean")
+  #ng <- select(ng, -"clean")
   attr(ng, "smoothing") <- smoothing
   attr(ng, "case_sensitive") <- !case_ins
   ng$Corpus <- as.factor(ng$Corpus)
   ng$Phrase <- as.factor(ng$Phrase)
   if (type) ng$Type <- ng$type
   ng$type <- NULL
-  if(count) ng <- add_count(ng)
   return(ng)
 }
 
 ngram_single <- function(phrases, corpus, year_start, year_end,
                              smoothing, case_ins) {
   if (!(corpus %in% corpuses$Shorthand)) {warning(paste(corpus, "not a valid corpus. Defaulting to en-2019."))}
-  corpus <- get_corpus_n(corpus)
+  #corpus <- get_corpus_n(corpus)
   query <- as.list(environment())
   if (case_ins) query["case_insensitive"] <- "true"
   query$phrases <- NULL
@@ -249,10 +242,6 @@ ngram_fetch_data <- function(html) {
                                                       Year = seq.int(years[1], years[2])))
         data <- bind_rows(data)
         data <- mutate(data, ngram = textutils::HTMLdecode(data$ngram), Corpus = corpus)
-        data <- separate(data, ngram, c("clean", "C"), ":", remove = FALSE, extra = "drop", fill = "right")
-        data <- left_join(data, select(corpuses, "Shorthand", "Shorthand.Old"), by = c("C" = "Shorthand.Old"))
-        data <- mutate(data, Corpus = if_else(is.na(.data$Shorthand), .data$Corpus, .data$Shorthand)) 
-        data <- select(data, -"C", -"Shorthand") 
         data <- relocate(data, "Year", "ngram", "timeseries", "Corpus")
         data <- rename(data, Phrase = "ngram",  Frequency = "timeseries", Parent = "parent")
         data

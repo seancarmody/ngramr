@@ -7,7 +7,6 @@
 ggram(
   phrases,
   ignore_case = FALSE,
-  code_corpus = FALSE,
   geom = "line",
   geom_options = list(),
   lab = NA,
@@ -22,9 +21,6 @@ object returned by \code{\link{ngram}} or \code{\link{ngrami}}.}
 \item{ignore_case}{logical, indicating whether the frequencies are case
 insensitive.
 Default is \code{FALSE}.}
-
-\item{code_corpus}{logical, indicating whether to use abbreviated corpus
-`codes or longer form descriptions. Default is \code{FALSE}.}
 
 \item{geom}{the ggplot2 geom used to plot the data; defaults to "line"}
 

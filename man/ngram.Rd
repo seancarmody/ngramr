@@ -6,9 +6,9 @@
 \usage{
 ngram(
   phrases,
-  corpus = "en-2019",
+  corpus = "en",
   year_start = 1800,
-  year_end = 2020,
+  year_end = 2022,
   smoothing = 3,
   case_ins = FALSE,
   aggregate = FALSE,

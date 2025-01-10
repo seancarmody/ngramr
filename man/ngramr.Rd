@@ -3,7 +3,6 @@
 \docType{package}
 \name{ngramr}
 \alias{ngramr}
-\alias{_PACKAGE}
 \alias{ngramr-package}
 \title{ngramr: Dig into the Google Ngram Viewer using R}
 \description{

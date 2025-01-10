@@ -18,7 +18,7 @@ NULL
 #' @docType data
 #' @usage corpuses
 #' @name corpuses
-#' @format a 33 x 6 ngram data frame
+#' @format 44 x 6 ngram data frame
 #' @keywords datasets
 #' @export
 #'
