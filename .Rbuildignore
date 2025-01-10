@@ -4,6 +4,7 @@ README.md
 .Renviron
 cran-comments.md
 ^\.travis\.yml$
+.github
 .travis.yml 
 ^google$
 ^CRAN-RELEASE$

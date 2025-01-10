@@ -1,6 +1,6 @@
 ## Test environments
-* local MacOS install, R 4.2.2
-* rhub
+* local MacOS install, R 4.4.1
+* rhub v2
 * win-builder (devel and release)
 
 ## R CMD check results
@@ -9,6 +9,3 @@
 
 ## CRAN requirements
 * None outstanding
-
-## Downstream dependencies
-Reverse dependencies checked with devtools::revdep(). No dependencies or issues found.
