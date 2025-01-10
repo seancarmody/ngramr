@@ -12,3 +12,4 @@ cran-comments.md
 ^working*
 testme
 ^LICENSE\.md$
+.DS_Store
