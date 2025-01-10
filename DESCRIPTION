@@ -6,6 +6,7 @@ Date: 2025-01-10
 Authors@R: c(
     person("Sean", "Carmody", email = "seancarmody@gmail.com", role = c("aut", "cre", "cph"))
     )
+Author: Sean Carmody <seancarmody@gmail.com>
 Maintainer: Sean Carmody <seancarmody@gmail.com>
 Description: Retrieve and plot word frequencies through time from the "Google
     Ngram Viewer" <https://books.google.com/ngrams>.
