@@ -110,7 +110,7 @@ If you would rather work with R and SQL on the raw Google Ngram datasets,
 ![Twitter Follow](https://img.shields.io/twitter/follow/stubbornmule?label=%40stubbornmule&style=social)
 
 [1]:  http://books.google.com/ngrams "Google Ngram Viewer"
-[2]:  http://www.culturomics.org/Resources/get-ngrams "Culturomics: Get Ngrams"
+[2]:  https://web.archive.org/web/20221129220150/http://www.culturomics.org/Resources/get-ngrams "Culturomics: Get Ngrams"
 [3]:  https://twitter.com/jb_michel "@jb_michel"
 [4]:  http://cran.r-project.org/web/packages/ngramr/index.html "ngramr on CRAN"
 [5]:  http://cran.r-project.org/web/packages/devtools/index.html "devtools"
