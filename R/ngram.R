@@ -142,7 +142,7 @@ ngram <- function(phrases, corpus = "en-2019", year_start = 1800,
 ngram_single <- function(phrases, corpus, year_start, year_end,
                              smoothing, case_ins) {
   if (!(corpus %in% corpuses$Shorthand)) {warning(paste(corpus, "not a valid corpus. Defaulting to en-2019."))}
-  corpus <- get_corpus_n(corpus)
+  #corpus <- get_corpus_n(corpus)
   query <- as.list(environment())
   if (case_ins) query["case_insensitive"] <- "true"
   query$phrases <- NULL
@@ -249,10 +249,6 @@ ngram_fetch_data <- function(html) {
                                                       Year = seq.int(years[1], years[2])))
         data <- bind_rows(data)
         data <- mutate(data, ngram = textutils::HTMLdecode(data$ngram), Corpus = corpus)
-        data <- separate(data, ngram, c("clean", "C"), ":", remove = FALSE, extra = "drop", fill = "right")
-        data <- left_join(data, select(corpuses, "Shorthand", "Shorthand.Old"), by = c("C" = "Shorthand.Old"))
-        data <- mutate(data, Corpus = if_else(is.na(.data$Shorthand), .data$Corpus, .data$Shorthand)) 
-        data <- select(data, -"C", -"Shorthand") 
         data <- relocate(data, "Year", "ngram", "timeseries", "Corpus")
         data <- rename(data, Phrase = "ngram",  Frequency = "timeseries", Parent = "parent")
         data
@@ -295,6 +291,7 @@ ngram_url <- function(phrases, query=character()) {
   url <- gsub("%28", "(", url)
   url <- gsub("%29", ")", url)
   url <- gsub("%20", "+", url)
+  print(url)
   return(url)
 }
 
