@@ -13,10 +13,6 @@
 #' @param aggregate Sum up the frequencies for ngrams associated with wildcard
 #'   or case insensitive searches. Default is `FALSE`.
 #' @param count Default is `FALSE`.
-#' @param drop_corpus When a corpus is specified directly with the ngram 
-#'   (e.g `dog:eng_fiction_2012`) specifies whether the corpus be used retained in
-#'   the phrase column of the results. Note that that this method requires that
-#'   the old corpus codes (eng_fiction_2012 not en-fiction-2012) are used. Default is `FALSE`.
 #' @param drop_parent  Drop the parent phrase associated with a wildcard
 #'   or case-insensitive search. Default is `FALSE`.
 #' @param drop_all Delete the suffix "(All)" from aggregated case-insensitive
@@ -99,7 +95,7 @@
 
 ngram <- function(phrases, corpus = "en", year_start = 1800, 
                       year_end = 2022, smoothing = 3, case_ins=FALSE,
-                      aggregate = FALSE, count = FALSE, drop_corpus = FALSE,
+                      aggregate = FALSE, count = FALSE, 
                       drop_parent = FALSE, drop_all = FALSE, type = FALSE) {
   #if (!curl::has_internet()) {stop("Unable to access internet.")}
   phrases <- ngram_check_phrases(phrases)
@@ -119,7 +115,6 @@ ngram <- function(phrases, corpus = "en", year_start = 1800,
     ng <- filter(ng, .data$type %in% c("NGRAM", "EXPANSION"))
     }
   print(ng)
-  if (drop_corpus) ng <- mutate(ng, Phrase = "clean")
   if (drop_parent || all(ng$Parent == "")) ng$Parent <- NULL
   if (drop_all) {
     ng <- mutate(ng, 
