@@ -16,7 +16,7 @@
 #' \href{https://bit.ly/4hbczU2}{Culturomics Code}
 #' written by Jean-Baptiste Michel. The Culturomics website doesn't exist
 #' anymore but can still be find 
-#' \hrefhttps://bit.ly/3C3pZmc}{on archive.org} and is worth exploring.
+#' \href{https://bit.ly/3C3pZmc}{on archive.org} and is worth exploring.
 #'
 #' Note that compared to the 2009 versions, the 2012 and 2019 versions have
 #' larger numbers of books, improved OCR, improved library and publisher
