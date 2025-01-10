@@ -1,3 +1,8 @@
+# ngramr 1.10.0
+
+* Update for new corpuses
+* Remove the add_count option (no data provided by Google)
+
 # ngramr 1.9.1-1.9.3
 
 * Fix package after more changes to the Google Ngram Viewer website

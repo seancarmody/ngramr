@@ -8,8 +8,6 @@
 #' @param year_start start year, default is 1800. Data available back to 1500.
 #' @param year_end end year, default is 2008
 #' @param smoothing smoothing parameter, default is 3
-#' @param count logical, denoting whether phrase counts should be returned as
-#'   well as frequencies. Default is `FALSE`.
 #' @param case_ins Logical indicating whether to force a case insensitive search.
 #'   Default is `FALSE`.
 #' @param aggregate Sum up the frequencies for ngrams associated with wildcard
@@ -99,8 +97,8 @@
 #' }
 #' @export
 
-ngram <- function(phrases, corpus = "en-2019", year_start = 1800, 
-                      year_end = 2020, smoothing = 3, case_ins=FALSE,
+ngram <- function(phrases, corpus = "en", year_start = 1800, 
+                      year_end = 2022, smoothing = 3, case_ins=FALSE,
                       aggregate = FALSE, count = FALSE, drop_corpus = FALSE,
                       drop_parent = FALSE, drop_all = FALSE, type = FALSE) {
   #if (!curl::has_internet()) {stop("Unable to access internet.")}
@@ -119,7 +117,8 @@ ngram <- function(phrases, corpus = "en-2019", year_start = 1800,
     ng <- filter(ng, .data$type != "EXPANSION")
     } else {
     ng <- filter(ng, .data$type %in% c("NGRAM", "EXPANSION"))
-  }
+    }
+  print(ng)
   if (drop_corpus) ng <- mutate(ng, Phrase = "clean")
   if (drop_parent || all(ng$Parent == "")) ng$Parent <- NULL
   if (drop_all) {
@@ -128,14 +127,13 @@ ngram <- function(phrases, corpus = "en-2019", year_start = 1800,
                                   stringr::str_replace(.data$Phrase, "\\s*\\(All\\)\\z", ""), 
                                   .data$Phrase))
   }
-  ng <- select(ng, -"clean")
+  #ng <- select(ng, -"clean")
   attr(ng, "smoothing") <- smoothing
   attr(ng, "case_sensitive") <- !case_ins
   ng$Corpus <- as.factor(ng$Corpus)
   ng$Phrase <- as.factor(ng$Phrase)
   if (type) ng$Type <- ng$type
   ng$type <- NULL
-  if(count) ng <- add_count(ng)
   return(ng)
 }
 
@@ -291,7 +289,6 @@ ngram_url <- function(phrases, query=character()) {
   url <- gsub("%28", "(", url)
   url <- gsub("%29", ")", url)
   url <- gsub("%20", "+", url)
-  print(url)
   return(url)
 }
 

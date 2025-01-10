@@ -12,7 +12,7 @@ status](https://www.r-pkg.org/badges/version/ngramr)](https://cran.r-project.org
 The [Google Books Ngram Viewer][1] allows you to enter a list of phrases and
 then displays a graph showing how often the phrases have occurred in a large
 corpus of books (e.g., "British English", "English Fiction", "French") over
-time. The current corpus produced in 2019 contains almost two trillion words
+time. The current corpus produced in 2023 contains around two trillion words
 for English alone.
 
 The underlying data is hidden in Web page, embedded in some Javascript.
@@ -20,10 +20,6 @@ This package extracts the data and provides it in the form of an R dataframe.
 Early versions of code was adapted from a handy Python script available from 
 [Culturomics][2], written by [Jean-Baptiste Michel][3]. The code has been
 comprehensively redeveloped since then.
-
-Note that in September 2022 the format of the corpus codes changed 
-(e.g. "eng_2019" became "en-GB-2019"). The old codes are available in the
-the `corpuses` dataset.
 
 ## Installing
 
